@@ -1,10 +1,10 @@
 <template>
-$END$
+
 </template>
 
 <script>
 export default {
-name: "input"
+  name: "RegisterPage"
 }
 </script>
 

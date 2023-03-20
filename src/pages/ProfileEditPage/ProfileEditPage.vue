@@ -5,7 +5,7 @@
 <script>
 import ProfileEdit from "@/widgets/ProfileEdit/ProfileEdit";
 export default {
-  name: "ProfileEdit",
+  name: "ProfileEditPage",
   components: {
     ProfileEdit
   }

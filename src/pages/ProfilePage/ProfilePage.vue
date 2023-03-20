@@ -1,10 +1,14 @@
 <template>
-$END$
+  <profileDetail/>
 </template>
 
 <script>
+import profileDetail from "@/widgets/ProfileDetail/ProfileDetail";
 export default {
-name: "ProfilePage"
+  name: "ProfilePage",
+  components: {
+    profileDetail
+  }
 }
 </script>
 

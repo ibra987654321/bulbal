@@ -1,12 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="6" class="pr-1 ">
+    <v-col cols="6" class="pr-1 pt-1 pb-0">
       <div class="gallery">
         <v-img
-            :src="`https://picsum.photos/500/300?image=20`"
+            :src="image[5].urls.regular"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
-            class="grey lighten-2 rounded-bl-lg rounded-tl-lg"
-            aspect-ratio="1.3"
+            class="grey lighten-2 img"
+            aspect-ratio="1.2"
         >
           <template v-slot:placeholder>
             <v-row
@@ -14,10 +14,11 @@
                 align="center"
                 justify="center"
             >
-              <v-progress-circular
-                  indeterminate
-                  color="grey lighten-5"
-              ></v-progress-circular>
+              <v-skeleton-loader
+                  ref="skeleton"
+                  type="image"
+                  class="mx-auto"
+              ></v-skeleton-loader>
             </v-row>
           </template>
         </v-img>
@@ -27,16 +28,16 @@
     <v-col cols="6">
       <v-row class="">
         <v-col
-            v-for="n in 4"
+            v-for="n in images"
             :key="n"
             class="d-flex child-flex px-1 py-1"
             cols="6"
         >
           <v-img
-              :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
+              :src="n.urls.regular"
               :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
               class="grey lighten-2"
-              aspect-ratio="1.3"
+              aspect-ratio="1.2"
           >
             <template v-slot:placeholder>
               <v-row
@@ -44,10 +45,11 @@
                   align="center"
                   justify="center"
               >
-                <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                ></v-progress-circular>
+                <v-skeleton-loader
+                    ref="skeleton"
+                    type="image"
+                    class="mx-auto"
+                ></v-skeleton-loader>
               </v-row>
             </template>
           </v-img>
@@ -58,12 +60,21 @@
 </template>
 
 <script>
-import galleryDialog from "@/modules/GalleryInDialog/GalleryDialog";
+import galleryDialog from "@/modules/DetailPageComponents/GalleryInDialog/GalleryDialog";
+import {dataImage} from "@/helpers/dataForGallery";
 export default {
   name: "GalleryForDetailPage",
   components: {
     galleryDialog
-  }
+  },
+  data:() => ({
+    images: [],
+    image: ''
+  }),
+  async mounted() {
+    this.images = await dataImage('nature',null, 4)
+    this.image = await dataImage('any',null, 500)
+  },
 }
 </script>
 
@@ -71,12 +82,6 @@ export default {
 .gallery {
   position: relative;
 }
-/*.btn_gallery {*/
-/*  position: absolute;*/
-/*  bottom: 30px;*/
-/*  left: 30px;*/
-/*  z-index: 10;*/
-/*}*/
 .btn_gallery {
   position: absolute;
   bottom: 10px;

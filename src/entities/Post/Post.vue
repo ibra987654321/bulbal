@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PostCard/>
+    <PostCard :data="data"/>
   </div>
 </template>
 
@@ -8,6 +8,9 @@
 import PostCard from "@/entities/Post/components/PostCard";
 export default {
   name: "Post",
+  props: {
+    data: Object
+  },
   components: {
     PostCard
   }
