@@ -1,19 +1,16 @@
 <template>
  <div class="px-5 py-3">
-   <v-sheet
-       color="white"
-       elevation="10"
-       height="75"
-       shaped
-       width="100%"
-       class=""
-   ></v-sheet>
+  <headerSearch/>
  </div>
 </template>
 
 <script>
+import headerSearch from "@/widgets/header/components/headerSearch";
 export default {
-  name: "mobileHeader"
+  name: "mobileHeader",
+  components: {
+    headerSearch
+  }
 }
 </script>
 

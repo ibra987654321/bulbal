@@ -17,6 +17,7 @@
                 text
                 class="text-capitalize"
                 v-on="on"
+                :class="$vuetify.breakpoint.mobile ? 'px-0' : 'px-3'"
             >
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4969 1.74319C14.9319 1.14528 16.3715 2.58489 15.7736 4.01989L11.6485 13.9202C10.8418 15.8564 8.00403 15.5291 7.65919 13.4602L7.14454 10.3723L4.05665 9.85764C1.98764 9.51278 1.66038 6.67508 3.59657 5.86834L13.4969 1.74319ZM14.4882 3.48431C14.6078 3.19731 14.3198 2.90939 14.0328 3.02897L4.13248 7.15411C3.48708 7.42303 3.59617 8.36893 4.28583 8.48387L7.37374 8.99853C7.96076 9.09638 8.42077 9.55635 8.51862 10.1434L9.03326 13.2313C9.1482 13.921 10.0941 14.03 10.363 13.3847L14.4882 3.48431Z" fill="#B1B5C3"/>
@@ -30,7 +31,7 @@
         </v-menu>
         <v-menu
             offset-y
-            nudge-left="100"
+            nudge-left="200"
             transition="slide-y-transition"
             :close-on-content-click="false"
             bottom
@@ -42,6 +43,7 @@
                 text
                 class="text-capitalize"
                 v-on="on"
+                :class="$vuetify.breakpoint.mobile ? 'px-0' : 'px-3'"
             >
               <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8271 7.13928H7.07747C6.69286 7.13928 6.38106 7.45108 6.38106 7.83569V16.1925C6.38106 16.5771 6.69286 16.8889 7.07747 16.8889H16.8271C17.2117 16.8889 17.5235 16.5771 17.5235 16.1925V7.83569C17.5235 7.45107 17.2117 7.13928 16.8271 7.13928ZM7.07749 5.74646C5.92365 5.74646 4.98828 6.68183 4.98828 7.83566V16.1925C4.98828 17.3463 5.92365 18.2817 7.07749 18.2817H16.8271C17.981 18.2817 18.9163 17.3463 18.9163 16.1925V7.83566C18.9163 6.68183 17.981 5.74646 16.8271 5.74646H7.07749Z" fill="#B1B5C3"/>
@@ -52,10 +54,9 @@
             </v-btn>
           </template>
           <div>
-            <vc-date-picker class="mx-2" v-model='range' color="green" is-range/>
+            <vc-date-picker class="mx-2" v-model="range" :columns="columns" color="teal" is-range/>
           </div>
         </v-menu>
-
         <div>
           <v-menu
               offset-y
@@ -71,6 +72,7 @@
                   text
                   class="text-capitalize"
                   v-on="on"
+                  :class="$vuetify.breakpoint.mobile ? 'px-0' : 'px-3'"
               >
                 <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6099 12.0699C8.85611 12.0699 6.62372 14.3272 6.62372 17.1117V18.5523C6.62372 18.9501 6.3048 19.2725 5.91141 19.2725C5.51801 19.2725 5.1991 18.9501 5.1991 18.5523V17.1117C5.1991 13.5316 8.06931 10.6293 11.6099 10.6293C15.1505 10.6293 18.0207 13.5316 18.0207 17.1117V18.5523C18.0207 18.9501 17.7018 19.2725 17.3084 19.2725C16.915 19.2725 16.5961 18.9501 16.5961 18.5523V17.1117C16.5961 14.3272 14.3637 12.0699 11.6099 12.0699Z" fill="#B1B5C3"/>
@@ -84,13 +86,26 @@
              <CountCardList/>
             </div>
           </v-menu>
+        </div>
+        <div class="d-flex align-center justify-center">
+          <svg @click="search()" v-if="$vuetify.breakpoint.mobile" width="25" height="25" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.20129 16.1716C12.8971 16.1716 15.8932 13.1755 15.8932 9.47967C15.8932 5.78384 12.8971 2.78778 9.20129 2.78778C5.50546 2.78778 2.5094 5.78384 2.5094 9.47967C2.5094 13.1755 5.50546 16.1716 9.20129 16.1716Z" stroke="#77836A" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.5661 17.8446L13.9274 14.2059" stroke="#77836A" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
           <v-btn
-            color="primary"
-            @click="search()"
+              v-else
+              color="primary"
+              @click="search()"
+              small
+              class="border_r text-none"
           >
             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.20129 16.1716C12.8971 16.1716 15.8932 13.1755 15.8932 9.47967C15.8932 5.78384 12.8971 2.78778 9.20129 2.78778C5.50546 2.78778 2.5094 5.78384 2.5094 9.47967C2.5094 13.1755 5.50546 16.1716 9.20129 16.1716Z" stroke="white" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M17.5661 17.8446L13.9274 14.2059" stroke="white" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
+              <path
+                  d="M9.20129 16.1716C12.8971 16.1716 15.8932 13.1755 15.8932 9.47967C15.8932 5.78384 12.8971 2.78778 9.20129 2.78778C5.50546 2.78778 2.5094 5.78384 2.5094 9.47967C2.5094 13.1755 5.50546 16.1716 9.20129 16.1716Z"
+                  stroke="white" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.5661 17.8446L13.9274 14.2059" stroke="white" stroke-width="1.67297" stroke-linecap="round"
+                    stroke-linejoin="round"/>
             </svg>
 
             Найти
@@ -102,6 +117,7 @@
 <script>
 import CountCardList from "@/entities/CountCardIItem/CountCardList";
 import SelectPlace from "@/entities/SelectPlace/SelectPlace";
+import { useScreens } from 'vue-screen-utils';
 export default {
   name: "headerSearch",
   components: {
@@ -110,8 +126,8 @@ export default {
   },
   data:() => ({
     range: {
-      start: new Date(2020, 0, 1),
-      end: new Date(2020, 0, 5)
+      start: new Date(2023, 3, 1),
+      end: new Date(2023, 3, 5)
     },
     date: false,
     place: false,
@@ -128,6 +144,20 @@ export default {
     search() {
       console.log(this.$store.state.counter.countItemList)
     }
+  },
+  setup() {
+    const { mapCurrent } = useScreens({
+      xs: '0px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+    });
+    const columns = mapCurrent({ lg: 2 }, 1);
+    const expanded = mapCurrent({ lg: false }, true);
+    return {
+      columns,
+      expanded
+    }
   }
 }
 </script>
@@ -136,20 +166,30 @@ export default {
 .border {
   padding: 5px;
   border: 1px solid #6C7B6B;
-  border-radius: 10px;
+  border-radius: 4px;
   width: 100%;
   max-width: 500px;
   display: flex;
   justify-content: space-between;
   transition-duration: 0.5s;
 }
-/*.border:hover {*/
-/*  position: absolute;*/
-/*  left: 35%;*/
-/*  top: 0;*/
-/*  overflow: hidden;*/
-/*  background-color: #ffffff;*/
-/*  padding-bottom: 150px;*/
-/*  box-shadow: 10px 10px 15px 0px hsla(160, 2%, 34%, 0.27);*/
-/*}*/
+
+</style>
+<style>
+@media only screen and (max-width: 600px) {
+  .border {
+    max-width: 400px;
+
+  }
+  .border .v-btn__content {
+    font-size: 10px;
+    height: 24px;
+  }
+  .border .v-btn {
+    height: 24px !important;
+  }
+}
+.vc-pane-layout {
+  padding: 20px !important;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <v-card class=" elevation-0 card_block" style="border: 1px solid #E6E8EC; border-radius: 24px; padding: 30px">
-      <div class="d-flex">
+      <div class="d-flex " :class="$vuetify.breakpoint.mobile ? 'flex-column align-center' : ''">
         <v-card-title>
           <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="64" height="64" rx="32" fill="#E6E8EC"/>
@@ -15,14 +15,7 @@
         </v-card-title>
         <div>
           <v-card-title class="pb-1"><h3>Азамат байке</h3></v-card-title>
-          <div class="d-flex pl-3">
-            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1128 1.28584L13.9159 4.83396L17.9638 5.40522C19.8601 5.67275 20.7269 8.01285 19.2651 9.39572L16.3576 12.1438L17.0419 16.016C17.3923 17.9996 15.287 19.3318 13.6291 18.4871L9.99983 16.6358L6.37158 18.4865C4.71129 19.334 2.6077 17.9973 2.95772 16.016L3.64203 12.1438L0.734898 9.3961C-0.727986 8.01223 0.141888 5.67263 2.03558 5.40525L6.08385 4.83394L7.88788 1.28584C8.75916 -0.428539 11.2417 -0.428688 12.1128 1.28584Z" fill="#EBE101"/>
-            </svg>
-
-            <div class="font-weight-bold">4.6</div>
-            <div class="grey--text">(56 отзывов)</div>
-          </div>
+          <reviews rate="4.6" count="56"></reviews>
         </div>
       </div>
       <v-card-text>
@@ -107,10 +100,7 @@
         <hr class="mx-10">
       </v-card-text>
       <v-card-text>
-        <div v-for="(item, idx) in review" :key="idx" class="mb-3">
-          <div class="black--text">{{item.title}}</div>
-          <v-progress-linear rounded :value="item.count"></v-progress-linear>
-        </div>
+        <detail-review-line :review="review"></detail-review-line>
       </v-card-text>
       <v-card-text class="text-center">
         На сайте с 15 февраль 2023 г.
@@ -127,8 +117,14 @@
 </template>
 
 <script>
+import reviews from "@/entities/reviews/reviews";
+import DetailReviewLine from "@/entities/reviews/DetailReviewLine";
 export default {
   name: "OwnerInfoDetailPage",
+  components: {
+    reviews,
+    DetailReviewLine
+  },
   data: () => ({
     review:  [
       {title: 'Чистота', count: 34},

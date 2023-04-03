@@ -1,29 +1,25 @@
 <template>
   <v-dialog
       v-model="dialog"
+      max-width="1300px"
       transition="dialog-bottom-transition"
-      :fullscreen="$vuetify.breakpoint.mobile"
   >
-    <v-carousel v-model="model">
+    <v-carousel v-model="model" height="600px">
       <v-carousel-item
-          v-for="(color, i) in colors"
-          :key="color"
+          v-for="(image, i) in images"
+          :key="i"
       >
-        <v-sheet
-            :color="color"
-            height="100%"
-            tile
-        >
-          <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-          >
-            <div class="text-h2">
-              Slide {{ i + 1 }}
+          <v-row  class="fill-height"
+                 align="center"
+                 justify="center">
+            <div
+                class="img"
+            >
+              <v-img
+                  :src="image.urls.regular"
+              ></v-img>
             </div>
           </v-row>
-        </v-sheet>
       </v-carousel-item>
     </v-carousel>
   </v-dialog>
@@ -33,26 +29,41 @@
 export default {
   name: "Carousel",
   props: {
-    id: ''
+    id: '',
+    images: Array
   },
   data: () => ({
     model: 0,
-    colors: [
-      'primary',
-      'secondary',
-      'yellow darken-2',
-      'red',
-      'orange',
-    ],
+    dialog: false,
   }),
   computed: {
-    dialog() {
-      return !!this.$props.id;
+    idLocal: {
+      get: function() {
+        return this.id
+      },
+      set: function(value) {
+        this.$emit('changeId', value)
+      }
     }
-  }
+  },
+  watch: {
+    'idLocal'(v) {
+      if (v) {
+        const item = this.$props.images.find(i => v === i.id)
+        this.model = this.$props.images.indexOf(item)
+        this.dialog = true
+      }
+    },
+    dialog(v) {
+      if (!v) {
+        this.idLocal = ''
+      }
+    }
+  },
 }
 </script>
 
 <style scoped>
-
+.img {
+}
 </style>

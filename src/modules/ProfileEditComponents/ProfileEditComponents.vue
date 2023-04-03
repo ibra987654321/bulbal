@@ -159,25 +159,27 @@
         </v-col>
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">twitter</div>
-          <v-text-field
-              placeholder="@twitter username"
-              color="secondary"
-              outlined
-              class="transparent twitter"
-              hide-details
-          >
-            <template #append >
-              <div>
-                <v-btn
-                    type="submit"
-                    rounded
-                    class="text-capitalize transparent my-auto"
-                >
-                  Подтвердить
-                </v-btn>
-              </div>
-            </template>
-          </v-text-field>
+          <v-form  aria-autocomplete="off">
+            <v-text-field
+                placeholder="@twitter username"
+                color="secondary"
+                outlined
+                class="transparent twitter"
+                hide-details
+            >
+              <template #append >
+                <div>
+                  <v-btn
+                      type="submit"
+                      rounded
+                      class="text-capitalize transparent my-auto"
+                  >
+                    Подтвердить
+                  </v-btn>
+                </div>
+              </template>
+            </v-text-field>
+          </v-form>
         </v-col>
         <v-col cols="12" sm="6">
           <v-btn

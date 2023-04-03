@@ -9,7 +9,7 @@
       <stack-item
           v-for="(item, i) in data"
           :key="i + 'fdsfs'"
-          style="transition: transform 300ms"
+          style="transition: transform 300ms; cursor: pointer"
       >
         <img
             :src="item.urls.small"
@@ -18,7 +18,7 @@
         />
       </stack-item>
     </stack>
-    <carousel :id="imageId"/>
+    <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
   </div>
 </template>
 
@@ -37,7 +37,6 @@ export default {
     carousel
   },
   mounted() {
-    console.log(this.data)
   },
   data:() => ({
     imageId: null
@@ -45,6 +44,9 @@ export default {
   methods: {
     open(id) {
       this.imageId = id
+    },
+    changeId(v) {
+      this.imageId = v
     }
   }
 }

@@ -3,7 +3,7 @@
     <v-col cols="12">
       <h2>Удобства</h2>
     </v-col>
-    <v-col v-for="item in data" cols="6" class="d-flex">
+    <v-col v-for="item in data" cols="12" sm="6" class="d-flex">
       <div>
         <v-img :src="item.icon" class="mr-5"/>
       </div>

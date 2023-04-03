@@ -3,6 +3,7 @@
     <v-col cols="6" class="pr-1 pt-1 pb-0">
       <div class="gallery">
         <v-img
+            v-if="image"
             :src="image[5].urls.regular"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
             class="grey lighten-2 img"
@@ -28,14 +29,14 @@
     <v-col cols="6">
       <v-row class="">
         <v-col
-            v-for="n in images"
-            :key="n"
+            v-for="(n, i) in images"
+            :key="i"
             class="d-flex child-flex px-1 py-1"
             cols="6"
         >
           <v-img
-              :src="n.urls.regular"
-              :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+              :src="n.urls.small"
+              :lazy-src="`https://picsum.photos/10/6?image=${i * 5 + 10}`"
               class="grey lighten-2"
               aspect-ratio="1.2"
           >
@@ -86,6 +87,5 @@ export default {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  z-index: 10;
 }
 </style>

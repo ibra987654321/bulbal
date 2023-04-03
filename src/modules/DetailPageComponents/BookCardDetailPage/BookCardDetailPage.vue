@@ -27,10 +27,7 @@
                 :close-on-content-click="true"
                 max-width="290"
             >
-              <v-date-picker
-                  v-model="dates"
-                  range
-              ></v-date-picker>
+              <vc-date-picker class="mx-2" v-model="dates" color="teal" is-range/>
               <template v-slot:activator="{ on, attrs }">
                 <v-card
                     color="accent"
@@ -44,7 +41,7 @@
                         </v-icon>
                         <div class="d-flex flex-column">
                           <small>Прибытие</small>
-                          {{ dates[0] | date }}
+                          {{ dates.start | date }}
                         </div>
                       </div>
                     </v-col>
@@ -56,7 +53,7 @@
                         </v-icon>
                         <div class="d-flex flex-column">
                           <small>Выезд</small>
-                          {{ dates[1] | date }}
+                          {{ dates.end | date }}
                         </div>
                       </div>
                     </v-col>
@@ -118,17 +115,16 @@
                           class="text-none "
                           v-on="on"
                       >
-                        <svg class="mr-3" width="33" height="32" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11.6099 12.0699C8.85611 12.0699 6.62372 14.3272 6.62372 17.1117V18.5523C6.62372 18.9501 6.3048 19.2725 5.91141 19.2725C5.51801 19.2725 5.1991 18.9501 5.1991 18.5523V17.1117C5.1991 13.5316 8.06931 10.6293 11.6099 10.6293C15.1505 10.6293 18.0207 13.5316 18.0207 17.1117V18.5523C18.0207 18.9501 17.7018 19.2725 17.3084 19.2725C16.915 19.2725 16.5961 18.9501 16.5961 18.5523V17.1117C16.5961 14.3272 14.3637 12.0699 11.6099 12.0699Z"
-                                fill="#B1B5C3"/>
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11.4667 10.6293C13.0051 10.6293 14.2523 9.38219 14.2523 7.84374C14.2523 6.30529 13.0051 5.05814 11.4667 5.05814C9.92823 5.05814 8.68107 6.30529 8.68107 7.84374C8.68107 9.38219 9.92823 10.6293 11.4667 10.6293ZM11.4667 12.0222C13.7744 12.0222 15.6451 10.1514 15.6451 7.84375C15.6451 5.53608 13.7744 3.66534 11.4667 3.66534C9.15907 3.66534 7.28833 5.53608 7.28833 7.84375C7.28833 10.1514 9.15907 12.0222 11.4667 12.0222Z"
-                                fill="#B1B5C3"/>
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.13281 20.0579V12.5788C7.13281 12.0829 7.31011 11.6073 7.6257 11.2566C7.94129 10.906 8.36932 10.709 8.81562 10.709H22.2781C22.7244 10.709 23.1525 10.906 23.4681 11.2566C23.7836 11.6073 23.9609 12.0829 23.9609 12.5788V20.0579" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M8.81567 10.709V6.9694C8.81567 6.4735 8.99297 5.99791 9.30856 5.64726C9.62415 5.2966 10.0522 5.09961 10.4985 5.09961H20.5954C21.0417 5.09961 21.4697 5.2966 21.7853 5.64726C22.1009 5.99791 22.2782 6.4735 22.2782 6.9694V10.709" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M15.5469 5.09961V10.709" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M7.13281 18.1885H23.9609" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
+
                         <div class="d-flex flex-column text-left">
-                          <small class="font-weight-light">Для кого</small>
-                          Гости
+                          <small class="font-weight-light">Тип</small>
+                          Комната
                         </div>
                       </v-btn>
                     </template>
@@ -203,7 +199,10 @@ export default {
     rating: 1,
     people: false,
     people2: false,
-    dates: ['2019-05-10', '2019-05-20'],
+    dates: {
+      start: new Date(2023, 3, 1),
+      end: new Date(2023, 3, 5)
+    },
     menu1: false,
     selectedItem: 2,
     items: [
@@ -217,6 +216,11 @@ export default {
       return this.dates.join(' | ')
     },
   },
+  watch: {
+    dates() {
+      console.log(this.dates)
+    }
+  }
 }
 </script>
 

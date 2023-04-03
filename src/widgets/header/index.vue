@@ -1,7 +1,6 @@
 <template>
   <div>
-    <mobileHeader v-if="$vuetify.breakpoint.mobile"/>
-    <Header v-else/>
+    <Header/>
   </div>
 </template>
 <script>
@@ -19,3 +18,8 @@ export default {
   }),
 };
 </script>
+<style>
+.border_r {
+  border-radius: 10.0378px;
+}
+</style>

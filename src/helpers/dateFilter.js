@@ -4,5 +4,5 @@ export default function dateFilter(value) {
     options.day = '2-digit'
     options.year = 'numeric'
 
-    return new Intl.DateTimeFormat('en-EN', options).format(new Date(value))
+    return new Intl.DateTimeFormat('ru-RU', options).format(new Date(value))
 }

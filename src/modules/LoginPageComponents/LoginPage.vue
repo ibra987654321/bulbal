@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dialogs max-width="685px">
+    <dialogs max-width="685px" >
       <v-stepper v-model="e1">
         <v-stepper-items>
           <v-stepper-content

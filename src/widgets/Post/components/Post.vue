@@ -1,7 +1,14 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container d-flex justify-center align-center">
+      <v-progress-circular
+          v-if="loading"
+          :size="50"
+          color="primary"
+          indeterminate
+      ></v-progress-circular>
       <stack
+          v-else
           :column-min-width="250"
           :gutter-width="15"
           :gutter-height="15"
@@ -14,7 +21,6 @@
             style="transition: transform 300ms"
         >
           <PostCard :key="i" :data="image"/>
-
         </stack-item>
       </stack>
     </div>
@@ -33,10 +39,16 @@ export default {
     PostCard
   },
   data:() => ({
-    images: []
+    images: [],
+    loading: false
   }),
   async mounted() {
-    this.images = await dataImage('any', 3000, 8000)
+    this.loading = true
+    dataImage('any', 3000, 8000)
+        .then(r => {
+          this.images = r
+          this.loading = false
+        })
   },
 }
 </script>

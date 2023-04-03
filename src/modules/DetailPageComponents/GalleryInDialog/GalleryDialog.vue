@@ -63,8 +63,8 @@
               </v-btn>
             </v-col>
           </v-row>
-          <stack-ui :column-min-width="500" :data="images">
-          </stack-ui>
+          <stack-for-dialog-gallery :column-min-width="500" :data="images">
+          </stack-for-dialog-gallery>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -73,14 +73,14 @@
 </template>
 
 <script>
-import StackUi from "./StackForDialogGallery";
+import StackForDialogGallery from "./StackForDialogGallery";
 
 import {dataImage} from "@/helpers/dataForGallery";
 import TitleForDetailPage from "@/modules/DetailPageComponents/TitleForDetailPage/TitleForDetailPage";
 export default {
   name: "GalleryDialog",
   components: {
-    StackUi,
+    StackForDialogGallery,
     TitleForDetailPage
   },
   data () {

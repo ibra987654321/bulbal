@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mt-16 profile__edit" :class="$vuetify.breakpoint.mobile ? 'flex-column' : ''">
+  <div class="d-flex  profile__edit" :class="$vuetify.breakpoint.mobile ? 'flex-column' : 'mt-16'">
     <div>
       <v-tabs
           v-model="model"

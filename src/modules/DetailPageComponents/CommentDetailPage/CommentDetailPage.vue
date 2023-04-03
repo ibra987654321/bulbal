@@ -1,17 +1,11 @@
 <template>
   <div :class="$vuetify.breakpoint.mobile ? 'container' : ''">
-    <div class="d-flex align-end justify-space-between">
+    <div>
       <title-card
           title="Добавить отзыв"
           small
       >
-        <div class="d-flex justify-space-between">
-          <div>
-            Чем больше отзывов вы оставляете, тем больше скидок мы вам делаем
-          </div>
-        </div>
-      </title-card>
-      <div class="pb-3">
+        <template v-slot:right>
         <svg  width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_240_2688)">
             <path d="M7.38799 2.08514C7.61959 1.54844 8.3806 1.54844 8.6122 2.08514L10.0656 5.45307C10.1636 5.68033 10.3795 5.83454 10.6263 5.85361L14.3535 6.14161C14.9514 6.18782 15.189 6.93852 14.7265 7.32038L11.9235 9.63457C11.7258 9.7978 11.6392 10.0599 11.7008 10.3088L12.5635 13.7943C12.7054 14.3676 12.0871 14.8286 11.5781 14.529L8.33831 12.6217C8.12957 12.4988 7.87061 12.4988 7.66188 12.6217L4.42204 14.529C3.91318 14.8286 3.29481 14.3676 3.43667 13.7943L4.29931 10.3088C4.3609 10.0599 4.27432 9.7978 4.07662 9.63457L1.27368 7.32038C0.811173 6.93852 1.04878 6.18782 1.64677 6.14161L5.37388 5.85361C5.62066 5.83454 5.83656 5.68032 5.93463 5.45307L7.38799 2.08514Z" fill="#FFD166"/>
@@ -26,30 +20,38 @@
             </clipPath>
           </defs>
         </svg>
-      </div>
-
+      </template>
+        <div class="d-flex justify-space-between">
+          <div>
+            Чем больше отзывов вы оставляете, тем больше скидок мы вам делаем
+          </div>
+        </div>
+      </title-card>
     </div>
     <div>
-      <v-text-field
-          hide-details
-          color="secondary"
-          label="Поделитесь своими мыслями"
-          outlined
-          class="input"
-      >
-        <template #append >
-          <div class="block_btn">
-            <v-btn
-                color="primary"
-                type="submit"
-                rounded
-                class="text-capitalize search__btn"
-            >
-              Отправить
-            </v-btn>
-          </div>
-        </template>
-      </v-text-field>
+      <v-form  aria-autocomplete="off">
+        <v-text-field
+            hide-details
+            color="secondary"
+            label="Поделитесь своими мыслями"
+            outlined
+            class="input"
+        >
+          <template #append >
+            <div class="block_btn">
+              <v-btn
+                  color="primary"
+                  type="submit"
+                  rounded
+                  class="text-capitalize search__btn"
+                  @click="submit($event)"
+              >
+                Отправить
+              </v-btn>
+            </div>
+          </template>
+        </v-text-field>
+      </v-form>
     </div>
     <title-card
         class="mt-10"
@@ -69,6 +71,11 @@ export default {
   components: {
     titleCard,
     CommentCard
+  },
+  methods: {
+    submit(e) {
+      e.preventDefault()
+    }
   }
 }
 </script>
