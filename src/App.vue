@@ -1,8 +1,13 @@
 <template>
   <div>
-    <component :is="resolveLayout">
-      <router-view></router-view>
-    </component>
+    <transition
+        name="main"
+        mode="out-in"
+    >
+      <component :is="resolveLayout">
+        <router-view/>
+      </component>
+    </transition>
   </div>
 </template>
 
@@ -38,5 +43,19 @@ body {
 }
 .w-100 {
   width: 100%;
+}
+.main-enter-active,
+.main-leave-active {
+  transition-duration: 0.5s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.main-enter,
+.main-leave-active {
+  opacity: 0
+}
+.post_img {
+  border-radius: 12px;
 }
 </style>

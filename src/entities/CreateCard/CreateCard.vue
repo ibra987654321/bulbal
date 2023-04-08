@@ -1,6 +1,6 @@
 <template>
-  <div class="w-100">
-    <h2 class="font-weight-medium text-break title__content">{{title}}</h2>
+  <div class="w-100 mt-8"  :class="$vuetify.breakpoint.mobile ? 'text-center' : ''">
+    <h2 class="font-weight-medium text-break title__content ">{{title}}</h2>
     <p v-if="subTitle" class="subtitle">{{subTitle}}</p>
     <div>
       <slot></slot>

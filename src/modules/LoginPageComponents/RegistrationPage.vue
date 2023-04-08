@@ -22,15 +22,26 @@
           :type="show1 ? 'text' : 'password'"
           @click:append="show1 = !show1"
       ></v-text-field>
-      <div class="d-flex justify-end blue--text"><a href="#" @click="forget()">Забыли пароль?</a></div>
+      <v-text-field
+          v-model="password"
+          label="Повторный пароль"
+          rounded
+          hide-details
+          outlined
+          class="mt-5"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.required, rules.min]"
+          :type="show1 ? 'text' : 'password'"
+          @click:append="show1 = !show1"
+      ></v-text-field>
       <v-btn
           color="primary"
           rounded
           width="100%"
           class="mt-7"
           large
-          @click="$emit('next', 'sign-in')"
-      >Войти</v-btn>
+          @click="submit()"
+      >Авторизоваться</v-btn>
       <div class="my-4">или</div>
       <div class="d-flex justify-center">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,17 +73,18 @@
           </defs>
         </svg>
       </div>
-      <div class="mt-4">У вас еще нет аккаунта? <a href="#" @click="$emit('next', 'register')">Авторизоваться</a></div>
+      <div class="mt-4">У вас уже есть аккаунт? <a href="#" @click="$emit('next', 'login')">Войти</a></div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 export default {
-  name: "LoginPageCard",
+  name: "RegistrationPage",
   data:() => ({
     show1: false,
     password: '',
+    confirmPassword: '',
     rules: {
       required: value => !!value || 'Required.',
       min: v => v.length >= 8 || 'Min 8 characters',
@@ -80,8 +92,12 @@ export default {
     },
   }),
   methods: {
-    forget() {
-      this.$emit('next', 'login')
+    submit() {
+      if (this.password !== this.confirmPassword) {
+        alert('Пароли не совпадают');
+        return;
+      }
+      this.$emit('next', 'sign-up')
     }
   }
 }

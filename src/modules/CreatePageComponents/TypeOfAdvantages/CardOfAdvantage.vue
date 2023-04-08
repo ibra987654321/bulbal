@@ -5,10 +5,10 @@
       :class="data.selected ? 'card_item' : ''"
   >
     <v-card-text>
-      <v-img class="mx-auto" width="57px" :src="data.icon"></v-img>
+      <v-img class="mx-auto" width="57px" :src="'@/assets/icons/create_icons/' + data.icon"></v-img>
     </v-card-text>
     <v-card-text class="text-center pt-0 card_item__text">
-      {{data.title}}
+      {{data.convenienceName}}
     </v-card-text>
   </v-card>
 </template>
@@ -16,9 +16,7 @@
 <script>
 export default {
   name: "CardOfAdvantage",
-  props: {
-   item: Object
-  },
+  props: ['item'],
   computed: {
     data() {
       return this.$props.item
@@ -39,5 +37,11 @@ export default {
 .card_item__text {
   font-weight: 600;
   font-size: 16px;
+}
+@media only screen and (max-width: 600px) {
+  .card_item__text {
+    font-size: 12px;
+  }
+
 }
 </style>

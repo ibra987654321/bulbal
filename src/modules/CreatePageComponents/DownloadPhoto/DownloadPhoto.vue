@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex align-center justify-center fill-height w-100">
-    <div class="block">
+    <div :style="$vuetify.breakpoint.mobile ? 'max-width: 870px;' : 'min-width: 870px;'">
       <create-card
           title="Загрузка фотографии"
-          sub-title="Загрузите фотографии"
+          sub-title="Фото обложки"
       >
         <v-row :class="$vuetify.breakpoint.mobile ? '' : 'desktop'">
-          <v-col cols="12" sm="3" class="d-flex justify-center">
+          <v-col cols="6" sm="2" class="d-flex justify-center">
             <div>
-              <svg @click="onButtonClick" style="cursor: pointer" width="200" height="200" viewBox="0 0 148 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg @click="onButtonClick" style="cursor: pointer" width="100" height="100" viewBox="0 0 148 148" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="147.894" height="147.894" fill="#C4C4C4"/>
                 <path d="M72.4659 87.0249V62.0206H74.8757V87.0249H72.4659ZM61.179 75.7379V73.3075H86.1626V75.7379H61.179Z" fill="#7D8871"/>
               </svg>
@@ -22,10 +22,11 @@
               >
             </div>
           </v-col>
-          <v-col cols=12 sm="3" v-for="(file,f) in files" :key="f" class="d-flex justify-center">
+          <v-col cols=6 sm="2" v-for="(file,f) in files" :key="f" class="d-flex justify-center">
             <div style="position: relative" >
-              <v-icon color="black" @click="onClickRemove(file)" class="close">mdi-close</v-icon>
-              <img :ref="'file'" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" width="200" height="200" class="img-fluid" :title="'file' + f" />
+              <v-icon color="black" @click="onClickRemove(f)" class="close">mdi-close</v-icon>
+              <img v-if="!loading" :ref="'file'" :src="file.src" width="100" height="100" class="img-fluid" :title="'file' + f" />
+              <img v-else src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" width="100" height="100" class="img-fluid" :title="'file' + f" />
             </div>
           </v-col>
         </v-row>
@@ -49,7 +50,8 @@ export default {
     files: [],
     readers: [],
     selectedFile: null,
-    isSelecting: false
+    isSelecting: false,
+    loading: false,
   }),
   methods: {
     onButtonClick() {
@@ -59,28 +61,25 @@ export default {
       })
       this.$refs.uploader.click()
     },
-    onClickRemove(file) {
-      console.log(this.files)
-      this.files = this.files.filter(item => item.name !== file.name)
+    onClickRemove(idx) {
+      this.files.splice(idx, 1)
     },
     onFileChanged(e) {
+      this.loading = true
       if (e.target.files !== undefined) {
-        Array.from(e.target.files).forEach(item => {
+        Array.from(e.target.files).forEach(  item => {
           this.files.push(item)
-          Array.from(this.files).forEach((file, f) => {
+           Array.from(this.files).forEach((file, f) => {
             this.readers[f] = new FileReader();
             this.readers[f].onloadend = (e) => {
-              let fileData = this.readers[f].result
-              let imgRef = this.$refs.file[f]
-              setTimeout(async () => {
-                imgRef.src = await fileData
-              },1000)
-              // send to server here...
+              file.src = this.readers[f].result
             }
-
             this.readers[f].readAsDataURL(this.files[f]);
+             const formData = new FormData()
+             formData.append('multipartFile', this.files[f])
+            this.$store.dispatch('uploadImage',formData)
+                .then(() => this.loading = false)
 
-            // do something
           })
         })
       }
@@ -91,9 +90,6 @@ export default {
 </script>
 
 <style scoped>
-.desktop {
-  min-width:870px
-}
 .close {
   background-color: white;
   position: absolute;

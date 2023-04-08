@@ -8,7 +8,7 @@
               :key="`${n}-content`"
               :step="n"
           >
-            <component :is="component[n - 1]" @forget="nextStep(n)"></component>
+            <component :is="component[n - 1]" @next="nextStep(n, $event)"></component>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -21,6 +21,7 @@ const dialogs = () => import('@/entities/Dialog/Dialogs')
 const LoginPageCard = () => import('./LoginPageCard')
 const ForgetPasswordCard = () => import('./ForgetPasswordCard')
 const CodePageCard = () => import('./CodePageCard')
+const RegisterPage = () => import('./RegistrationPage')
 export default {
   name: "LoginPage",
   components: {
@@ -30,7 +31,8 @@ export default {
     component: [
       LoginPageCard,
       ForgetPasswordCard,
-      CodePageCard
+      CodePageCard,
+      RegisterPage
     ],
     e1: 1,
     steps: 3,
@@ -43,7 +45,13 @@ export default {
     },
   },
   methods: {
-    nextStep (n) {
+    nextStep (n, event) {
+      if (event === 'login') {
+        this.e1 = 1
+      }
+      if (event === 'register') {
+        this.e1 = 3
+      }
       if (n === this.steps) {
         this.e1 = 1
       } else {

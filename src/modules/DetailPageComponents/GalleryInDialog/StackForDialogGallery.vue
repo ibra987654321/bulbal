@@ -13,6 +13,7 @@
       >
         <img
             :src="item.urls.small"
+            class="post_img"
             :alt="item.alt_description"
             @click="open(item.id)"
         />

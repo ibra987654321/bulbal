@@ -3,26 +3,17 @@
     <v-col cols="6" class="pr-1 pt-1 pb-0">
       <div class="gallery">
         <v-img
-            v-if="image"
+            v-if="!loading"
             :src="image[5].urls.regular"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
-            class="grey lighten-2 img"
+            class="grey lighten-2 img post_img"
             aspect-ratio="1.2"
         >
-          <template v-slot:placeholder>
-            <v-row
-                class="fill-height ma-0"
-                align="center"
-                justify="center"
-            >
-              <v-skeleton-loader
-                  ref="skeleton"
-                  type="image"
-                  class="mx-auto"
-              ></v-skeleton-loader>
-            </v-row>
-          </template>
         </v-img>
+        <v-skeleton-loader
+            v-else
+            type="image"
+        ></v-skeleton-loader>
         <gallery-dialog class="btn_gallery"></gallery-dialog>
       </div>
     </v-col>
@@ -37,7 +28,7 @@
           <v-img
               :src="n.urls.small"
               :lazy-src="`https://picsum.photos/10/6?image=${i * 5 + 10}`"
-              class="grey lighten-2"
+              class="grey lighten-2 post_img"
               aspect-ratio="1.2"
           >
             <template v-slot:placeholder>
@@ -69,19 +60,28 @@ export default {
     galleryDialog
   },
   data:() => ({
+    loading: false,
     images: [],
     image: ''
   }),
   async mounted() {
+    this.loading =true
     this.images = await dataImage('nature',null, 4)
-    this.image = await dataImage('any',null, 500)
+    setTimeout(async () => {
+      this.image = await dataImage('table',null, 500)
+      this.loading =false
+    }, 2000)
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 .gallery {
   position: relative;
+  .v-skeleton-loader__image {
+    border-radius: 12px;
+    height: 490px;
+  }
 }
 .btn_gallery {
   position: absolute;

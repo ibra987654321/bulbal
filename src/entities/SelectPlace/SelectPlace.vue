@@ -6,7 +6,7 @@
           outlined
           class="elevation-0"
           hide-details
-          :items="['Бишкек', 'Нарын', 'Ыссык-Кол', 'Ош', 'Талас', 'Жалал-Абад', 'Баткен']"
+          :items="$store.state.create.regions"
       >
       </v-autocomplete>
       <hr class="my-5"/>

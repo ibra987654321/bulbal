@@ -3,7 +3,7 @@
     <img
         height="400"
         width="200"
-        class="image"
+        class="image post_img"
         :data-src="data.urls.small"
         v-lazy
         :alt="data.alt_description"
