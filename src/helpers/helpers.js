@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "@/store";
+import {getToken} from "@/helpers/token";
 
 export const getAxios = url => {
     store.state.loading = true
@@ -180,4 +181,24 @@ export const deleteAxios = (url, payload) => {
             store.commit('setError')
             store.commit('setSnackbars', e.message)
         })
+}
+export const checkObjectFieldsEmpty = (obj) =>  {
+    for (let prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            if (!obj[prop]) {
+                return true; // если хоть одно поле пустое, возвращаем true
+            }
+        }
+    }
+    return false; // если все поля заполнены, возвращаем false
+}
+
+export function decodeJWT() {
+    if (getToken()) {
+        const base64Url = getToken().split('.')[1]
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`).join(''))
+
+        return JSON.parse(jsonPayload)
+    }
 }

@@ -1,37 +1,40 @@
-import {getAxios, postAxios} from "@/helpers/helpers";
+import {checkObjectFieldsEmpty, getAxios, postAxios} from "@/helpers/helpers";
 import advantage from "@/modules/CreatePageComponents/TypeOfAdvantages/store/index"
 import typeOfRoom from "@/modules/CreatePageComponents/TypeOfRoom/store/index";
 import photo from "@/modules/CreatePageComponents/DownloadPhoto/store/index";
 import {environment} from "@/environments/environment";
-import {removeObject, setSavedObject} from "@/widgets/Create/helpers/helpers";
-
+import {getSavedObject, removeObject, setSavedObject} from "@/widgets/Create/helpers/helpers";
 export default {
     state: {
         createObject: {
-            "id": 0, // сам генерирует
             "ownerId": 1, // id user есть сейчас в БД от 1 до 5
             "region": "", // передаешь название региона
+            "regionId": "", // передаешь название региона
             "locality": "", // передаешь название локации
-            "typeOfAccommodation": "", // тип дома
             "titleOfAccommodation": "", // название дома
             "fullDescriptionOfAccommodation": "", // полное описание
-            "pricePerBed": 0, // стоимость за 1 место, за 1 ночь
             "conveniences": [],
-            typeOfRoom: "",
-            beds: [
-                {
-                    id: 34343, // сам генерирует
-                    name: "", // название кровати (king size и т.д.)
-                    size: 0 // размер кровати
-                }
-            ]
-
+        },
+        rooms: {
+            "accommodation_id": 0,
+            "typeOfAccommodation": "",
+            "price": 0,
+            "typeOfBed": "string",
+            "sizeOfBed": 0,
+            "amountOfBed": 0,
+            "pricePerBed": 0
         },
         regions:['Бишкек', 'Нарын', 'Ыссык-Кол', 'Ош', 'Талас', 'Жалал-Абад', 'Баткен'],
         locality: [],
         typeOfHouse: [],
         advantage: []
 
+    },
+    mutations: {
+        setRegion(state, data) {
+            state.createObject.region = data.name
+            state.createObject.regionId = data.id
+        }
     },
     actions: {
         getTypeOfHouse({state}) {
@@ -58,7 +61,19 @@ export default {
                     }, []);
                 })
         },
+        postRoom({state}) {
+            state.rooms.accommodation_id = getSavedObject().id
+            postAxios(environment.mainApi + '/accommodation/saveRoom', state.rooms)
+                .then(r => {
+                    removeObject()
+                    setSavedObject(r)
+                })
+        },
         postItem({state}) {
+            if (checkObjectFieldsEmpty(state.createObject)) {
+                alert('Заполните все поля')
+                return 'invalid'
+            }
             postAxios(environment.mainApi + '/accommodation/saveAccommodation', state.createObject)
                 .then(r => {
                     removeObject()

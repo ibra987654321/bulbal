@@ -7,7 +7,7 @@
           class="mb-5"
       >
         <v-select
-            v-model="$store.state.create.createObject.typeOfAccommodation"
+            v-model="$store.state.create.rooms.typeOfAccommodation"
             :items="$store.state.create.typeOfRoom.typeOfRoom"
             label="Тип комнаты"
             outlined
@@ -16,14 +16,14 @@
             dense
             color="primary"
         ></v-select>
-        <v-col cols="12" sm="4" class="d-flex align-center">
+        <v-col cols="12" sm="4" class="pl-0 d-flex align-center">
           <div>
             <div class="black--text select_title">
               ЦЕНА на комнату
             </div>
-            <div class="d-flex align-center border">
+            <div class="d-flex align-center border mt-2">
               <v-text-field
-                  v-model="$store.state.create.createObject.price"
+                  v-model="$store.state.create.rooms.price"
                   solo
                   type="number"
                   flat
@@ -36,7 +36,7 @@
             сом
           </div>
         </v-col>
-        <v-row v-for="(bed, idx) in $store.state.create.createObject.beds" class="mt-8">
+        <v-row  class="mt-8">
           <v-col cols="12" class="pb-0">
             <p class="mb-0 subtitle" >Сколько гостей можно разместить в вашем дома?</p>
           </v-col>
@@ -46,7 +46,7 @@
             </div>
             <div class="d-flex align-center border mt-2">
             <v-select
-                v-model="bed.name"
+                v-model="$store.state.create.rooms.typeOfBed"
                 :items="items"
                 hide-details
                 dense
@@ -61,8 +61,8 @@
             </div>
             <div class="d-flex align-center border mt-2">
               <v-select
-                  v-model="bed.size"
-                  :items="items"
+                  v-model="$store.state.create.rooms.amountOfBed"
+                  :items="[1,2,3,4,5,6,7]"
                   hide-details
                   dense
                   solo
@@ -70,39 +70,54 @@
               ></v-select>
             </div>
           </v-col>
-          <v-col cols="3" sm="3" class="d-flex align-center">
-            <v-btn
-                class="mx-2 "
-                fab
-                :x-small="$vuetify.breakpoint.mobile"
-                :small="!$vuetify.breakpoint.mobile"
-                @click="addBed()"
-            >
-              <v-icon>
-                mdi-plus
-              </v-icon>
-            </v-btn>
-            <v-btn
-                v-if="$store.state.create.createObject.beds.length > 1"
-                class="mx-2 "
-                fab
-                :x-small="$vuetify.breakpoint.mobile"
-                :small="!$vuetify.breakpoint.mobile"
-                @click="removeBed(idx, bed)"
-            >
-              <v-icon dark>
-                mdi-minus
-              </v-icon>
-            </v-btn>
+          <v-col cols="3" sm="3">
+            <div class="black--text select_title">
+              Вмещаемость
+            </div>
+            <div class="d-flex align-center border mt-2">
+              <v-select
+                  v-model="$store.state.create.rooms.sizeOfBed"
+                  :items="[1,2,3,4,5,6,7]"
+                  hide-details
+                  dense
+                  solo
+                  flat
+              ></v-select>
+            </div>
           </v-col>
-          <v-col cols="12" sm="2" class="d-flex align-center">
+<!--          <v-col cols="3" sm="3" class="d-flex align-center">-->
+<!--            <v-btn-->
+<!--                class="mx-2 "-->
+<!--                fab-->
+<!--                :x-small="$vuetify.breakpoint.mobile"-->
+<!--                :small="!$vuetify.breakpoint.mobile"-->
+<!--                @click="addBed()"-->
+<!--            >-->
+<!--              <v-icon>-->
+<!--                mdi-plus-->
+<!--              </v-icon>-->
+<!--            </v-btn>-->
+<!--            <v-btn-->
+<!--                v-if="$store.state.create.createObject.beds.length > 1"-->
+<!--                class="mx-2 "-->
+<!--                fab-->
+<!--                :x-small="$vuetify.breakpoint.mobile"-->
+<!--                :small="!$vuetify.breakpoint.mobile"-->
+<!--                @click="removeBed(idx, bed)"-->
+<!--            >-->
+<!--              <v-icon dark>-->
+<!--                mdi-minus-->
+<!--              </v-icon>-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+          <v-col cols="12" sm="2" class=" d-flex align-center">
             <div>
               <div class="black--text select_title">
                 ЦЕНА
               </div>
               <div class="d-flex align-center border">
                 <v-text-field
-                    v-model="$store.state.create.createObject.pricePerBed"
+                    v-model="$store.state.create.rooms.pricePerBed"
                     solo
                     type="number"
                     flat
@@ -168,7 +183,7 @@ export default {
   },
   methods: {
     submit(item) {
-      this.$emit('submit', item)
+      this.$emit('submitItem', item)
     },
     // addRoom() {
     //   const room = {
@@ -184,29 +199,29 @@ export default {
     //   }
     //   this.$store.state.create.createObject.rooms.push(room)
     // },
-    addBed() {
-      const bed =  {
-        id: this.generateUniqueId(),
-        name: "", // название кровати (king size и т.д.)
-        size: 0 // размер кровати
-      }
-      this.$store.state.create.createObject.beds.push(bed)
-    },
+    // addBed() {
+    //   const bed =  {
+    //     id: this.generateUniqueId(),
+    //     name: "", // название кровати (king size и т.д.)
+    //     size: 0 // размер кровати
+    //   }
+    //   this.$store.state.create.createObject.beds.push(bed)
+    // },
     // removeRoom(obj) {
     //   const index = this.$store.state.create.createObject.rooms.findIndex(element => element.id === obj.id);
     //   if (index !== -1) {
     //     this.$store.state.create.createObject.rooms.splice(index, 1);
     //   }
     // },
-    removeBed(idx, obj) {
-        const index = this.$store.state.create.createObject.beds.findIndex(element => element.id === obj.id);
-        if (index !== -1) {
-          this.$store.state.create.createObject.beds.splice(index, 1);
-        }
-    },
-    generateUniqueId() {
-      return Math.random().toString();
-    }
+    // removeBed(idx, obj) {
+    //     const index = this.$store.state.create.createObject.beds.findIndex(element => element.id === obj.id);
+    //     if (index !== -1) {
+    //       this.$store.state.create.createObject.beds.splice(index, 1);
+    //     }
+    // },
+    // generateUniqueId() {
+    //   return Math.random().toString();
+    // }
   }
 }
 </script>

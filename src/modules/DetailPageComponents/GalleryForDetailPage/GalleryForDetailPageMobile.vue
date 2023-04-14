@@ -2,9 +2,9 @@
   <div>
     <v-carousel>
       <v-carousel-item
-          v-for="(item,i) in items"
+          v-for="(item,i) in completedAllImages"
           :key="i"
-          :src="item.urls.small"
+          :src="'img/' + item.fileName"
           reverse-transition="fade-transition"
       ></v-carousel-item>
     </v-carousel>
@@ -12,15 +12,14 @@
 </template>
 
 <script>
-import {dataImage} from "@/helpers/dataForGallery";
+import {mapGetters} from "vuex";
 
 export default {
   name: "GalleryForDetailPageMobile",
-  data: () => ({
-    items: [],
-  }),
-  async mounted() {
-    this.items = await dataImage('nature',null, 6)
+  computed: {
+    ...mapGetters([
+      'completedAllImages'
+    ])
   },
 }
 </script>

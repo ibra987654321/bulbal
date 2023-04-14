@@ -2,7 +2,7 @@
   <div>
     <div class="container d-flex justify-center align-center">
       <v-progress-circular
-          v-if="loading"
+          v-if="$store.state.loading"
           :size="50"
           color="primary"
           indeterminate
@@ -12,10 +12,11 @@
           :column-min-width="250"
           :gutter-width="15"
           :gutter-height="15"
+
           monitor-images-loaded
       >
         <stack-item
-            v-for="(image, i) in images"
+            v-for="(image, i) in data"
             :key="i"
             class="column"
             style="transition: transform 300ms"
@@ -28,9 +29,8 @@
 </template>
 
 <script>
-import PostCard from "@/entities/Post/components/PostCard";
+import PostCard from "@/modules/PostComponents/PostCard";
 import {Stack, StackItem} from "vue-stack-grid";
-import {dataImage} from "@/helpers/dataForGallery";
 export default {
   name: "Post",
   components: {
@@ -39,16 +39,14 @@ export default {
     PostCard
   },
   data:() => ({
-    images: [],
-    loading: false
   }),
+  computed: {
+    data() {
+      return this.$store.state.mainPageData
+    }
+  },
   async mounted() {
-    this.loading = true
-    dataImage('any', 3000, 8000)
-        .then(r => {
-          this.images = r
-          this.loading = false
-        })
+    await this.$store.dispatch('getMainPageData')
   },
 }
 </script>

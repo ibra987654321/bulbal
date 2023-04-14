@@ -9,10 +9,10 @@
       <div :class="$vuetify.breakpoint.mobile ? 'container' : ''">
         <v-col cols="12" :class="!$vuetify.breakpoint.mobile ? 'mt-10' : ''">
           <v-row class="d-flex justify-space-between">
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="9">
               <TitleForDetailPage/>
             </v-col>
-            <v-col cols="6" class="d-flex justify-end">
+            <v-col cols="3" class="d-flex justify-end">
               <v-btn text small>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_240_2946)">
@@ -59,7 +59,7 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col  cols="12" sm="4" >
+            <v-col  cols="12" sm="4" class="d-flex justify-center">
               <BookCardDetailPage/>
             </v-col>
             <v-col cols="12">
@@ -105,6 +105,9 @@ export default {
     BookCardDetailPage,
     OwnerInfoDetailPage,
     CommentDetailPage,
+  },
+  mounted() {
+    this.$store.dispatch('getAccommodationById', this.$route.params.id)
   }
 }
 </script>

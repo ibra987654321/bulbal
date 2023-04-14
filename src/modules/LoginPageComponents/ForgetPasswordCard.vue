@@ -17,9 +17,10 @@
           width="100%"
           class="mt-7"
           large
-          @click="forget()"
+          @click="$emit('next', 'code')"
       >Продолжить</v-btn>
     </v-card-text>
+    <a href="#" @click="$emit('next', 'login')">Назад</a>
   </v-card>
 </template>
 

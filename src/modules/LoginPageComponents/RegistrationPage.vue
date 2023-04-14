@@ -4,6 +4,7 @@
     <h1 class="mt-4">Добро пожаловать BulBal </h1>
     <v-card-text class="text-center mx-auto login_block">
       <v-text-field
+          v-model="$store.state.login.login.email"
           label="Email"
           rounded
           hide-details
@@ -11,7 +12,7 @@
           class="mt-10"
       ></v-text-field>
       <v-text-field
-          v-model="password"
+          v-model="$store.state.login.login.password"
           label="Пароль"
           rounded
           hide-details
@@ -23,16 +24,16 @@
           @click:append="show1 = !show1"
       ></v-text-field>
       <v-text-field
-          v-model="password"
+          v-model="$store.state.login.login.personalPass"
           label="Повторный пароль"
           rounded
           hide-details
           outlined
           class="mt-5"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.min]"
-          :type="show1 ? 'text' : 'password'"
-          @click:append="show1 = !show1"
+          :type="show2 ? 'text' : 'password'"
+          @click:append="show2 = !show2"
       ></v-text-field>
       <v-btn
           color="primary"
@@ -41,6 +42,7 @@
           class="mt-7"
           large
           @click="submit()"
+          :loading="loading"
       >Авторизоваться</v-btn>
       <div class="my-4">или</div>
       <div class="d-flex justify-center">
@@ -74,6 +76,13 @@
         </svg>
       </div>
       <div class="mt-4">У вас уже есть аккаунт? <a href="#" @click="$emit('next', 'login')">Войти</a></div>
+      <v-snackbar
+          v-model="snackbar"
+          :color="snackbarColor"
+          :timeout="2000"
+      >
+        {{ text }}
+      </v-snackbar>
     </v-card-text>
   </v-card>
 </template>
@@ -83,6 +92,7 @@ export default {
   name: "RegistrationPage",
   data:() => ({
     show1: false,
+    show2: false,
     password: '',
     confirmPassword: '',
     rules: {
@@ -90,14 +100,33 @@ export default {
       min: v => v.length >= 8 || 'Min 8 characters',
       emailMatch: () => (`The email and password you entered don't match`),
     },
+    loading: false,
+    snackbar: false,
+    snackbarColor: 'default',
+    text: ''
   }),
   methods: {
     submit() {
-      if (this.password !== this.confirmPassword) {
-        alert('Пароли не совпадают');
-        return;
-      }
-      this.$emit('next', 'sign-up')
+      this.loading = true
+        if (this.password !== this.confirmPassword) {
+          this.loading = false
+          this.snackbarColor = (this.password === this.confirmPassword) ? 'success' : 'warning'
+          this.text = `Пароли не совпадают!`
+          this.snackbar = true
+          return
+        }
+        this.$store.dispatch('register')
+            .then(() => {
+              this.loading = false
+              this.$emit('next', 'sign-up')
+            })
+            .catch(e => {
+              this.loading = false
+              this.snackbarColor = 'warning'
+              this.text = e.message
+              this.snackbar = true
+            })
+
     }
   }
 }

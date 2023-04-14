@@ -49,12 +49,12 @@ export default {
     arr: []
   }),
   watch: {
-    // advantage: {
-    //   handler(val) {
-    //     console.log(val.filter(i => i.selected === true))
-    //   },
-    //   deep: true
-    // }
+    advantage: {
+      handler(val) {
+        console.log(val.filter(i => i.selected === true))
+      },
+      deep: true
+    }
   },
   mounted() {
     this.$store.dispatch('getAdvantage')
@@ -62,7 +62,7 @@ export default {
   methods: {
     selectedColor(item) {
       this.advantage.map((i) => {
-        if (item === i) {
+        if (item.id === i.id) {
             if (i.selected) {
               i.selected = false
               const index = this.$store.state.create.createObject.conveniences.findIndex(element => element === item);
@@ -70,10 +70,11 @@ export default {
                 this.$store.state.create.createObject.conveniences.splice(index, 1);
               }
             } else {
-              i.selected = true
+              item.selected = true
               this.$store.state.create.createObject.conveniences.push(item)
             }
-          }
+
+        }
       })
     },
   }

@@ -9,7 +9,7 @@
             :close-on-content-click="false"
             bottom
             rounded="xl"
-            min-width="508"
+            :min-width="$vuetify.breakpoint.mobile ? null : 508"
             v-model="place"
         >
           <template v-slot:activator="{ on, attrs }">
@@ -54,7 +54,7 @@
             </v-btn>
           </template>
           <div>
-            <vc-date-picker class="mx-2" v-model="range" :columns="columns" color="teal" is-range/>
+            <vc-date-picker class="mx-2" v-model="$store.state.header.range" :columns="columns" color="teal" is-range/>
           </div>
         </v-menu>
         <div>
@@ -107,7 +107,6 @@
               <path d="M17.5661 17.8446L13.9274 14.2059" stroke="white" stroke-width="1.67297" stroke-linecap="round"
                     stroke-linejoin="round"/>
             </svg>
-
             Найти
           </v-btn>
         </div>
@@ -115,8 +114,8 @@
 </template>
 
 <script>
-import CountCardList from "@/entities/CountCardIItem/CountCardList";
-import SelectPlace from "@/entities/SelectPlace/SelectPlace";
+import CountCardList from "@/modules/HeaderComponents/CountCardIItem/CountCardList";
+import SelectPlace from "@/modules/HeaderComponents/SelectPlace/SelectPlace";
 import { useScreens } from 'vue-screen-utils';
 export default {
   name: "headerSearch",
@@ -125,24 +124,21 @@ export default {
     SelectPlace
   },
   data:() => ({
-    range: {
-      start: new Date(2023, 3, 1),
-      end: new Date(2023, 3, 5)
-    },
     date: false,
     place: false,
     people: false,
 }),
   watch: {
-    range(v) {
+    '$store.state.header.range'(v) {
       if (v) {
+        this.$store.commit('changeRange', v)
         this.date = false
       }
     }
   },
   methods: {
     search() {
-      console.log(this.$store.state.counter.countItemList)
+      this.$store.dispatch('searchByFilter')
     }
   },
   setup() {

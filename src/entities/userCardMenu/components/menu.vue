@@ -4,7 +4,7 @@
         offset-y
     >
       <template v-slot:activator="{ on, attrs }">
-        <div class="d-flex">
+        <div class="d-flex" v-if="auth">
           <svg
               width="50"
               viewBox="0 0 48 48"
@@ -24,22 +24,25 @@
             </defs>
           </svg>
         </div>
-<!--          <v-list-item-avatar>-->
-<!--            <v-img-->
-<!--                max-width="30"-->
-<!--                max-height="30"-->
-<!--                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPb_pSj-ir-9eB6mi0lVJdQP1KKHiB8fRBS1CbmOXGd9Z1FEGMJHbEKhahwhWLGSaEXY&usqp=CAU"-->
-<!--                alt="John"-->
-<!--            >-->
-<!--            </v-img>-->
-<!--          </v-list-item-avatar>-->
+          <v-list-item-avatar v-else>
+            <v-img
+                v-bind="attrs"
+                v-on="on"
+                max-width="60"
+                max-height="60"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPb_pSj-ir-9eB6mi0lVJdQP1KKHiB8fRBS1CbmOXGd9Z1FEGMJHbEKhahwhWLGSaEXY&usqp=CAU"
+                alt="John"
+            >
+            </v-img>
+          </v-list-item-avatar>
 
       </template>
 
       <v-card class="rounded-lg">
         <v-list>
           <v-list-item v-for="(item, idx) in menu" :key="idx">
-            <v-list-item-title v-if="item.click" @click="$store.state.login[item.click] = true" style="cursor:pointer;">{{item.label}}</v-list-item-title>
+            <v-list-item-title v-if="item.function" @click="router()" style="cursor:pointer;">{{item.label}}</v-list-item-title>
+            <v-list-item-title v-else-if="item.click" @click="$store.state.login[item.click] = true" style="cursor:pointer;">{{item.label}}</v-list-item-title>
             <router-link v-else to="/" class="text-decoration-none black--text">
               <v-list-item-title>{{item.label}}</v-list-item-title>
             </router-link>
@@ -51,19 +54,36 @@
 </template>
 
 <script>
+import {getToken, removeToken} from "@/helpers/token";
 export default {
   name: "userMenu",
   data: () => ({
-    menu: [
-      {label: 'Зарегистрироваться', link: '/', click: 'register'},
-      {label: 'Войти', link: '/', click: 'login'},
+    authMenu: [
       {label: 'Сообщения', link: '/'},
       {label: 'План маршрута', link: '/'},
       {label: 'Открыть гостевой дом', link: '/'},
       {label: 'Предложить услугу', link: '/'},
-      {label: 'Выйти', link: '/'},
+      {label: 'Выйти', link: '/', function: true},
+    ],
+    unAuthMenu: [
+      {label: 'Зарегистрироваться', link: '/', click: 'dialog'},
+      {label: 'Войти', link: '/', click: 'dialog'},
     ]
   }),
+  computed: {
+    menu()  {
+      return getToken() ? this.authMenu : this.unAuthMenu
+    },
+    auth()  {
+      return !!getToken()
+    },
+  },
+  methods: {
+    router() {
+      removeToken()
+      location.reload()
+    }
+  }
 }
 </script>
 

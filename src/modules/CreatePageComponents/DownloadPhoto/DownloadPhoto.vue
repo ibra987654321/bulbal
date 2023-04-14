@@ -1,33 +1,47 @@
 <template>
   <div class="d-flex align-center justify-center fill-height w-100">
-    <div :style="$vuetify.breakpoint.mobile ? 'max-width: 870px;' : 'min-width: 870px;'">
+<!--    <div :style="$vuetify.breakpoint.mobile ? 'max-width: 870px;' : 'min-width: 870px;'">-->
+    <div style="max-width: 870px;">
       <create-card
           title="Загрузка фотографии"
           sub-title="Фото обложки"
       >
-        <v-row :class="$vuetify.breakpoint.mobile ? '' : 'desktop'">
-          <v-col cols="6" sm="2" class="d-flex justify-center">
-            <div>
-              <svg @click="onButtonClick" style="cursor: pointer" width="100" height="100" viewBox="0 0 148 148" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="147.894" height="147.894" fill="#C4C4C4"/>
-                <path d="M72.4659 87.0249V62.0206H74.8757V87.0249H72.4659ZM61.179 75.7379V73.3075H86.1626V75.7379H61.179Z" fill="#7D8871"/>
-              </svg>
-              <input
-                  ref="uploader"
-                  class="d-none"
-                  type="file"
-                  multiple
-                  accept="image/png, image/jpeg, image/bmp"
-                  @change="onFileChanged"
-              >
-            </div>
+        <v-row>
+          <v-col cols="12" sm="3">
+            <MainPhoto/>
           </v-col>
-          <v-col cols=6 sm="2" v-for="(file,f) in files" :key="f" class="d-flex justify-center">
-            <div style="position: relative" >
-              <v-icon color="black" @click="onClickRemove(f)" class="close">mdi-close</v-icon>
-              <img v-if="!loading" :ref="'file'" :src="file.src" width="100" height="100" class="img-fluid" :title="'file' + f" />
-              <img v-else src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" width="100" height="100" class="img-fluid" :title="'file' + f" />
-            </div>
+          <v-col cols="12" sm="9">
+            <Photo style="float: left"/>
+            <Photo style="float: left"/>
+            <Photo style="float: left"/>
+            <Photo style="float: left"/>
+            <Photo style="float: left"/>
+            <Photo style="float: left"/>
+<!--            <v-row>-->
+<!--              <v-col cols="6" sm="4" class="d-flex justify-center">-->
+<!--                <div>-->
+<!--                  <svg @click="onButtonClick" style="cursor: pointer" width="174" height="174" viewBox="0 0 148 148" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                    <rect width="147.894" height="147.894" fill="#C4C4C4"/>-->
+<!--                    <path d="M72.4659 87.0249V62.0206H74.8757V87.0249H72.4659ZM61.179 75.7379V73.3075H86.1626V75.7379H61.179Z" fill="#7D8871"/>-->
+<!--                  </svg>-->
+<!--                  <input-->
+<!--                      ref="uploader"-->
+<!--                      class="d-none"-->
+<!--                      type="file"-->
+<!--                      multiple-->
+<!--                      accept="image/png, image/jpeg, image/bmp"-->
+<!--                      @change="onFileChanged"-->
+<!--                  >-->
+<!--                </div>-->
+<!--              </v-col>-->
+<!--              <v-col cols=6 sm="4" v-for="(file,f) in files" :key="f" class="d-flex justify-center">-->
+<!--                <div style="position: relative" >-->
+<!--                  <v-icon color="black" @click="onClickRemove(f)" class="close">mdi-close</v-icon>-->
+<!--                  <img v-if="!loading" :ref="'file'" :src="file.src" width="174" height="174" class="img-fluid" :title="'file' + f" />-->
+<!--                  <img v-else src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" width="100" height="100" class="img-fluid" :title="'file' + f" />-->
+<!--                </div>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
           </v-col>
         </v-row>
       </create-card>
@@ -37,11 +51,15 @@
 
 <script>
 import CreateCard from "@/entities/CreateCard/CreateCard";
+import Photo from "@/modules/CreatePageComponents/DownloadPhoto/Photo";
+import MainPhoto from "@/modules/CreatePageComponents/DownloadPhoto/MainPhoto";
 
 export default {
   name: "DownloadPhoto",
   components: {
-    CreateCard
+    CreateCard,
+    Photo,
+    MainPhoto
   },
   data: () => ({
     rules: [
@@ -97,5 +115,10 @@ export default {
   top: 2px;
   cursor: pointer;
   z-index: 3;
+}
+.main_img {
+  height: 100%;
+  max-height: 364px;
+  border-radius: 8.89236px;
 }
 </style>

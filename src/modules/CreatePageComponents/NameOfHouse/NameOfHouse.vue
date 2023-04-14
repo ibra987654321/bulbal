@@ -21,28 +21,9 @@
           <v-textarea
               v-model="$store.state.create.createObject.fullDescriptionOfAccommodation"
               outlined
-              :maxlength="30"
-              :counter="30"
           ></v-textarea>
         </div>
       </create-card>
-      <v-row class=" py-10">
-        <v-col cols="12" sm="6">
-          <div class="black--text select_title">
-            Цена
-          </div>
-          <div class="d-flex align-center border">
-            <v-text-field
-                v-model="$store.state.create.createObject.price"
-                solo
-                type="number"
-                flat
-                hide-details
-                dense
-            ></v-text-field>
-          </div>
-        </v-col>
-      </v-row>
     </div>
   </div>
 </template>
@@ -55,9 +36,6 @@ export default {
   components: {
     CreateCard
   },
-  data:() => ({
-    price: 800,
-  }),
   mounted() {
     this.$store.dispatch('getTypeOfHouse')
   }
@@ -67,7 +45,7 @@ export default {
 <style>
 .border {
   padding: 3px;
-  border: 1px solid #A3B194;
+  border: 2px solid #A3B194;
   border-radius: 12px;
 }
 .select_title {

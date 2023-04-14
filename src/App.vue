@@ -28,12 +28,16 @@ export default {
 
       return 'layout-content'
     }
- }
+ },
+  mounted() {
+    console.log(process.env.MY_VARIABLE);
+  }
 };
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
   font-family: 'Roboto', sans-serif;
 }

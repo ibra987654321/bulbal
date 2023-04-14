@@ -35,12 +35,12 @@ export default {
   methods: {
     increment() {
       this.count++;
-      this.$store.state.counter.countItemList[this.index][this.objectName] = this.count
+      this.$store.state.header.countItemList[this.index][this.objectName] = this.count
     },
     decrement() {
       if (this.count > 0) {
         this.count--;
-        this.$store.state.counter.countItemList[this.index][this.objectName] = this.count
+        this.$store.state.header.countItemList[this.index][this.objectName] = this.count
       }
     },
 

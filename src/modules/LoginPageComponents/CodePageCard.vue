@@ -26,6 +26,7 @@
         </v-snackbar>
       </div>
     </v-card-text>
+    <a href="#" @click="$emit('next', 'login')">Назад</a>
   </v-card>
 </template>
 

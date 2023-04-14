@@ -1,11 +1,11 @@
 <template>
   <div>
     <title-card
-        title="Захватывающие виды на Иссык-Куль лдывлалы"
+        :title="postDetail.createObject.titleOfAccommodation"
     >
       <div class="content">
         <v-row>
-          <v-col cols="1" v-if="!$vuetify.breakpoint.mobile">
+          <v-col cols="1" v-if="!$vuetify.breakpoint.mobile" class="pr-0 d-flex justify-center">
             <svg width="24" class="mr-4" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <g clip-path="url(#clip0_240_2913)">
                 <rect width="24" height="24" rx="12" fill="url(#pattern0)"/>
@@ -26,7 +26,7 @@
               </defs>
             </svg>
           </v-col>
-          <v-col cols="6" sm="4">
+          <v-col cols="6" sm="4" class="px-0">
             <div class="black--text d-flex align-center mr-4">
               <svg class="mr-2" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1128 1.28584L13.9159 4.83396L17.9638 5.40522C19.8601 5.67275 20.7269 8.01285 19.2651 9.39572L16.3576 12.1438L17.0419 16.016C17.3923 17.9996 15.287 19.3318 13.6291 18.4871L9.99983 16.6358L6.37158 18.4865C4.71129 19.334 2.6077 17.9973 2.95772 16.016L3.64203 12.1438L0.734898 9.3961C-0.727986 8.01223 0.141888 5.67263 2.03558 5.40525L6.08385 4.83394L7.88788 1.28584C8.75916 -0.428539 11.2417 -0.428688 12.1128 1.28584Z" fill="#EBE101"/>
@@ -50,7 +50,7 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3331 7.50041L15.9748 4.41839C16.9015 3.33727 16.1333 1.66704 14.7094 1.66704L3.33313 1.66704L3.33313 13.3337L14.7094 13.3337C16.1333 13.3337 16.9015 11.6635 15.9748 10.5824L13.3331 7.50041ZM4.9998 11.6671L14.7094 11.6671L11.138 7.50041L14.7094 3.33374L4.9998 3.33374L4.9998 11.6671Z" fill="#777E90"/>
                 <path d="M3.33337 0.833334C3.33337 0.373096 3.70647 0 4.16671 0C4.62694 0 5.00004 0.373096 5.00004 0.833333V19.1667C5.00004 19.6269 4.62694 20 4.16671 20C3.70647 20 3.33337 19.6269 3.33337 19.1667V0.833334Z" fill="#777E90"/>
               </svg>
-              Иссык-Куль, Чок-Тал
+              {{ postDetail.createObject.region }}, {{ postDetail.createObject.locality }}
             </div>
           </v-col>
         </v-row>
@@ -61,16 +61,24 @@
 
 <script>
 import titleCard from "@/ui/titleCard/titleCard";
+import {mapState} from "vuex";
 
 export default {
   name: "TitleForDetailPage",
   components: {
     titleCard
+  },
+  computed: {
+    ...mapState(['postDetail'])
   }
 }
 </script>
 
 <style scoped>
+.content {
+  width: 100%;
+  max-width: 620px;
+}
 @media only screen and (max-width: 600px) {
   .content {
     font-size: 12px;

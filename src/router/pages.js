@@ -8,8 +8,16 @@ export const routes = [
         component: () => import('../pages/MainPage/MainPage')
     },
     {
-        path: '/detail',
+        path: '/detail/:id',
         name: 'detail',
+        meta: {
+            layout: 'main',
+        },
+        component: () => import('../pages/DetailPage/DetailPage')
+    },
+    {
+        path: '/detail-preview/:id',
+        name: 'detail-preview',
         meta: {
             layout: 'main',
         },

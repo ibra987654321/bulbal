@@ -21,6 +21,12 @@ export default {
 <style scoped>
 .subtitle {
   color: #555555;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 1.5px;
 }
 .title__content {
   font-size: 30px;

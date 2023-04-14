@@ -4,6 +4,7 @@
     <h1 class="mt-4">Добро пожаловать BulBal </h1>
     <v-card-text class="text-center mx-auto login_block">
       <v-text-field
+          v-model="$store.state.login.login.email"
           label="Email"
           rounded
           hide-details
@@ -11,25 +12,25 @@
           class="mt-10"
       ></v-text-field>
       <v-text-field
-          v-model="password"
+          v-model="$store.state.login.login.password"
           label="Пароль"
           rounded
           hide-details
           outlined
           class="mt-5"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.min]"
           :type="show1 ? 'text' : 'password'"
           @click:append="show1 = !show1"
       ></v-text-field>
-      <div class="d-flex justify-end blue--text"><a href="#" @click="forget()">Забыли пароль?</a></div>
+      <div class="d-flex justify-end blue--text"><a href="#" @click="$emit('next', 'forget')">Забыли пароль?</a></div>
       <v-btn
           color="primary"
           rounded
           width="100%"
           class="mt-7"
           large
-          @click="$emit('next', 'sign-in')"
+          :loading="loading"
+          @click="submit()"
       >Войти</v-btn>
       <div class="my-4">или</div>
       <div class="d-flex justify-center">
@@ -71,6 +72,7 @@
 export default {
   name: "LoginPageCard",
   data:() => ({
+    loading: false,
     show1: false,
     password: '',
     rules: {
@@ -82,6 +84,27 @@ export default {
   methods: {
     forget() {
       this.$emit('next', 'login')
+    },
+    submit() {
+      this.loading = true
+      // if (!this.password) {
+      //   this.loading = false
+      //   this.snackbarColor = 'warning'
+      //   this.text = `Введите пароль!`
+      //   this.snackbar = true
+      //   return
+      // }
+      this.$store.dispatch('login')
+          .then(() => {
+            this.loading = false
+          })
+          .catch(e => {
+            this.loading = false
+            this.snackbarColor = 'warning'
+            this.text = e.message
+            this.snackbar = true
+          })
+
     }
   }
 }

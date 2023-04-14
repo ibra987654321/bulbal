@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dialogs max-width="685px" >
+    <dialogs max-width="685px" :destroy-func="destroy">
       <v-stepper v-model="e1">
         <v-stepper-items>
           <v-stepper-content
@@ -35,7 +35,7 @@ export default {
       RegisterPage
     ],
     e1: 1,
-    steps: 3,
+    steps: 4,
   }),
   watch: {
     steps (val) {
@@ -48,9 +48,15 @@ export default {
     nextStep (n, event) {
       if (event === 'login') {
         this.e1 = 1
+        return;
       }
       if (event === 'register') {
-        this.e1 = 3
+        this.e1 = 4
+        return
+      }
+      if (event === 'forget') {
+        this.e1 = 2
+        return
       }
       if (n === this.steps) {
         this.e1 = 1
@@ -58,7 +64,13 @@ export default {
         this.e1 = n + 1
       }
     },
+    destroy() {
+      setTimeout(() => {
+        this.e1 = 1
+      }, 300)
+    }
   },
+
 }
 </script>
 

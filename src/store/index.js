@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import header from "@/widgets/header/store/index"
 import login from "@/modules/LoginPageComponents/login";
-import counter from "@/entities/CountCardIItem/counter";
 import create from "@/widgets/Create/store/index";
+import postDetail from "@/widgets/PostDetail/store/index"
+import {postAxios} from "@/helpers/helpers";
+import {environment} from "@/environments/environment";
 
 Vue.use(Vuex)
 
@@ -15,6 +18,7 @@ export default new Vuex.Store({
           snackbar: false,
           text: '',
       },
+      mainPageData: []
   },
   getters: {
   },
@@ -28,10 +32,24 @@ export default new Vuex.Store({
       },
   },
   actions: {
+      getMainPageData(store) {
+          store.state.loading = true
+          const data = {
+              "pageNumber": 0,
+              "pageSize": 5,
+              "sortBy": "price"
+          }
+          postAxios(`${environment.mainApi}/main-page/getMainPage`, data)
+              .then(r => {
+                  store.state.loading = false
+                  store.state.mainPageData = r.content
+              }).catch(e => console.log(e.message))
+      }
   },
-  modules: {
-    counter,
-    login,
-    create
-  }
+    modules: {
+        header,
+        login,
+        create,
+        postDetail
+    }
 })

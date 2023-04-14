@@ -11,5 +11,9 @@ export default {
             const id = getSavedObject().id
             return uploadMultipart(environment.mainApi + '/images/upload/' + id, formData)
         },
+        uploadMainImage(_, formData) {
+            const id = getSavedObject().id
+            return uploadMultipart(environment.mainApi + '/images/uploadMainImage/' + id+ '/true', formData)
+        },
     },
 }

@@ -12,14 +12,17 @@
             </div>
             <div class="d-flex align-center mx-2 mt-4">
               <v-select
-                  v-model="$store.state.create.createObject.region"
+                  v-model="regionData"
                   outlined
                   label="Регион"
                   item-value="id"
                   item-text="name"
+                  :error-messages="regionErrors"
                   :items="$store.state.create.regions"
                   hide-details
                   dense
+                  @input="$v.regionData.$touch()"
+                  @blur="$v.regionData.$touch()"
                   @change="change($event)"
               ></v-select>
             </div>
@@ -27,7 +30,10 @@
                 v-model="$store.state.create.createObject.locality"
                 outlined
                 dense
+                :error-messages="localityErrors"
                 :items="$store.state.create.locality"
+                @input="$v.localityData.$touch()"
+                @blur="$v.localityData.$touch()"
                 hide-details
                 class="mt-4"
             ></v-select>
@@ -49,25 +55,64 @@
 <script>
 import CreateCard from "@/entities/CreateCard/CreateCard";
 import {getObject} from "@/widgets/Create/helpers/helpers";
+import {required} from "vuelidate/lib/validators";
+import { validationMixin } from 'vuelidate'
 
 export default {
   name: "AddressComponent",
+  mixins: [validationMixin],
   components: {
     CreateCard
   },
-  data: () => ({
-    locality:''
+  data:() => ({
+    regionData: '',
+    localityData: ''
   }),
-  mounted() {
-    this.$store.dispatch('getRegion')
-    if (getObject().region !== "") {
-      this.change(getObject().region)
+  computed: {
+    region() {
+      return this.$store.state.create.createObject.regionId
+    },
+    locality() {
+      return this.$store.state.create.createObject.locality
+    },
+    regionErrors () {
+      const errors = []
+      if (!this.$v.regionData.$dirty) return errors
+      !this.$v.regionData.required && errors.push('Поле не должно быть пустым')
+      return errors
+    },
+    localityErrors () {
+      const errors = []
+      if (!this.$v.localityData.$dirty) return errors
+      !this.$v.localityData.required && errors.push('Поле не должно быть пустым')
+      return errors
+    },
+  },
+  watch: {
+    region(v) {
+      this.regionData = v
+    },
+    locality(v) {
+      this.localityData = v
     }
+  },
+  created() {
+    this.regionData = this.$store.state.create.createObject.regionId
+    this.$store.dispatch('getRegion')
+    if (getObject().regionId) {
+      this.change(getObject().regionId)
+    }
+  },
+  validations: {
+    regionData: { required },
+    localityData: { required },
   },
   methods: {
     change(id) {
+      const region = this.$store.state.create.regions.find(i => i.id === id)
+      this.$store.commit('setRegion', region)
       this.$store.dispatch('getLocality', id)
-    }
+    },
   }
 }
 </script>

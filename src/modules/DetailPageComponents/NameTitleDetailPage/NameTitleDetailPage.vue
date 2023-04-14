@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" sm="6">
         <title-card
-            title="Комната в доме"
+            :title="postDetail.createObject.titleOfAccommodation"
         >
           <div class="d-flex align-center">
             <div class="mr-2">
@@ -39,11 +39,15 @@
 
 <script>
 import titleCard from "@/ui/titleCard/titleCard";
+import {mapState} from "vuex";
 
 export default {
   name: "NameTitleDetailPage",
   components: {
     titleCard
+  },
+  computed: {
+    ...mapState(['postDetail'])
   }
 }
 </script>

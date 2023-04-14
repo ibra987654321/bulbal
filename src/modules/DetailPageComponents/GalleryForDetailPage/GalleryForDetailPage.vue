@@ -3,30 +3,29 @@
     <v-col cols="6" class="pr-1 pt-1 pb-0">
       <div class="gallery">
         <v-img
-            v-if="!loading"
-            :src="image[5].urls.regular"
+            :src="'img/' + oneImage.fileName"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
             class="grey lighten-2 img post_img"
             aspect-ratio="1.2"
         >
         </v-img>
-        <v-skeleton-loader
-            v-else
-            type="image"
-        ></v-skeleton-loader>
+<!--        <v-skeleton-loader-->
+<!--            v-else-->
+<!--            type="image"-->
+<!--        ></v-skeleton-loader>-->
         <gallery-dialog class="btn_gallery"></gallery-dialog>
       </div>
     </v-col>
     <v-col cols="6">
       <v-row class="">
         <v-col
-            v-for="(n, i) in images"
+            v-for="(n, i) in completedImages"
             :key="i"
             class="d-flex child-flex px-1 py-1"
             cols="6"
         >
           <v-img
-              :src="n.urls.small"
+              :src="'img/' + n.fileName"
               :lazy-src="`https://picsum.photos/10/6?image=${i * 5 + 10}`"
               class="grey lighten-2 post_img"
               aspect-ratio="1.2"
@@ -54,6 +53,7 @@
 <script>
 import galleryDialog from "@/modules/DetailPageComponents/GalleryInDialog/GalleryDialog";
 import {dataImage} from "@/helpers/dataForGallery";
+import {mapGetters, mapState} from "vuex";
 export default {
   name: "GalleryForDetailPage",
   components: {
@@ -61,16 +61,14 @@ export default {
   },
   data:() => ({
     loading: false,
-    images: [],
-    image: ''
   }),
+  computed: {
+    ...mapGetters([
+      'completedImages', 'oneImage'
+    ])
+  },
   async mounted() {
-    this.loading =true
-    this.images = await dataImage('nature',null, 4)
-    setTimeout(async () => {
-      this.image = await dataImage('table',null, 500)
-      this.loading =false
-    }, 2000)
+    await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
   },
 }
 </script>

@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <header-search></header-search>
         <v-spacer></v-spacer>
-        <v-btn to="/page-create" class="mr-2" rounded outlined>Создать</v-btn>
+        <v-btn v-if="getToken" to="/page-create" class="mr-2" rounded outlined>Создать</v-btn>
         <userCardMenu/>
       </v-container>
       <v-row v-else>
@@ -34,6 +34,7 @@
 <script>
 import userCardMenu from "@/entities/userCardMenu/UserCardMenu";
 import headerSearch from "@/widgets/header/components/headerSearch";
+import {getToken} from "@/helpers/token";
 export default {
   provide: true,
   name: "Header",
@@ -49,6 +50,11 @@ export default {
       'Updates',
     ],
   }),
+  setup() {
+    return {
+      getToken: getToken()
+    }
+  }
 }
 </script>
 

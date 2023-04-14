@@ -7,16 +7,16 @@
         monitor-images-loaded
     >
       <stack-item
-          v-for="(item, i) in data"
+          v-for="(item, i) in completedAllImages"
           :key="i + 'fdsfs'"
           style="transition: transform 300ms; cursor: pointer"
       >
-        <img
-            :src="item.urls.small"
+<!--        :src="require('./img/' + item.fileName)"-->
+        <v-img
+            :src="'img/' + item.fileName"
             class="post_img"
-            :alt="item.alt_description"
             @click="open(item.id)"
-        />
+        ></v-img>
       </stack-item>
     </stack>
     <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
@@ -25,6 +25,7 @@
 
 <script>
 import {Stack, StackItem} from "vue-stack-grid";
+import {mapGetters} from "vuex";
 const carousel = () => import('./Carousel')
 export default {
   name: "StackForDialogGallery",
@@ -37,7 +38,10 @@ export default {
     StackItem,
     carousel
   },
-  mounted() {
+  computed: {
+    ...mapGetters([
+      'completedAllImages'
+    ])
   },
   data:() => ({
     imageId: null

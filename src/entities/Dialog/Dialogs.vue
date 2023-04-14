@@ -1,16 +1,17 @@
 <template>
   <v-dialog
-      v-model="$store.state.login.login"
+      v-model="$store.state.login.dialog"
       transition="dialog-bottom-transition"
       :max-width="maxWidth"
       :fullscreen="$vuetify.breakpoint.mobile"
+      :transition="'dialog-transition'"
   >
       <v-card class="dialog_card">
         <div class="dialog_close">
           <v-btn
               icon
               dark
-              @click="$store.state.login.login = false"
+              @click="$store.state.login.dialog = false"
           >
             <v-icon color="black">mdi-close</v-icon>
           </v-btn>
@@ -30,8 +31,13 @@ export default {
         return '600px'
       }
     },
-    destroyFunc: Object
+    destroyFunc: Function
   },
+  watch: {
+    '$store.state.login.login'() {
+      this.$props.destroyFunc()
+    }
+  }
 }
 </script>
 

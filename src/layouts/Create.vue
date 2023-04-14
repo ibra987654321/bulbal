@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <createHeader/>
     <v-main>
       <transition
           name="fade"
@@ -12,8 +13,10 @@
 </template>
 
 <script>
+import createHeader from "@/widgets/header/components/createHeader";
 export default {
-  name: "Create"
+  name: "Create",
+  components: {createHeader}
 }
 </script>
 

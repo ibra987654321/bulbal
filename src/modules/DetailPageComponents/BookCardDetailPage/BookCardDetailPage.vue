@@ -5,7 +5,7 @@
         <div class="">
           <v-card-title class="d-flex justify-space-between">
             <div>
-              800сом | <small> ночь</small>
+              {{ priceForBooking }}сом | <small> ночь</small>
             </div>
           </v-card-title>
           <v-card-subtitle class="d-flex pl-0 align-center">
@@ -27,33 +27,45 @@
                 :close-on-content-click="true"
                 max-width="290"
             >
-              <vc-date-picker class="mx-2" v-model="dates" color="teal" is-range/>
+              <vc-date-picker class="mx-2" v-model="$store.state.header.range" color="teal" is-range/>
               <template v-slot:activator="{ on, attrs }">
                 <v-card
                     color="accent"
                     class="elevation-0 rounded-tl-lg rounded-tr-lg px-2">
                   <v-row>
-                    <v-col v-bind="attrs"
-                           v-on="on" cols="6">
-                      <div class="d-flex justify-space-around">
-                        <v-icon>
-                          mdi-calendar
-                        </v-icon>
+                    <v-col
+                        v-bind="attrs"
+                        v-on="on"
+                        cols="6"
+                    >
+                      <div class="d-flex justify-center">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M23 10H9C8.44772 10 8 10.4477 8 11V23C8 23.5523 8.44772 24 9 24H23C23.5523 24 24 23.5523 24 23V11C24 10.4477 23.5523 10 23 10ZM9 8C7.34315 8 6 9.34315 6 11V23C6 24.6569 7.34315 26 9 26H23C24.6569 26 26 24.6569 26 23V11C26 9.34315 24.6569 8 23 8H9Z" fill="#777E90"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M14 16C13.4477 16 13 16.4477 13 17C13 17.5523 13.4477 18 14 18H21C21.5523 18 22 17.5523 22 17C22 16.4477 21.5523 16 21 16H14ZM11 20C10.4477 20 10 20.4477 10 21C10 21.5523 10.4477 22 11 22H17C17.5523 22 18 21.5523 18 21C18 20.4477 17.5523 20 17 20H11Z" fill="#777E90"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C10.4477 6 10 6.44771 10 7V11C10 11.5523 10.4477 12 11 12C11.5523 12 12 11.5523 12 11V7C12 6.44771 11.5523 6 11 6ZM21 6C20.4477 6 20 6.44771 20 7V11C20 11.5523 20.4477 12 21 12C21.5523 12 22 11.5523 22 11V7C22 6.44771 21.5523 6 21 6Z" fill="#777E90"/>
+                        </svg>
+
                         <div class="d-flex flex-column">
                           <small>Прибытие</small>
-                          {{ dates.start | date }}
+                          {{ $store.state.header.range.start | date }}
                         </div>
                       </div>
                     </v-col>
-                    <v-col v-bind="attrs"
-                           v-on="on" cols="6">
-                      <div class="d-flex justify-space-around">
-                        <v-icon>
-                          mdi-calendar
-                        </v-icon>
+                    <v-col
+                        v-bind="attrs"
+                        v-on="on"
+                        cols="6"
+                    >
+                      <div class="d-flex justify-center">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M23 10H9C8.44772 10 8 10.4477 8 11V23C8 23.5523 8.44772 24 9 24H23C23.5523 24 24 23.5523 24 23V11C24 10.4477 23.5523 10 23 10ZM9 8C7.34315 8 6 9.34315 6 11V23C6 24.6569 7.34315 26 9 26H23C24.6569 26 26 24.6569 26 23V11C26 9.34315 24.6569 8 23 8H9Z" fill="#777E90"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M14 16C13.4477 16 13 16.4477 13 17C13 17.5523 13.4477 18 14 18H21C21.5523 18 22 17.5523 22 17C22 16.4477 21.5523 16 21 16H14ZM11 20C10.4477 20 10 20.4477 10 21C10 21.5523 10.4477 22 11 22H17C17.5523 22 18 21.5523 18 21C18 20.4477 17.5523 20 17 20H11Z" fill="#777E90"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C10.4477 6 10 6.44771 10 7V11C10 11.5523 10.4477 12 11 12C11.5523 12 12 11.5523 12 11V7C12 6.44771 11.5523 6 11 6ZM21 6C20.4477 6 20 6.44771 20 7V11C20 11.5523 20.4477 12 21 12C21.5523 12 22 11.5523 22 11V7C22 6.44771 21.5523 6 21 6Z" fill="#777E90"/>
+                        </svg>
+
                         <div class="d-flex flex-column">
                           <small>Выезд</small>
-                          {{ dates.end | date }}
+                          {{ $store.state.header.range.end | date }}
                         </div>
                       </div>
                     </v-col>
@@ -65,7 +77,7 @@
           <v-col cols="12" class="pt-0">
             <div class="accent rounded-bl-lg rounded-br-lg">
               <v-row>
-                <v-col cols="6">
+                <v-col cols="6" class="d-flex justify-start">
                   <v-menu
                       offset-y
                       nudge-left="100"
@@ -78,10 +90,10 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                           text
-                          class="text-none"
+                          class="text-none pl-2"
                           v-on="on"
                       >
-                        <svg class="mr-3" width="33" height="32" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="mr-2" width="33" height="32" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M11.6099 12.0699C8.85611 12.0699 6.62372 14.3272 6.62372 17.1117V18.5523C6.62372 18.9501 6.3048 19.2725 5.91141 19.2725C5.51801 19.2725 5.1991 18.9501 5.1991 18.5523V17.1117C5.1991 13.5316 8.06931 10.6293 11.6099 10.6293C15.1505 10.6293 18.0207 13.5316 18.0207 17.1117V18.5523C18.0207 18.9501 17.7018 19.2725 17.3084 19.2725C16.915 19.2725 16.5961 18.9501 16.5961 18.5523V17.1117C16.5961 14.3272 14.3637 12.0699 11.6099 12.0699Z"
                                 fill="#B1B5C3"/>
@@ -100,7 +112,7 @@
                     </div>
                   </v-menu>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="6" class="d-flex justify-start">
                   <v-menu
                       offset-y
                       transition="slide-y-transition"
@@ -112,10 +124,10 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                           text
-                          class="text-none "
+                          class="text-none pl-0"
                           v-on="on"
                       >
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="mr-2" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M7.13281 20.0579V12.5788C7.13281 12.0829 7.31011 11.6073 7.6257 11.2566C7.94129 10.906 8.36932 10.709 8.81562 10.709H22.2781C22.7244 10.709 23.1525 10.906 23.4681 11.2566C23.7836 11.6073 23.9609 12.0829 23.9609 12.5788V20.0579" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M8.81567 10.709V6.9694C8.81567 6.4735 8.99297 5.99791 9.30856 5.64726C9.62415 5.2966 10.0522 5.09961 10.4985 5.09961H20.5954C21.0417 5.09961 21.4697 5.2966 21.7853 5.64726C22.1009 5.99791 22.2782 6.4735 22.2782 6.9694V10.709" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M15.5469 5.09961V10.709" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
@@ -186,8 +198,9 @@
 </template>
 
 <script>
-import CountCardList from "@/entities/CountCardIItem/CountCardList";
+import CountCardList from "@/modules/HeaderComponents/CountCardIItem/CountCardList";
 import BookCardRoomItems from "@/modules/DetailPageComponents/BookCardDetailPage/BookCardRoomItems";
+import {mapGetters} from "vuex";
 
 export default {
   name: "BookCardDetailPage",
@@ -212,14 +225,18 @@ export default {
     ],
   }),
   computed: {
-    dateRangeText() {
-      return this.dates.join(' | ')
-    },
+    ...mapGetters(['priceForBooking'])
   },
   watch: {
-    dates() {
-      console.log(this.dates)
+    '$store.state.header.range'(v) {
+      if (v) {
+        this.$store.commit('changeRange', v)
+        this.menu1 = false
+      }
     }
+  },
+  mounted() {
+    this.$store.dispatch('booking')
   }
 }
 </script>
@@ -230,6 +247,7 @@ export default {
 }
 
 .card_block {
+  max-width: 390px;
   filter: drop-shadow(0px 64px 64px rgba(15, 15, 15, 0.08));
   border: 1px solid #e3e2e2;
 }
