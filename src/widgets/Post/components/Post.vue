@@ -12,7 +12,6 @@
           :column-min-width="250"
           :gutter-width="15"
           :gutter-height="15"
-
           monitor-images-loaded
       >
         <stack-item
@@ -42,7 +41,7 @@ export default {
   }),
   computed: {
     data() {
-      return this.$store.state.mainPageData
+      return this.$store.getters.getMainData
     }
   },
   async mounted() {

@@ -2,9 +2,6 @@
   <div>
     <v-dialog
         v-model="dialog"
-        hide-overlay
-        transition="dialog-bottom-transition"
-        content-class="dialog-gallery"
         fullscreen
     >
       <template v-slot:activator="{ on, attrs }">
@@ -62,9 +59,12 @@
                 <v-img src="@/assets/images/like.png"/>
               </v-btn>
             </v-col>
+            <v-col cols="12">
+              <stack-for-dialog-gallery :column-min-width="300" :data="completedAllImages">
+              </stack-for-dialog-gallery>
+            </v-col>
           </v-row>
-          <stack-for-dialog-gallery :column-min-width="500" :data="images">
-          </stack-for-dialog-gallery>
+
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -77,6 +77,7 @@ import StackForDialogGallery from "./StackForDialogGallery";
 
 import {dataImage} from "@/helpers/dataForGallery";
 import TitleForDetailPage from "@/modules/DetailPageComponents/TitleForDetailPage/TitleForDetailPage";
+import {mapGetters} from "vuex";
 export default {
   name: "GalleryDialog",
   components: {
@@ -89,12 +90,18 @@ export default {
       notifications: false,
       sound: true,
       widgets: false,
+      loading: true,
       images: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'completedAllImages'
+    ])
+  },
   async mounted() {
-    this.images = await dataImage('home', 1000, 10)
-  }
+    await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
+  },
 }
 </script>
 

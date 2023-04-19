@@ -35,7 +35,7 @@
         </v-col>
         <v-col cols="12" v-if="!$vuetify.breakpoint.mobile">
           <div>
-            <GalleryForDetailPage/>
+            <GalleryForDetailPage :id="Accid"/>
           </div>
         </v-col>
         <v-col  cols="12" class="mt-15">
@@ -134,6 +134,12 @@ export default {
   methods: {
     submit(event) {
       this.$emit('save', 'next')
+    }
+  },
+  setup() {
+    const Accid = getSavedObject().id
+    return {
+      Accid
     }
   }
 }

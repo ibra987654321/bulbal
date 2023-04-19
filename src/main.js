@@ -8,12 +8,12 @@ import VueMask from 'v-mask'
 import {Vuelidate} from "vuelidate";
 import lazyLoad from "@/directives/lazyLoad";
 import VCalendar from 'v-calendar';
+import { VueMaskDirective } from 'v-mask'
 Vue.use(VCalendar, {
   componentPrefix: 'vc',
 });
 Vue.use(VueMask);
 Vue.use(Vuelidate);
-import { VueMaskDirective } from 'v-mask'
 Vue.directive('mask', VueMaskDirective);
 Vue.directive('lazy', lazyLoad)
 Vue.config.productionTip = false

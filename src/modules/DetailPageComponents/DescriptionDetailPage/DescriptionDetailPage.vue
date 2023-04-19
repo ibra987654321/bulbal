@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-4 grey--text">
+    <div class="mb-4 grey--text" style="font-family: 'Poppins', sans-serif;">
      {{postDetail.createObject.fullDescriptionOfAccommodation}}
     </div>
   </div>

@@ -22,6 +22,10 @@ export default {
            return postAxios(`${environment.mainApi}/send-mail/send`, state.login)
                .then(r => console.log(r))
         },
+        OTPCheck({state}) {
+            return postAxios(`${environment.mainApi}/send-mail/checkOtp`, state.login)
+                .then(r => console.log(r))
+        },
         login({state}) {
             const login = {
                 "username": state.login.email,

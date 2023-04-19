@@ -3,8 +3,8 @@ import store from "@/store";
 import {getToken} from "@/helpers/token";
 
 export const getAxios = url => {
-    store.state.loading = true
-    store.state.error = false
+    // store.state.loading = true
+    // store.state.error = false
     return axios({
         method: 'GET',
         url,
@@ -13,11 +13,11 @@ export const getAxios = url => {
         //     Authorization: `Bearer ${getToken()}`,
         // },
     }).then(r => {
-        store.state.loading = false
+        // store.state.loading = false
         return r.data
     })
         .catch(e => {
-            store.state.loading = false
+            // store.state.loading = false
             store.commit('setError')
             store.commit('setSnackbars', e.message)
         })
@@ -33,9 +33,8 @@ export const uploadMultipart = (url, formData) => {
         })
         .then(r => r.data)
 }
-export const postAxios = (url, payload, snackbars) => {
-    store.state.loading = true
-    store.state.error = false
+export const postAxios = (url, payload) => {
+    // store.state.loading = true
     return axios({
         method: 'POST',
         url,
@@ -44,24 +43,24 @@ export const postAxios = (url, payload, snackbars) => {
         //     Authorization: `Bearer ${getToken()}`,
         // },
         data: payload,
-    }).then(r => {
-        store.state.loading = false
-        store.commit('setSnackbars', 'Успешно добавлено')
-        return r.data
     })
-        .catch(e => {
-            store.state.loading = false
-            if (snackbars) {
-                store.commit('setSnackbars', snackbars)
-                return
-            }
-            if (e.response) {
-                store.commit('setSnackbars', e.response.data)
-                return
-            }
-            store.commit('setError')
-            store.commit('setSnackbars', e.message)
+        .then(r => {
+            return r.data
         })
+        .catch(e => {
+            return e.message
+        })
+}
+export const post = (url, payload) => {
+    return axios({
+        method: 'POST',
+        url,
+        // headers: {
+        //     // 'Content-Type': 'application/json',
+        //     Authorization: `Bearer ${getToken()}`,
+        // },
+        data: payload,
+    })
 }
 export const postWithoutSnack = (url, payload) => {
     store.state.loading = true
@@ -135,8 +134,8 @@ export const extraAxios = (method, url, payload) => {
 }
 
 export const putAxios = (url, payload) => {
-    store.state.loading = true
-    store.state.error = false
+    // store.state.loading = true
+    // store.state.error = false
     return axios({
         method: 'PUT',
         url,
@@ -146,12 +145,12 @@ export const putAxios = (url, payload) => {
         // },
         data: payload,
     }).then(r => {
-        store.state.loading = false
+        // store.state.loading = false
         store.commit('setSnackbars', 'Успешно изменено')
         return r.data
     })
         .catch(e => {
-            store.state.loading = false
+            // store.state.loading = false
             if (e.response) {
                 store.commit('setSnackbars', e.response.data)
                 return

@@ -1,4 +1,4 @@
-import {checkObjectFieldsEmpty, getAxios, postAxios} from "@/helpers/helpers";
+import {checkObjectFieldsEmpty, getAxios, post, postAxios} from "@/helpers/helpers";
 import advantage from "@/modules/CreatePageComponents/TypeOfAdvantages/store/index"
 import typeOfRoom from "@/modules/CreatePageComponents/TypeOfRoom/store/index";
 import photo from "@/modules/CreatePageComponents/DownloadPhoto/store/index";
@@ -38,7 +38,7 @@ export default {
     },
     actions: {
         getTypeOfHouse({state}) {
-            getAxios(environment.adminApi + '/typeOfAccommodation/all')
+            return getAxios(environment.adminApi + '/typeOfAccommodation/all')
                 .then(r => {
                     state.typeOfHouse = r.reduce((accumulator, currentValue) => {
                         return accumulator.concat(currentValue.name);
@@ -46,15 +46,15 @@ export default {
                 })
         },
         getAdvantage({state}) {
-            getAxios(environment.adminApi + '/advantage/all')
+            return getAxios(environment.adminApi + '/advantage/all')
                 .then( r => state.advantage = r)
         },
         getRegion({state}) {
-            getAxios(environment.mainApi + '/region/all')
+            return getAxios(environment.mainApi + '/region/all')
                 .then( r => state.regions = r)
         },
         getLocality({state}, id) {
-            getAxios(environment.mainApi + '/locality/all/' + id)
+            return getAxios(environment.mainApi + '/locality/all/' + id)
                 .then(r => {
                     state.locality = r.reduce((accumulator, currentValue) => {
                         return accumulator.concat(currentValue.name);
@@ -63,7 +63,7 @@ export default {
         },
         postRoom({state}) {
             state.rooms.accommodation_id = getSavedObject().id
-            postAxios(environment.mainApi + '/accommodation/saveRoom', state.rooms)
+            return postAxios(environment.mainApi + '/accommodation/saveRoom', state.rooms)
                 .then(r => {
                     removeObject()
                     setSavedObject(r)
@@ -74,11 +74,7 @@ export default {
                 alert('Заполните все поля')
                 return 'invalid'
             }
-            postAxios(environment.mainApi + '/accommodation/saveAccommodation', state.createObject)
-                .then(r => {
-                    removeObject()
-                    setSavedObject(r)
-                })
+            return post(environment.mainApi + '/accommodation/saveAccommodation', state.createObject)
         },
     },
     modules: {

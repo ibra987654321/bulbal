@@ -8,6 +8,14 @@ export const routes = [
         component: () => import('../pages/MainPage/MainPage')
     },
     {
+        path: '/search',
+        name: 'search',
+        meta: {
+            layout: 'main',
+        },
+        component: () => import('../pages/SearchPage/SearchPage')
+    },
+    {
         path: '/detail/:id',
         name: 'detail',
         meta: {
@@ -38,6 +46,14 @@ export const routes = [
             layout: 'main',
         },
         component: () => import('../pages/ProfileEditPage/ProfileEditPage')
+    },
+    {
+        path: '/confirm',
+        name: 'confirm',
+        meta: {
+            layout: 'main',
+        },
+        component: () => import('../pages/ConfirmPage/ConfirmPage')
     },
     {
         path: '/page-create',

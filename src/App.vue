@@ -29,9 +29,6 @@ export default {
       return 'layout-content'
     }
  },
-  mounted() {
-    console.log(process.env.MY_VARIABLE);
-  }
 };
 </script>
 <style>
@@ -39,7 +36,13 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+.inter {
+  font-family: 'Inter', sans-serif;
+}
+.poppins {
+  font-family: 'Poppins', sans-serif;
 }
 .card_block {
   filter: drop-shadow(0px 64px 64px rgba(15, 15, 15, 0.08));

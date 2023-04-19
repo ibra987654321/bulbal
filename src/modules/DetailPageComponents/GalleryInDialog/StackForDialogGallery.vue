@@ -1,25 +1,15 @@
 <template>
   <div>
-    <stack
-        :column-min-width="columnMinWidth"
-        :gutter-width="15"
-        :gutter-height="15"
-        monitor-images-loaded
-    >
-      <stack-item
-          v-for="(item, i) in completedAllImages"
-          :key="i + 'fdsfs'"
-          style="transition: transform 300ms; cursor: pointer"
+    <div id="gallery" class="container-fluid">
+      <img
+          v-for="(item, i) in data"
+          :key="i"
+          :src="'img/' + item.fileName"
+          class="img-responsive"
+          @click="open(item)"
       >
-<!--        :src="require('./img/' + item.fileName)"-->
-        <v-img
-            :src="'img/' + item.fileName"
-            class="post_img"
-            @click="open(item.id)"
-        ></v-img>
-      </stack-item>
-    </stack>
-    <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
+    </div>
+        <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
   </div>
 </template>
 
@@ -38,11 +28,6 @@ export default {
     StackItem,
     carousel
   },
-  computed: {
-    ...mapGetters([
-      'completedAllImages'
-    ])
-  },
   data:() => ({
     imageId: null
   }),
@@ -52,15 +37,53 @@ export default {
     },
     changeId(v) {
       this.imageId = v
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
-img {
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
+#gallery{
+  -webkit-column-count:3;
+  -moz-column-count:3;
+  column-count:3;
+
+  -webkit-column-gap:20px;
+  -moz-column-gap:20px;
+  column-gap:20px;
+}
+@media (max-width:800px){
+  #gallery{
+    -webkit-column-count:2;
+    -moz-column-count:2;
+    column-count:2;
+
+    -webkit-column-gap:20px;
+    -moz-column-gap:20px;
+    column-gap:20px;
+  }
+}
+@media (max-width:600px){
+  #gallery{
+    -webkit-column-count:1;
+    -moz-column-count:1;
+    column-count:1;
+  }
+}
+#gallery img {
+  width:100%;
+  height:auto;
+  margin: 2% auto;
+  border-radius: 14px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.modal-img{
+  width:100%;
+  height:auto;
+}
+.modal-body{
+  padding:0px;
 }
 </style>

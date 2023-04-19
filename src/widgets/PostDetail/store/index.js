@@ -12,6 +12,7 @@ export default {
             "titleOfAccommodation": "", // название дома
             "fullDescriptionOfAccommodation": "", // полное описание
             "conveniences": [],
+            price: 0
         },
     },
     mutations: {

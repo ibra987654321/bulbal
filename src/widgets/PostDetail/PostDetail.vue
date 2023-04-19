@@ -35,7 +35,7 @@
         </v-col>
         <v-col cols="12" v-if="!$vuetify.breakpoint.mobile">
           <div>
-            <GalleryForDetailPage/>
+            <GalleryForDetailPage :id="$route.params.id"/>
           </div>
         </v-col>
         <v-col  cols="12" class="mt-15">

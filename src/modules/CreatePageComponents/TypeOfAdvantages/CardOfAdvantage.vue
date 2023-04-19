@@ -5,8 +5,7 @@
       :class="data.selected ? 'card_item' : ''"
   >
     <v-card-text>
-      {{data}}
-      <v-img class="mx-auto" width="57px" :src="'@/assets/icons/create_icons/' + data.icon"></v-img>
+      <v-img class="mx-auto" width="57px" :src="'img/icon/' + data.icon"></v-img>
     </v-card-text>
     <v-card-text class="text-center pt-0 card_item__text">
       {{data.convenienceName}}

@@ -22,7 +22,7 @@
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4969 1.74319C14.9319 1.14528 16.3715 2.58489 15.7736 4.01989L11.6485 13.9202C10.8418 15.8564 8.00403 15.5291 7.65919 13.4602L7.14454 10.3723L4.05665 9.85764C1.98764 9.51278 1.66038 6.67508 3.59657 5.86834L13.4969 1.74319ZM14.4882 3.48431C14.6078 3.19731 14.3198 2.90939 14.0328 3.02897L4.13248 7.15411C3.48708 7.42303 3.59617 8.36893 4.28583 8.48387L7.37374 8.99853C7.96076 9.09638 8.42077 9.55635 8.51862 10.1434L9.03326 13.2313C9.1482 13.921 10.0941 14.03 10.363 13.3847L14.4882 3.48431Z" fill="#B1B5C3"/>
               </svg>
-              Место
+              {{$store.state.header.selectedPlace ? $store.state.header.selectedPlace : 'Место'}}
             </v-btn>
           </template>
           <div>
@@ -50,7 +50,9 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5595 11.3177C10.1749 11.3177 9.86313 11.6295 9.86313 12.0141C9.86313 12.3987 10.1749 12.7105 10.5595 12.7105H15.4343C15.819 12.7105 16.1307 12.3987 16.1307 12.0141C16.1307 11.6295 15.819 11.3177 15.4343 11.3177H10.5595ZM8.47033 14.1033C8.08572 14.1033 7.77393 14.4151 7.77393 14.7997C7.77393 15.1843 8.08572 15.4961 8.47033 15.4961H12.6487C13.0333 15.4961 13.3451 15.1843 13.3451 14.7997C13.3451 14.4151 13.0333 14.1033 12.6487 14.1033H8.47033Z" fill="#B1B5C3"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.47033 4.35372C8.08572 4.35372 7.77393 4.66551 7.77393 5.05012V7.83573C7.77393 8.22033 8.08572 8.53213 8.47033 8.53213C8.85494 8.53213 9.16673 8.22033 9.16673 7.83573V5.05012C9.16673 4.66551 8.85494 4.35372 8.47033 4.35372ZM15.4343 4.3537C15.0497 4.3537 14.7379 4.66549 14.7379 5.0501V7.83571C14.7379 8.22031 15.0497 8.53211 15.4343 8.53211C15.8189 8.53211 16.1307 8.22031 16.1307 7.83571V5.0501C16.1307 4.66549 15.8189 4.3537 15.4343 4.3537Z" fill="#B1B5C3"/>
               </svg>
-              Дата
+              {{$store.state.header.range.start | date}}
+              -
+              {{$store.state.header.range.end | date}}
             </v-btn>
           </template>
           <div>
@@ -78,8 +80,7 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6099 12.0699C8.85611 12.0699 6.62372 14.3272 6.62372 17.1117V18.5523C6.62372 18.9501 6.3048 19.2725 5.91141 19.2725C5.51801 19.2725 5.1991 18.9501 5.1991 18.5523V17.1117C5.1991 13.5316 8.06931 10.6293 11.6099 10.6293C15.1505 10.6293 18.0207 13.5316 18.0207 17.1117V18.5523C18.0207 18.9501 17.7018 19.2725 17.3084 19.2725C16.915 19.2725 16.5961 18.9501 16.5961 18.5523V17.1117C16.5961 14.3272 14.3637 12.0699 11.6099 12.0699Z" fill="#B1B5C3"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4667 10.6293C13.0051 10.6293 14.2523 9.38219 14.2523 7.84374C14.2523 6.30529 13.0051 5.05814 11.4667 5.05814C9.92823 5.05814 8.68107 6.30529 8.68107 7.84374C8.68107 9.38219 9.92823 10.6293 11.4667 10.6293ZM11.4667 12.0222C13.7744 12.0222 15.6451 10.1514 15.6451 7.84375C15.6451 5.53608 13.7744 3.66534 11.4667 3.66534C9.15907 3.66534 7.28833 5.53608 7.28833 7.84375C7.28833 10.1514 9.15907 12.0222 11.4667 12.0222Z" fill="#B1B5C3"/>
                 </svg>
-
-                Гости
+                {{$store.state.header.countItemList[0].people > 0 ? `${$store.state.header.countItemList[0].people} гостей` : 'Гости'}}
               </v-btn>
             </template>
             <div >
@@ -134,12 +135,29 @@ export default {
         this.$store.commit('changeRange', v)
         this.date = false
       }
+    },
+    '$store.state.header.selectedPlace'(v) {
+      if (v && this.$store.state.header.selectedTypeOfPlace) {
+        this.place = false
+        this.date = true
+      }
+    },
+    '$store.state.header.selectedTypeOfPlace'(v) {
+      if (v && this.$store.state.header.selectedPlace) {
+        this.place = false
+        this.date = true
+      }
+    },
+    date(v) {
+      if (!v) {
+        this.people = true
+      }
     }
   },
   methods: {
     search() {
-      this.$store.dispatch('searchByFilter')
-    }
+      this.$router.push({name:'search'})
+    },
   },
   setup() {
     const { mapCurrent } = useScreens({
@@ -163,8 +181,6 @@ export default {
   padding: 5px;
   border: 1px solid #6C7B6B;
   border-radius: 4px;
-  width: 100%;
-  max-width: 500px;
   display: flex;
   justify-content: space-between;
   transition-duration: 0.5s;

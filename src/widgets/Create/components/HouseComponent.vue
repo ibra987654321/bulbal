@@ -38,6 +38,7 @@ import nameOfHouse from "@/modules/CreatePageComponents/NameOfHouse/NameOfHouse"
 import downloadPhoto from "@/modules/CreatePageComponents/DownloadPhoto/DownloadPhoto";
 import DescriptionHome from "@/modules/CreatePageComponents/DescriptionHome/DescriptionHome";
 import {validationMixin} from "vuelidate";
+import {removeObject, setSavedObject} from "@/widgets/Create/helpers/helpers";
 export default {
   name: "HouseComponent",
   mixins: [validationMixin],
@@ -57,8 +58,14 @@ export default {
       this.$store.dispatch('postItem')
           .then((r) => {
             if (r !== 'invalid') {
+              removeObject()
+              setSavedObject(r.data)
+              this.$store.commit('setSnackbars', {text: 'Дом успешно сохранен', status: 'success'})
               this.$emit('save', 'next')
             }
+          })
+          .catch(e => {
+            this.$store.commit('setSnackbars', {text: e.message, status: 'error'})
           })
     }
   }

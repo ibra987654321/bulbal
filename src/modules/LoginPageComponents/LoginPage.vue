@@ -58,6 +58,10 @@ export default {
         this.e1 = 2
         return
       }
+      if (event === 'sign-up') {
+        this.e1 = 3
+        return
+      }
       if (n === this.steps) {
         this.e1 = 1
       } else {

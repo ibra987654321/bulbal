@@ -12,16 +12,19 @@
       </v-container>
     </v-main>
     <loginPage/>
+    <SnackBars/>
   </v-app>
 </template>
 
 <script>
 import Header from "@/widgets/header";
 const loginPage = () => import('@/modules/LoginPageComponents/LoginPage')
+const SnackBars = () => import('@/entities/snackbars/snackbars')
 export default {
   components: {
     Header,
-    loginPage
+    loginPage,
+    SnackBars
   },
   data: () => ({
   }),

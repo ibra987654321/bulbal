@@ -3,29 +3,40 @@ import {environment} from "@/environments/environment";
 
 export default {
     state:{
-        galleryData:[]
+        galleryData:[],
+        galleryFive: []
     },
     mutations: {
         setImages(state, data) {
             state.galleryData = data
+        },
+        setFiveImage(state, data) {
+            state.galleryFive = data
         }
     },
     getters: {
         completedAllImages: state => {
             return state.galleryData
         },
-        completedImages: state => {
-            return state.galleryData.slice(0,4)
+        completedFiveImages: state => {
+            return state.galleryFive.slice(1, 5)
         },
         oneImage: state => {
-            return state.galleryData[0]
+            return state.galleryFive[0]
         },
     },
     actions: {
         getImagesForDetail(store,id) {
-           return postAxios(`${environment.mainApi}/images/findAllByAccommodationId/${id}`)
+            return postAxios(`${environment.mainApi}/images/findAllByAccommodationId/${id}`)
                 .then(r => {
                     store.commit('setImages', r)
+                    return r
+                }).catch(e => console.log(e.message))
+        },
+        getFiveImagesForDetail(store,id) {
+            return postAxios(`${environment.mainApi}/images/findFiveByAccommodationId/${id}`)
+                .then(r => {
+                    store.commit('setFiveImage', r)
                     return r
                 }).catch(e => console.log(e.message))
         }

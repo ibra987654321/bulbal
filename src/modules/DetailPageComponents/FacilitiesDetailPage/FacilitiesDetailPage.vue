@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <h2>Удобства</h2>
+      <h2 class="poppins">Удобства</h2>
     </v-col>
-    <v-col v-for="(item, i) in postDetail.createObject.conveniences" cols="12" sm="6" class="d-flex">
+    <v-col v-for="(item, i) in postDetail.createObject.conveniences" cols="12" sm="6" class="poppins d-flex">
       <div>
-        <v-img :src="data[i].icon" class="mr-5"/>
+        <v-img :src="data[i].icon" width="24px" class="mr-5"/>
       </div>
-      <div class="title__facilities grey--text">{{item.convenienceName}}</div>
+      <div class="title__facilities poppins grey--text">{{item.convenienceName}}</div>
     </v-col>
     <v-col cols="12">
       <v-btn outlined rounded class="font-weight-medium text-capitalize">Подробнее</v-btn>

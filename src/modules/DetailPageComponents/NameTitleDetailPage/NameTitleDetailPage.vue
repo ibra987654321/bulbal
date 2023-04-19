@@ -1,9 +1,10 @@
 <template>
   <div class="">
     <v-row>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="10">
         <title-card
             :title="postDetail.createObject.titleOfAccommodation"
+            small
         >
           <div class="d-flex align-center">
             <div class="mr-2">
@@ -16,7 +17,7 @@
           </div>
         </title-card>
       </v-col>
-      <v-col cols="12" sm="6" class="d-flex" :class="$vuetify.breakpoint.mobile ? '': 'justify-end'">
+      <v-col cols="12" sm="2" class="d-flex" :class="$vuetify.breakpoint.mobile ? '': 'justify-end'">
         <div class="d-flex align-center" :class="$vuetify.breakpoint.mobile ? '' : 'flex-column'">
           <svg :class="$vuetify.breakpoint.mobile ? 'mr-2' : ''" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
                xmlns:xlink="http://www.w3.org/1999/xlink">

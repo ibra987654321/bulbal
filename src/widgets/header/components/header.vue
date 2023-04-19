@@ -1,22 +1,22 @@
 <template>
-  <div id="header">
+  <div id="header" >
     <v-app-bar
         app
-        color="white"
         flat
+        color="white"
+        class="header mb-5"
     >
       <v-container v-if="!$vuetify.breakpoint.mobile" class="py-0 d-flex fill-height">
         <router-link to="/">
           <v-img
-              max-height="60"
-              max-width="88"
+              max-height="45"
+              max-width="73"
               :src="require('../../../assets/logo/img.png')"
           ></v-img>
         </router-link>
         <v-spacer></v-spacer>
         <header-search></header-search>
         <v-spacer></v-spacer>
-        <v-btn v-if="getToken" to="/page-create" class="mr-2" rounded outlined>Создать</v-btn>
         <userCardMenu/>
       </v-container>
       <v-row v-else>
@@ -59,4 +59,9 @@ export default {
 </script>
 
 <style>
+.v-toolbar__content, .v-toolbar__extension {
+  overflow: hidden;
+  border-bottom: 1px solid #A3B194;
+  padding-bottom: 5px;
+}
 </style>

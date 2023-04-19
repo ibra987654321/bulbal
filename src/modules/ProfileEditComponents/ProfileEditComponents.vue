@@ -15,7 +15,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">Отображаемое имя</div>
           <v-text-field
-              v-model="personalData.nickName"
+              v-model="$store.state.profileEdit.profile.nickName"
               placeholder="Введите отображаемое имя"
               color="secondary"
               outlined
@@ -26,7 +26,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">настоящее имя</div>
           <v-text-field
-              v-model="personalData.name"
+              v-model="$store.state.profileEdit.profile.name"
               placeholder="Анна Ким"
               color="secondary"
               outlined
@@ -37,7 +37,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">Телефон</div>
           <v-text-field
-              v-model="personalData.phoneNumber"
+              v-model="$store.state.profileEdit.profile.phoneNumber"
               placeholder="Номер телефона"
               color="secondary"
               outlined
@@ -49,7 +49,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">email</div>
           <v-text-field
-              v-model="personalData.email"
+              v-model="$store.state.profileEdit.profile.email"
               placeholder="tamkim@icloud.com"
               color="secondary"
               outlined
@@ -60,7 +60,7 @@
         <v-col cols="12" sm="12">
           <div class="text-uppercase mb-2">био</div>
           <v-textarea
-              v-model="personalData.bio"
+              v-model="$store.state.profileEdit.profile.description"
               placeholder="Расскажите о себе немного другим любителям путешествий и хозяевам гостиниц."
               color="secondary"
               outlined
@@ -95,7 +95,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">живет в</div>
           <v-select
-              v-model="personalData.location"
+              v-model="$store.state.profileEdit.profile.liveIn"
               placeholder="Место нахождения"
               color="secondary"
               outlined
@@ -106,7 +106,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">язык</div>
           <v-select
-              v-model="personalData.language"
+              v-model="$store.state.profileEdit.profile.language"
               placeholder="English (United States)"
               color="secondary"
               outlined
@@ -115,23 +115,23 @@
               hide-details
           ></v-select>
         </v-col>
-        <v-col cols="12" sm="6">
-          <div class="text-uppercase mb-2">приложить удостоверение личности</div>
-          <v-file-input
-              v-model="personalData.document"
-              placeholder="Приложить документ"
-              color="secondary"
-              outlined
-              class="transparent"
-              prepend-icon=""
-              append-icon="mdi-camera"
-              hide-details
-          ></v-file-input>
-        </v-col>
+<!--        <v-col cols="12" sm="6">-->
+<!--          <div class="text-uppercase mb-2">приложить удостоверение личности</div>-->
+<!--          <v-file-input-->
+<!--              v-model="personalData.document"-->
+<!--              placeholder="Приложить документ"-->
+<!--              color="secondary"-->
+<!--              outlined-->
+<!--              class="transparent"-->
+<!--              prepend-icon=""-->
+<!--              append-icon="mdi-camera"-->
+<!--              hide-details-->
+<!--          ></v-file-input>-->
+<!--        </v-col>-->
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">контактное лицо в чрезвычайной ситуации</div>
           <v-text-field
-              v-model="personalData.extraPhoneNumber"
+              v-model="$store.state.profileEdit.profile.contactPerson"
               placeholder="Номер телефона"
               color="secondary"
               outlined
@@ -149,6 +149,7 @@
         <v-col cols="12" sm="6">
           <div class="text-uppercase mb-2">instagram</div>
           <v-text-field
+              v-model="$store.state.profileEdit.profile.instagramUrl"
               placeholder="URL"
               color="secondary"
               outlined
@@ -161,6 +162,7 @@
           <div class="text-uppercase mb-2">twitter</div>
           <v-form  aria-autocomplete="off">
             <v-text-field
+                v-model="$store.state.profileEdit.profile.twitterUrl"
                 placeholder="@twitter username"
                 color="secondary"
                 outlined
@@ -187,6 +189,7 @@
               rounded
               large
               class="text-capitalize px-8 mr-2"
+              @click="$store.dispatch('profileEdit')"
           >
             Сохранить
           </v-btn>
@@ -247,6 +250,9 @@ export default {
       extraPhoneNumber: '',
     }
   }),
+  mounted() {
+    console.log(this.$store.state.profileEdit.profile)
+  }
 }
 </script>
 

@@ -43,7 +43,7 @@
           <v-list-item v-for="(item, idx) in menu" :key="idx">
             <v-list-item-title v-if="item.function" @click="router()" style="cursor:pointer;">{{item.label}}</v-list-item-title>
             <v-list-item-title v-else-if="item.click" @click="$store.state.login[item.click] = true" style="cursor:pointer;">{{item.label}}</v-list-item-title>
-            <router-link v-else to="/" class="text-decoration-none black--text">
+            <router-link v-else :to="item.link" class="text-decoration-none black--text">
               <v-list-item-title>{{item.label}}</v-list-item-title>
             </router-link>
           </v-list-item>
@@ -60,8 +60,9 @@ export default {
   data: () => ({
     authMenu: [
       {label: 'Сообщения', link: '/'},
+      {label: 'Профиль', link: '/profile'},
       {label: 'План маршрута', link: '/'},
-      {label: 'Открыть гостевой дом', link: '/'},
+      {label: 'Открыть гостевой дом', link: '/page-create'},
       {label: 'Предложить услугу', link: '/'},
       {label: 'Выйти', link: '/', function: true},
     ],

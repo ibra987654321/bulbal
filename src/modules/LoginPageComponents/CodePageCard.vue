@@ -6,7 +6,7 @@
       <div>
         <div class="ma-auto position-relative" style="max-width: 300px">
           <v-otp-input
-              v-model="otp"
+              v-model="$store.state.login.login.otp"
               :disabled="loading"
               @finish="onFinish"
           ></v-otp-input>
@@ -44,12 +44,20 @@ export default {
   methods: {
     onFinish (rsp) {
       this.loading = true
-      setTimeout(() => {
-        this.loading = false
-        this.snackbarColor = (rsp === this.expectedOtp) ? 'success' : 'warning'
-        this.text = `Processed OTP with "${rsp}" (${this.snackbarColor})`
-        this.snackbar = true
-      }, 3500)
+      this.$store.dispatch('OTPCheck')
+          .then(() => {
+            this.loading = false
+            this.snackbarColor =  'success'
+            this.text = `Удачно`
+            this.snackbar = true
+            window.location.reload()
+          })
+          .catch(e => {
+            this.loading = false
+            this.snackbarColor = 'warning'
+            this.text = e.message()
+            this.snackbar = true
+          })
     },
   },
 }

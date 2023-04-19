@@ -28,7 +28,7 @@
         </div>
       </title-card>
     </div>
-    <div>
+    <div class="poppins">
       <v-form  aria-autocomplete="off">
         <v-text-field
             hide-details
@@ -59,7 +59,7 @@
         small
     >
     </title-card>
-    <comment-card v-for="i in 5" :key="i"></comment-card>
+    <comment-card class="poppins" v-for="i in 5" :key="i"></comment-card>
   </div>
 </template>
 

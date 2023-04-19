@@ -3,7 +3,7 @@
     <v-col cols="6" class="pr-1 pt-1 pb-0">
       <div class="gallery">
         <v-img
-            :src="'img/' + oneImage.fileName"
+            :src="'img/' + oneImage['fileName']"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
             class="grey lighten-2 img post_img"
             aspect-ratio="1.2"
@@ -19,7 +19,7 @@
     <v-col cols="6">
       <v-row class="">
         <v-col
-            v-for="(n, i) in completedImages"
+            v-for="(n, i) in completedFiveImages"
             :key="i"
             class="d-flex child-flex px-1 py-1"
             cols="6"
@@ -56,6 +56,9 @@ import {dataImage} from "@/helpers/dataForGallery";
 import {mapGetters, mapState} from "vuex";
 export default {
   name: "GalleryForDetailPage",
+  props: {
+    id: String
+  },
   components: {
     galleryDialog
   },
@@ -64,11 +67,11 @@ export default {
   }),
   computed: {
     ...mapGetters([
-      'completedImages', 'oneImage'
+      'completedFiveImages', 'oneImage'
     ])
   },
   async mounted() {
-    await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
+    await this.$store.dispatch('getFiveImagesForDetail', this.$props.id)
   },
 }
 </script>
