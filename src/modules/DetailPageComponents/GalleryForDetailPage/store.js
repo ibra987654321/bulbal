@@ -34,6 +34,7 @@ export default {
                 }).catch(e => console.log(e.message))
         },
         getFiveImagesForDetail(store,id) {
+            console.log(store.rootState.accommodationId)
             return postAxios(`${environment.mainApi}/images/findFiveByAccommodationId/${id}`)
                 .then(r => {
                     store.commit('setFiveImage', r)

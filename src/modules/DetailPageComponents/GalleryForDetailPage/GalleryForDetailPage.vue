@@ -57,7 +57,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   name: "GalleryForDetailPage",
   props: {
-    id: String
+    id: Number
   },
   components: {
     galleryDialog
@@ -68,10 +68,13 @@ export default {
   computed: {
     ...mapGetters([
       'completedFiveImages', 'oneImage'
-    ])
+    ]),
+    accId() {
+      return this.$props.id
+    }
   },
   async mounted() {
-    await this.$store.dispatch('getFiveImagesForDetail', this.$props.id)
+    await this.$store.dispatch('getFiveImagesForDetail', this.accId)
   },
 }
 </script>

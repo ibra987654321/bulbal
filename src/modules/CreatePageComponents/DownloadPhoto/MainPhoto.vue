@@ -57,7 +57,10 @@ export default {
       this.$refs.uploader.click()
     },
     onClickRemove(idx) {
-      this.files.splice(idx, 1)
+      this.$store.dispatch('deleteImage', this.id)
+          .then(() => {
+            this.files.splice(idx, 1)
+          })
     },
     onFileChanged(e) {
       this.loading = true

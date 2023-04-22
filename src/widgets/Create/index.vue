@@ -93,8 +93,11 @@ export default {
         this.tab = 0
       } else if (v === 'room') {
         this.tab = 1
+      }else if (v === 'prev') {
+        this.tab--
       }else if (v === 'publish') {
         this.success = true
+        this.$store.commit('setNullRoomData')
       } else {
         this.tab++
       }

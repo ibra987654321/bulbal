@@ -1,14 +1,7 @@
 <template>
   <div>
-    <div class="container d-flex justify-center align-center">
-      <v-progress-circular
-          v-if="$store.state.loading"
-          :size="50"
-          color="primary"
-          indeterminate
-      ></v-progress-circular>
+    <div class="container d-flex flex-column justify-center align-center" v-scroll="onWindowScroll">
       <stack
-          v-else
           :column-min-width="250"
           :gutter-width="15"
           :gutter-height="15"
@@ -23,7 +16,15 @@
           <PostCard :key="i" :data="image"/>
         </stack-item>
       </stack>
+      <v-progress-circular
+          v-if="$store.state.loading"
+          :size="50"
+          color="primary"
+          class="mx-auto"
+          indeterminate
+      ></v-progress-circular>
     </div>
+
   </div>
 </template>
 
@@ -38,6 +39,7 @@ export default {
     PostCard
   },
   data:() => ({
+    images: [],
   }),
   computed: {
     data() {
@@ -47,6 +49,22 @@ export default {
   async mounted() {
     await this.$store.dispatch('getMainPageData')
   },
+  watch: {
+    '$store.state.page'() {
+      this.$store.dispatch('getMainPageData')
+    }
+  },
+  methods: {
+    next() {
+      this.$store.state.page++
+    },
+    onWindowScroll() {
+      const scroll = document.documentElement.getBoundingClientRect()
+      if (scroll.bottom < document.documentElement.clientHeight + 150) {
+        this.next()
+      }
+    }
+  }
 }
 </script>
 

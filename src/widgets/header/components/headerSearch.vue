@@ -178,7 +178,7 @@ export default {
 
 <style scoped>
 .border {
-  padding: 5px;
+  /*padding: 5px;*/
   border: 1px solid #6C7B6B;
   border-radius: 4px;
   display: flex;

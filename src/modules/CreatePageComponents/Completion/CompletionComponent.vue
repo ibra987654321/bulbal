@@ -10,7 +10,7 @@
             <CompletionCard/>
           </v-col>
           <v-col cols="12" sm="8">
-            <CompletionDescription/>
+            <CompletionDescription @prev="$emit('prev')" @publish="$emit('publish')"/>
           </v-col>
         </v-row>
       </create-card>

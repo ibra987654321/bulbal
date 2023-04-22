@@ -38,6 +38,7 @@ export default {
     selectedFile: null,
     isSelecting: false,
     loading: false,
+    id: ''
   }),
   methods: {
     onButtonClick() {
@@ -48,7 +49,10 @@ export default {
       this.$refs.uploader.click()
     },
     onClickRemove(idx) {
-      this.files.splice(idx, 1)
+      this.$store.dispatch('deleteImage', this.id)
+          .then(() => {
+            this.files.splice(idx, 1)
+          })
     },
     onFileChanged(e) {
       this.loading = true
@@ -64,7 +68,10 @@ export default {
             const formData = new FormData()
             formData.append('multipartFile', this.files[f])
             this.$store.dispatch('uploadImage',formData)
-                .then(() => setTimeout(() =>this.loading = false, 1000))
+                .then((r) => {
+                  this.id = r.id
+                  this.loading = false
+                })
 
           })
         })

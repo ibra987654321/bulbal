@@ -13,7 +13,6 @@
             outlined
             class="border mb-2"
             hide-details
-            dense
             color="primary"
         ></v-select>
         <v-col cols="12" sm="4" class="pl-0 d-flex align-center">
@@ -36,22 +35,25 @@
             сом
           </div>
         </v-col>
-        <v-row  class="mt-8">
+        <v-row  class="mt-8 beds">
           <v-col cols="12" class="pb-0">
             <p class="mb-0 subtitle" >Сколько гостей можно разместить в вашем дома?</p>
           </v-col>
-          <v-col cols="6" sm="3">
+          <v-col cols="6" sm="5">
             <div class="black--text select_title">
               тип кровати
             </div>
             <div class="d-flex align-center border mt-2">
             <v-select
-                v-model="$store.state.create.rooms.typeOfBed"
-                :items="items"
+                v-model="$store.state.create.typeOfBedId"
+                :items="$store.state.create.typeOfRoom.typeOfBed"
+                item-value="id"
+                item-text="name"
                 hide-details
                 dense
                 solo
                 flat
+                @change="change($event)"
             ></v-select>
             </div>
           </v-col>
@@ -62,21 +64,6 @@
             <div class="d-flex align-center border mt-2">
               <v-select
                   v-model="$store.state.create.rooms.amountOfBed"
-                  :items="[1,2,3,4,5,6,7]"
-                  hide-details
-                  dense
-                  solo
-                  flat
-              ></v-select>
-            </div>
-          </v-col>
-          <v-col cols="3" sm="3">
-            <div class="black--text select_title">
-              Вмещаемость
-            </div>
-            <div class="d-flex align-center border mt-2">
-              <v-select
-                  v-model="$store.state.create.rooms.sizeOfBed"
                   :items="[1,2,3,4,5,6,7]"
                   hide-details
                   dense
@@ -115,7 +102,7 @@
               <div class="black--text select_title">
                 ЦЕНА
               </div>
-              <div class="d-flex align-center border">
+              <div class="d-flex align-center border mt-2">
                 <v-text-field
                     v-model="$store.state.create.rooms.pricePerBed"
                     solo
@@ -181,9 +168,17 @@ export default {
     //   return this.$store.state.create.createObject.rooms.length > 1
     // }
   },
+  mounted() {
+    this.$store.dispatch('getTypeOfRoom')
+    this.$store.dispatch('getTypeOfBed')
+  },
   methods: {
     submit(item) {
       this.$emit('submitItem', item)
+    },
+    change(id) {
+      const bed = this.$store.state.create.typeOfRoom.typeOfBed.find(i => i.id === id)
+      this.$store.commit('setBed', bed)
     },
     // addRoom() {
     //   const room = {
@@ -249,6 +244,7 @@ export default {
   font-size: 25px;
 }
 
+
 @media only screen and (max-width: 600px) {
   .list-item-content {
     font-size: 18px;
@@ -265,4 +261,9 @@ export default {
   font-family: 'Inter';
   font-style: normal;
  }
+</style>
+<style>
+.beds .v-select__slot {
+  max-height: 22px !important;
+}
 </style>

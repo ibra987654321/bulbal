@@ -7,11 +7,13 @@ import postDetail from "@/widgets/PostDetail/store/index"
 import profileEdit from "@/modules/ProfileEditComponents/store/index"
 import {postAxios} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
+import axios from "axios";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+      page: 1,
       loading: false,
       error: false,
       snackbars: {
@@ -20,10 +22,12 @@ export default new Vuex.Store({
           text: '',
           status: ''
       },
-      mainPageData: []
+      mainPageData: [],
+      accommodationId: ''
   },
   getters: {
-      getMainData: state => state.mainPageData
+      getMainData: state => state.mainPageData,
+      getAccommodationId: state => state.accommodationId
   },
   mutations: {
       setError(state) {
@@ -35,10 +39,13 @@ export default new Vuex.Store({
           state.snackbars.status = data.status
       },
       setMainData(state, data) {
-          state.mainPageData = data
+          state.mainPageData.push(...data)
       },
       setLoading(state, v) {
           state.loading = v
+      },
+      setAccommodationId(state, data) {
+          state.accommodationId = data
       }
   },
   actions: {
@@ -46,8 +53,8 @@ export default new Vuex.Store({
           store.commit('setLoading', true)
           store.state.header.selectedPlace = ''
           const data = {
-              "pageNumber": 0,
-              "pageSize": 5,
+              "pageNumber": store.state.page,
+              "pageSize": 12,
               "sortBy": "price"
           }
           postAxios(`${environment.mainApi}/main-page/getMainPage`, data)
@@ -59,7 +66,22 @@ export default new Vuex.Store({
               store.commit('setLoading', false)
               console.log(e.message)
           })
-      }
+      },
+      // exampleApi({state}) {
+      //     return axios.get(`https://api.unsplash.com/photos?page=${state.page}`,
+      //         {
+      //             headers: {
+      //                 Authorization: "Client-ID 5C84XakVl44t6sdB6F6qZ5kpvM2MsuuWibBxiRtVaE0",
+      //                 "Accept-Version": "v1"
+      //             }
+      //         })
+      //         .then(response => {
+      //             return response.data
+      //         })
+      //         .catch((e) => {
+      //             console.log(e)
+      //         })
+      // }
   },
     modules: {
         header,

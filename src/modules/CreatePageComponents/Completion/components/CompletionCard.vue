@@ -2,7 +2,7 @@
   <v-card class="px-3 py-3">
     <v-img
         class="image post_img"
-        :src="require('@/assets/images/mainFoto.png')"
+        :src="'img/' + data.imageFullName"
     ></v-img>
     <div class="rate">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,10 +14,10 @@
     </div>
     <div class="d-flex flex-column justify-space-between">
       <div class="black--text title__post font-weight-bold">
-        Кызыл- Жылдыз, Нарын
+        {{data.localityName}}
       </div>
       <div class="black--text d-flex">
-        11$ |
+        {{ data.price }} сом |
         <div class="ml-2 grey--text">
           ночь
         </div>
@@ -27,8 +27,22 @@
 </template>
 
 <script>
+import {getSavedObject} from "@/widgets/Create/helpers/helpers";
+
 export default {
-  name: "CompletionCard"
+  name: "CompletionCard",
+  data:() => ({
+    data: {}
+  }),
+  mounted() {
+    this.$store.dispatch('getPreview', getSavedObject().id)
+        .then(r => this.data = r)
+  },
+  setup() {
+    return {
+      getSavedObject: getSavedObject()
+    }
+  }
 }
 </script>
 

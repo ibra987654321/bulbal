@@ -6,7 +6,7 @@
         outlined
         rounded
         class="text-none"
-        :to="`/detail-preview/${getSavedObject.id}`"
+        @click="$emit('prev')"
       >Открыть предпросмотр</v-btn>
     </v-col>
     <v-col cols="12">
@@ -14,6 +14,7 @@
         color="primary"
         rounded
         class="text-none btn_width"
+        @click="$emit('publish')"
       >Опубликовать</v-btn>
     </v-col>
   </v-row>

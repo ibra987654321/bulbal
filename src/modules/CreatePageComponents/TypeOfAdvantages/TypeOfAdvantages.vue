@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     selectedColor(item) {
-      this.advantage.map((i) => {
+      this.$store.state.create.advantage.map((i) => {
         if (item.id === i.id) {
             if (i.selected) {
               i.selected = false

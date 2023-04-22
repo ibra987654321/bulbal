@@ -2,6 +2,7 @@ import {checkObjectFieldsEmpty, getAxios, post, postAxios} from "@/helpers/helpe
 import advantage from "@/modules/CreatePageComponents/TypeOfAdvantages/store/index"
 import typeOfRoom from "@/modules/CreatePageComponents/TypeOfRoom/store/index";
 import photo from "@/modules/CreatePageComponents/DownloadPhoto/store/index";
+import preview from "@/modules/CreatePageComponents/Completion/store/index"
 import {environment} from "@/environments/environment";
 import {getSavedObject, removeObject, setSavedObject} from "@/widgets/Create/helpers/helpers";
 export default {
@@ -24,6 +25,7 @@ export default {
             "amountOfBed": 0,
             "pricePerBed": 0
         },
+        typeOfBedId: '',
         regions:['Бишкек', 'Нарын', 'Ыссык-Кол', 'Ош', 'Талас', 'Жалал-Абад', 'Баткен'],
         locality: [],
         typeOfHouse: [],
@@ -34,6 +36,21 @@ export default {
         setRegion(state, data) {
             state.createObject.region = data.name
             state.createObject.regionId = data.id
+        },
+        setBed(state, data) {
+            state.rooms.typeOfBed = data.name
+            state.rooms.sizeOfBed = data.size
+        },
+        setNullRoomData(state) {
+            state.rooms = {
+                "accommodation_id": 0,
+                "typeOfAccommodation": "",
+                "price": 0,
+                "typeOfBed": "string",
+                "sizeOfBed": 0,
+                "amountOfBed": 0,
+                "pricePerBed": 0
+            }
         }
     },
     actions: {
@@ -63,7 +80,7 @@ export default {
         },
         postRoom({state}) {
             state.rooms.accommodation_id = getSavedObject().id
-            return postAxios(environment.mainApi + '/accommodation/saveRoom', state.rooms)
+            return postAxios(environment.mainApi + '/accommodation/saveBeds', state.rooms)
                 .then(r => {
                     removeObject()
                     setSavedObject(r)
@@ -80,6 +97,7 @@ export default {
     modules: {
         advantage,
         typeOfRoom,
-        photo
+        photo,
+        preview
     }
 }
