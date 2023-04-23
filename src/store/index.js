@@ -7,7 +7,6 @@ import postDetail from "@/widgets/PostDetail/store/index"
 import profileEdit from "@/modules/ProfileEditComponents/store/index"
 import {postAxios} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
-import axios from "axios";
 
 Vue.use(Vuex)
 
@@ -23,10 +22,12 @@ export default new Vuex.Store({
           status: ''
       },
       mainPageData: [],
+      searchPageData: [],
       accommodationId: ''
   },
   getters: {
       getMainData: state => state.mainPageData,
+      getSearchData: state => state.searchPageData,
       getAccommodationId: state => state.accommodationId
   },
   mutations: {
@@ -40,6 +41,9 @@ export default new Vuex.Store({
       },
       setMainData(state, data) {
           state.mainPageData.push(...data)
+      },
+      setSearchPage(state, data) {
+          state.searchPageData = data
       },
       setLoading(state, v) {
           state.loading = v

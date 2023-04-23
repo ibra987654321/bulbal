@@ -2,7 +2,7 @@
   <v-card elevation="0" class="d-flex align-center justify-space-between">
     <v-card-text>
       <v-text-field
-        v-model="$store.state.header.selectedPlace"
+        v-model="searchItems"
         solo
         flat
         hide-details
@@ -63,8 +63,8 @@ export default {
   computed: {
     filteredItems() {
       return this.$store.state.create.regions.filter((item) => {
-        if (this.$store.state.header.selectedPlace) {
-          return item.toLowerCase().indexOf(this.$store.state.header.selectedPlace.toLowerCase()) !== -1;
+        if (this.searchItems) {
+          return item.toLowerCase().indexOf(this.searchItems.toLowerCase()) !== -1;
         }
       });
     },

@@ -36,13 +36,13 @@ export default {
                 "pageNumber": 0,
                 "pageSize": 5,
                 "sortBy": "price",
-                "region": store.state.selectedPlace
+                "locality": store.state.selectedPlace
             }
             postAxios(`${environment.mainApi}/main-page/searchAccommodations/${store.state.range.start.toISOString().slice(0, 19)}/${store.state.range.end.toISOString().slice(0, 19)}`, data)
                 .then(r => {
                     setTimeout(() => {
                         store.commit('setLoading', false)
-                        store.commit('setMainData', r.content)
+                        store.commit('setSearchPage', r.content)
                     }, 2000)
                 }).catch(e => console.log(e.message))
         }

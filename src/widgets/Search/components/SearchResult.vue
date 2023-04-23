@@ -44,7 +44,7 @@ export default {
   }),
   computed: {
     data() {
-      return this.$store.getters.getMainData
+      return this.$store.getters.getSearchData
     }
   },
   async mounted() {

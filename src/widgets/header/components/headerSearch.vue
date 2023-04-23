@@ -156,7 +156,11 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({name:'search'})
+      if (this.$router.currentRoute.name !== 'search') {
+        this.$router.push({name:'search'})
+        return
+      }
+      this.$store.dispatch('searchByFilter')
     },
   },
   setup() {

@@ -26,7 +26,7 @@ export default {
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.5px;
 }
 .title__content {
   font-size: 30px;
