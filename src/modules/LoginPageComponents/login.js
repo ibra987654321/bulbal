@@ -1,4 +1,4 @@
-import {postAxios} from "@/helpers/helpers";
+import {post, postAxios} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 import {setToken} from "@/helpers/token";
 
@@ -11,11 +11,15 @@ export default {
             password: "",
             otp: "",
             personalPass: ""
-        }
+        },
+        error: ''
     },
     getters: {
     },
     mutations: {
+        setErrorLogin(state, data) {
+            state.error = data
+        }
     },
     actions: {
         register({state}) {
@@ -26,18 +30,18 @@ export default {
             return postAxios(`${environment.mainApi}/send-mail/checkOtp`, state.login)
                 .then(r => console.log(r))
         },
-        login({state}) {
+        login({state, commit}) {
             const login = {
                 "username": state.login.email,
                 "password": state.login.password
             }
-            return postAxios(`${environment.mainApi}/login/auth`, login)
+            return post(`${environment.mainApi}/login/auth`, login)
                 .then(res => {
                     setToken(res.token)
                     window.location.reload()
                 })
                 .catch(e => {
-                    console.log(e.message)
+                    commit('setErrorLogin', 'Не правильный логин или пароль!')
                 })
         }
     },

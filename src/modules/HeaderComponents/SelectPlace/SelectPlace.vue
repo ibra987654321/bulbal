@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="0" class="d-flex align-center justify-space-between">
-    <v-card-text>
+    <v-card-text class="search_room">
       <v-text-field
         v-model="searchItems"
         solo
@@ -24,19 +24,20 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <hr class="mt-5"/>
+      <hr :class="$vuetify.breakpoint.mobile ? 'mt-1' : 'mt-5'"/>
       <div class="select_place">
         <v-list dense >
           <v-list-item-group
               color="primary"
+              :class="$vuetify.breakpoint.mobile ? 'd-flex flex-column' : ''"
           >
             <v-list-item
                 v-for="(item, i) in items"
                 :key="i"
             >
-              <v-list-item-content :class="$vuetify.breakpoint.mobile ? '' : 'd-flex flex-nowrap'">
+              <v-list-item-content class="d-flex flex-nowrap">
                 <v-img :src="item.icon" width="100%" height="100%" max-width="32px"></v-img>
-                <v-list-item-title v-text="item.text" @click="$store.state.header.selectedTypeOfPlace = item.text"></v-list-item-title>
+                <v-list-item-title class="selected_item" v-text="item.text" @click="$store.state.header.selectedTypeOfPlace = item.text"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -79,9 +80,20 @@ export default {
   font-size: 16px !important;
   color: #777E90;
 }
+
+
 </style>
 <style>
 .select_place .v-item-group {
   display: flex !important;
+}
+@media only screen and (max-width: 600px) {
+  .search_room .v-label {
+    font-size: 13px !important;
+  }
+  .selected_item {
+    margin: auto 10px;
+    font-size: 9.03346px;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fff" class="px-8 py-5">
+  <div style="background-color: #fff" :class="$vuetify.breakpoint.mobile ? 'px-2 py-1' : 'px-8 py-5'">
     <CountCardIItem v-for="(item, idx) in $store.state.header.countItemList" :key="idx" :index="idx" :title="item.title" :subtitle="item.subtitle" :object-name="item.objectName"/>
   </div>
 </template>

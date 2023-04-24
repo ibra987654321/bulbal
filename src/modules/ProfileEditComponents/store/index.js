@@ -1,4 +1,4 @@
-import {decodeJWT, putAxios} from "@/helpers/helpers";
+import {decodeJWT, post, putAxios} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 
 export default {
@@ -33,7 +33,7 @@ export default {
             if (decodeJWT()) {
                 state.profile.userId = decodeJWT().userId
             }
-            putAxios(`${environment.mainApi}/user/fillOutAForm`, state.profile)
+            post(`${environment.mainApi}/user/fillOutAForm`, state.profile)
                 .then(r => {
                     console.log(r)
                 })

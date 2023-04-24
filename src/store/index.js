@@ -66,6 +66,7 @@ export default new Vuex.Store({
                       store.commit('setLoading', false)
                       store.commit('setMainData', r.content)
 
+
               }).catch(e => {
               store.commit('setLoading', false)
               console.log(e.message)

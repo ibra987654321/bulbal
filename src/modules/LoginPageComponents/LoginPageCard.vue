@@ -22,6 +22,7 @@
           :type="show1 ? 'text' : 'password'"
           @click:append="show1 = !show1"
       ></v-text-field>
+      <div v-if="$store.state.login.error !== ''" class="red--text"> {{$store.state.login.error}} </div>
       <div class="d-flex justify-end blue--text"><a href="#" @click="$emit('next', 'forget')">Забыли пароль?</a></div>
       <v-btn
           color="primary"
