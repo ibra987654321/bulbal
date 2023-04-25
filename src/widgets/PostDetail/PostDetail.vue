@@ -12,7 +12,7 @@
             <v-col cols="12" sm="9">
               <TitleForDetailPage/>
             </v-col>
-            <v-col cols="3" class="d-flex justify-end">
+            <v-col v-if="!$vuetify.breakpoint.mobile" cols="3" class="d-flex justify-end">
               <v-btn text small>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_240_2946)">
@@ -46,10 +46,6 @@
                   <div>
                     <NameTitleDetailPage/>
                   </div>
-                  <hr>
-                </v-col>
-                <v-col cols="12">
-                  <RoomCountDetailPage/>
                 </v-col>
                 <v-col cols="12">
                   <DescriptionDetailPage/>
@@ -60,7 +56,8 @@
               </v-row>
             </v-col>
             <v-col  cols="12" sm="4" class="d-flex justify-center">
-              <BookCardDetailPage/>
+              <BookingForMobile v-if="$vuetify.breakpoint.mobile"/>
+              <BookCardDetailPage v-else/>
             </v-col>
             <v-col cols="12">
               <v-row>
@@ -89,6 +86,7 @@ import RoomCountDetailPage from "@/modules/DetailPageComponents/RoomCountDetailP
 import DescriptionDetailPage from "@/modules/DetailPageComponents/DescriptionDetailPage/DescriptionDetailPage";
 import FacilitiesDetailPage from "@/modules/DetailPageComponents/FacilitiesDetailPage/FacilitiesDetailPage";
 import BookCardDetailPage from "@/modules/DetailPageComponents/BookCardDetailPage/BookCardDetailPage";
+import BookingForMobile from "@/modules/DetailPageComponents/BookCardDetailPage/BookingForMobile";
 import OwnerInfoDetailPage from "@/modules/DetailPageComponents/OwnerInfoDetailPage/OwnerInfoDetailPage";
 import CommentDetailPage from "@/modules/DetailPageComponents/CommentDetailPage/CommentDetailPage";
 export default {
@@ -105,9 +103,11 @@ export default {
     BookCardDetailPage,
     OwnerInfoDetailPage,
     CommentDetailPage,
+    BookingForMobile,
   },
   mounted() {
     this.$store.dispatch('getAccommodationById', this.$route.params.id)
+    this.$store.dispatch('getUserByAccommodationId', this.$route.params.id)
   }
 }
 </script>

@@ -49,9 +49,7 @@ data:() => ({
 <style scoped>
 img {
   width: 100%;
-  max-width: 223.07px;
   height: auto;
-  max-height: 401px;
   position: relative;
 }
 

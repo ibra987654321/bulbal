@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="mb-4 grey--text" style="font-family: 'Poppins', sans-serif;">
-<!--     {{postDetail.createObject.fullDescriptionOfAccommodation}}-->
       <div v-if="showFullText">
-        <p>{{ shortText}}</p>
+        <p>{{ postDetail.createObject.fullDescriptionOfAccommodation}}</p>
       </div>
       <div v-else>
-        <p>{{ shortText.slice(0, 10)  }}</p>
-        <div  @click="showFullText = true">Показать ещё</div>
+        <p>{{ postDetail.createObject.fullDescriptionOfAccommodation.slice(0, 100)  }}</p>
       </div>
+      <div class="black--text" style="cursor: pointer" @click="showFullText = !showFullText">{{showFullText ? 'Скрыть' : 'Показать ещё >'}}</div>
     </div>
   </div>
 

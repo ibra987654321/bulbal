@@ -33,7 +33,7 @@ export default {
             if (decodeJWT()) {
                 state.profile.userId = decodeJWT().userId
             }
-            post(`${environment.mainApi}/user/fillOutAForm`, state.profile)
+            putAxios(`${environment.mainApi}/user/fillOutAForm`, state.profile)
                 .then(r => {
                     console.log(r)
                 })

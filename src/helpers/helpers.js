@@ -22,6 +22,18 @@ export const getAxios = url => {
             store.commit('setSnackbars', e.message)
         })
 }
+export const getUrl = url => {
+    // store.state.loading = true
+    // store.state.error = false
+    return axios({
+        method: 'GET',
+        url,
+        // headers: {
+        //     // 'Content-Type': 'application/json',
+        //     Authorization: `Bearer ${getToken()}`,
+        // },
+    })
+}
 export const uploadMultipart = (url, formData) => {
     return axios.post(url,
         formData,
@@ -134,7 +146,7 @@ export const extraAxios = (method, url, payload) => {
 }
 
 export const putAxios = (url, payload) => {
-    // store.state.loading = true
+    store.state.loading = true
     // store.state.error = false
     return axios({
         method: 'PUT',
@@ -145,18 +157,18 @@ export const putAxios = (url, payload) => {
         // },
         data: payload,
     }).then(r => {
-        // store.state.loading = false
-        store.commit('setSnackbars', 'Успешно изменено')
+        store.state.loading = false
+        store.commit('setSnackbars', {text: 'Успешно изменено', status: 'success'})
         return r.data
     })
         .catch(e => {
-            // store.state.loading = false
+            store.state.loading = false
             if (e.response) {
-                store.commit('setSnackbars', e.response.data)
+                store.commit('setSnackbars', {text: e.response.data, status: 'success'})
                 return
             }
             store.commit('setError')
-            store.commit('setSnackbars', e.message)
+            store.commit('setSnackbars', {text: e.message, status: 'success'})
         })
 }
 export const deleteAxios = (url, payload) => {

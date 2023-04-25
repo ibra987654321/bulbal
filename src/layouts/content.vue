@@ -13,6 +13,7 @@
     </v-main>
     <loginPage/>
     <SnackBars/>
+    <booking-drawer></booking-drawer>
   </v-app>
 </template>
 
@@ -20,11 +21,13 @@
 import Header from "@/widgets/header";
 const loginPage = () => import('@/modules/LoginPageComponents/LoginPage')
 const SnackBars = () => import('@/entities/snackbars/snackbars')
+import bookingDrawer from "@/modules/DetailPageComponents/BookCardDetailPage/BookingDrawer";
 export default {
   components: {
     Header,
     loginPage,
-    SnackBars
+    SnackBars,
+    bookingDrawer
   },
   data: () => ({
   }),

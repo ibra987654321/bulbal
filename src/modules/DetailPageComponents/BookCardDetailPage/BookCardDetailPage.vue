@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="rounded-lg elevation-0 card_block">
+    <v-card class="rounded-lg elevation-0 card_book_block">
       <div class="d-flex justify-space-between">
         <div class="">
           <v-card-title class="d-flex justify-space-between">
@@ -9,11 +9,7 @@
             </div>
           </v-card-title>
           <v-card-subtitle class="d-flex pl-0 align-center poppins">
-            <svg class="mx-2 my-2 ml-3" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1128 1.28584L13.9159 4.83396L17.9638 5.40522C19.8601 5.67275 20.7269 8.01285 19.2651 9.39572L16.3576 12.1438L17.0419 16.016C17.3923 17.9996 15.287 19.3318 13.6291 18.4871L9.99983 16.6358L6.37158 18.4865C4.71129 19.334 2.6077 17.9973 2.95772 16.016L3.64203 12.1438L0.734898 9.3961C-0.727986 8.01223 0.141888 5.67263 2.03558 5.40525L6.08385 4.83394L7.88788 1.28584C8.75916 -0.428539 11.2417 -0.428688 12.1128 1.28584Z" fill="#FFD166"/>
-            </svg>
-            <div class="font-weight-bold text--black mr-2">4.8</div>
-            (56 отзывов)
+            <reviews rate="4.6" count="56" class="poppins"></reviews>
           </v-card-subtitle>
         </div>
       </div>
@@ -151,7 +147,7 @@
           <v-col cols="12" class="d-flex">
             <v-btn outlined rounded class="text-capitalize" style="border: thin solid #E6E8EC">Сохранить
             </v-btn>
-            <v-btn color="primary" @click="book()" class="ml-3 w-100 text-capitalize" style="max-width: 205px" rounded>
+            <v-btn color="primary" @click="book()" :class="!$vuetify.breakpoint.mobile ? 'w-100' : ''" class="ml-3  text-capitalize" style="max-width: 205px" rounded>
               Бронировать
               <svg width="17" class="ml-2" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3281 5.33333H4.6719C3.90281 5.33333 3.29319 5.98224 3.34117 6.74984L3.6745 12.0832C3.71842 12.7859 4.30115 13.3333 5.00524 13.3333H11.9948C12.6989 13.3333 13.2816 12.7859 13.3255 12.0832L13.6589 6.74984C13.7068 5.98224 13.0972 5.33333 12.3281 5.33333ZM4.6719 4C3.13371 4 1.91448 5.29781 2.01043 6.83301L2.34376 12.1663C2.4316 13.5718 3.59707 14.6667 5.00524 14.6667H11.9948C13.403 14.6667 14.5684 13.5718 14.6563 12.1663L14.9896 6.83301C15.0856 5.29781 13.8663 4 12.3281 4H4.6719Z" fill="#FCFCFD"/>
@@ -198,13 +194,15 @@
 <script>
 import CountCardList from "@/modules/HeaderComponents/CountCardIItem/CountCardList";
 import BookCardRoomItems from "@/modules/DetailPageComponents/BookCardDetailPage/BookCardRoomItems";
+import reviews from "@/entities/reviews/reviews";
 import {mapGetters} from "vuex";
 
 export default {
   name: "BookCardDetailPage",
   components: {
     CountCardList,
-    BookCardRoomItems
+    BookCardRoomItems,
+    reviews
   },
   data: () => ({
     rating: 1,
@@ -279,9 +277,12 @@ export default {
 .result .theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before {
   border-radius: 8px;
 }
-.card_block {
+.card_book_block {
   max-width: 390px;
-  filter: drop-shadow(0px 64px 64px rgba(15, 15, 15, 0.08));
   border: 1px solid #e3e2e2;
+  filter: drop-shadow(0px 9px 3px rgba(15, 15, 15, 0.08));
 }
+</style>
+<style>
+
 </style>

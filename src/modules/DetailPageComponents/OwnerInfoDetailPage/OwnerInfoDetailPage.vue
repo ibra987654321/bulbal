@@ -14,7 +14,7 @@
           </svg>
         </v-card-title>
         <div>
-          <v-card-title class="pb-1"><h3>Азамат байке</h3></v-card-title>
+          <v-card-title class="pb-1 " style="font-size: 30px;"><h3>{{postDetail.userData.name}}</h3></v-card-title>
           <reviews rate="4.6" count="56" class="poppins"></reviews>
         </div>
       </div>
@@ -39,8 +39,8 @@
       </v-card-text>
       <v-card-text>
         <div class="mb-4 grey--text text-center poppins">
-          Я люблю встречать гостей, кажется я родилась для этого, люблю готовить и наблюдать за реакцией людей, когда они пробуют мою еду. Еще мне нравится когда мои гости, приезжают к нам по второму разу, это счастье.
-        </div>
+          {{postDetail.userData.description}}
+         </div>
       </v-card-text>
       <v-card-text>
         <div class="d-flex justify-center">
@@ -95,6 +95,7 @@
 <script>
 import reviews from "@/entities/reviews/reviews";
 import DetailReviewLine from "@/entities/reviews/DetailReviewLine";
+import {mapState} from "vuex";
 export default {
   name: "OwnerInfoDetailPage",
   components: {
@@ -108,7 +109,10 @@ export default {
       {title: 'Удобства', count: 94},
       {title: 'Гости', count: 58},
     ]
-  })
+  }),
+  computed: {
+    ...mapState(['postDetail'])
+  }
 }
 </script>
 

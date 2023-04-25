@@ -5,13 +5,15 @@ import login from "@/modules/LoginPageComponents/login";
 import create from "@/widgets/Create/store/index";
 import postDetail from "@/widgets/PostDetail/store/index"
 import profileEdit from "@/modules/ProfileEditComponents/store/index"
-import {postAxios} from "@/helpers/helpers";
+import {post} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+      mobileBook: false,
+      content: false,
       page: 0,
       loading: false,
       error: false,
@@ -28,7 +30,7 @@ export default new Vuex.Store({
   getters: {
       getMainData: state => state.mainPageData,
       getSearchData: state => state.searchPageData,
-      getAccommodationId: state => state.accommodationId
+      getAccommodationId: state => state.accommodationId,
   },
   mutations: {
       setError(state) {
@@ -38,6 +40,9 @@ export default new Vuex.Store({
           state.snackbars.snackbar = true
           state.snackbars.text = data.text
           state.snackbars.status = data.status
+      },
+      setNullMainData(state) {
+          state.mainPageData = []
       },
       setMainData(state, data) {
           state.mainPageData.push(...data)
@@ -61,16 +66,15 @@ export default new Vuex.Store({
               "pageSize": 12,
               "sortBy": "price"
           }
-          postAxios(`${environment.mainApi}/main-page/getMainPage`, data)
+          post(`${environment.mainApi}/main-page/getMainPage`, data)
               .then(r => {
-                      store.commit('setLoading', false)
-                      store.commit('setMainData', r.content)
-
+                  store.commit('setLoading', false)
+                  store.commit('setMainData', r.data.content)
 
               }).catch(e => {
-              store.commit('setLoading', false)
-              console.log(e.message)
-          })
+                  store.commit('setLoading', false)
+                  store.commit('setSnackbars', {text: e.message, status: 'error'})
+              })
       },
       // exampleApi({state}) {
       //     return axios.get(`https://api.unsplash.com/photos?page=${state.page}`,

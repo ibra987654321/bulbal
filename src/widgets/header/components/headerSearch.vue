@@ -50,17 +50,19 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5595 11.3177C10.1749 11.3177 9.86313 11.6295 9.86313 12.0141C9.86313 12.3987 10.1749 12.7105 10.5595 12.7105H15.4343C15.819 12.7105 16.1307 12.3987 16.1307 12.0141C16.1307 11.6295 15.819 11.3177 15.4343 11.3177H10.5595ZM8.47033 14.1033C8.08572 14.1033 7.77393 14.4151 7.77393 14.7997C7.77393 15.1843 8.08572 15.4961 8.47033 15.4961H12.6487C13.0333 15.4961 13.3451 15.1843 13.3451 14.7997C13.3451 14.4151 13.0333 14.1033 12.6487 14.1033H8.47033Z" fill="#B1B5C3"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.47033 4.35372C8.08572 4.35372 7.77393 4.66551 7.77393 5.05012V7.83573C7.77393 8.22033 8.08572 8.53213 8.47033 8.53213C8.85494 8.53213 9.16673 8.22033 9.16673 7.83573V5.05012C9.16673 4.66551 8.85494 4.35372 8.47033 4.35372ZM15.4343 4.3537C15.0497 4.3537 14.7379 4.66549 14.7379 5.0501V7.83571C14.7379 8.22031 15.0497 8.53211 15.4343 8.53211C15.8189 8.53211 16.1307 8.22031 16.1307 7.83571V5.0501C16.1307 4.66549 15.8189 4.3537 15.4343 4.3537Z" fill="#B1B5C3"/>
               </svg>
-              <div v-if="!$vuetify.breakpoint.mobile">
-                {{$store.state.header.range.start | date}}
-                -
-                {{$store.state.header.range.end | date}}
-              </div>
+              <div v-if="!showDate"> Дата</div>
               <div v-else>
-                {{$store.state.header.range.start | dmobi}}
-                -
-                {{$store.state.header.range.end | dmobi}}
+                <div v-if="!$vuetify.breakpoint.mobile">
+                  {{$store.state.header.range.start | date}}
+                  -
+                  {{$store.state.header.range.end | date}}
+                </div>
+                <div v-else>
+                  {{$store.state.header.range.start | dmobi}}
+                  -
+                  {{$store.state.header.range.end | dmobi}}
+                </div>
               </div>
-
             </v-btn>
           </template>
           <div>
@@ -133,6 +135,7 @@ export default {
     SelectPlace
   },
   data:() => ({
+    showDate: false,
     date: false,
     place: false,
     people: false,
@@ -140,6 +143,7 @@ export default {
   watch: {
     '$store.state.header.range'(v) {
       if (v) {
+        this.showDate = true
         this.$store.commit('changeRange', v)
         this.date = false
       }
@@ -244,6 +248,13 @@ export default {
   }
   .border .v-btn {
     height: 24px !important;
+  }
+  .icon_in_btn {
+    margin-right: 2px !important;
+  }
+  .border .guests {
+    width: 100%;
+    min-width: 65px !important;
   }
 }
 .vc-pane-layout {

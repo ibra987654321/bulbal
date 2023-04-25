@@ -1,6 +1,6 @@
 import gallery from "@/modules/DetailPageComponents/GalleryForDetailPage/store"
 import booking from "@/modules/DetailPageComponents/BookCardDetailPage/store/index"
-import {getAxios} from "@/helpers/helpers";
+import {getAxios, getUrl} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 
 export default {
@@ -14,11 +14,15 @@ export default {
             "conveniences": [],
             price: 0
         },
+        userData: {}
     },
     mutations: {
         updateData(state, data) {
             state.createObject = data
-        }
+        },
+        setUser(state, data) {
+            state.userData = data
+        },
     },
     getters: {
         priceForBooking: state => {
@@ -29,6 +33,10 @@ export default {
         getAccommodationById({commit},id) {
             getAxios(`${environment.mainApi}/accommodation/${id}`)
                 .then(r => commit('updateData', r)).catch(e => console.log(e.message))
+        },
+        getUserByAccommodationId({commit},id) {
+            getUrl(`${environment.mainApi}/login/userDtoByByAccommodationId/${id}`)
+                .then(r => commit('setUser', r.data)).catch(e => console.log(e.message))
         }
     },
     modules: {

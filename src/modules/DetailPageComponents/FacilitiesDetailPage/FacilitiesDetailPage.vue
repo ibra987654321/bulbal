@@ -9,9 +9,9 @@
       </div>
       <div class="title__facilities poppins grey--text">{{item.convenienceName}}</div>
     </v-col>
-    <v-col cols="12">
-      <v-btn outlined rounded class="font-weight-medium text-capitalize">Подробнее</v-btn>
-    </v-col>
+<!--    <v-col cols="12">-->
+<!--      <v-btn outlined rounded class="font-weight-medium text-capitalize">Подробнее</v-btn>-->
+<!--    </v-col>-->
   </v-row>
 </template>
 

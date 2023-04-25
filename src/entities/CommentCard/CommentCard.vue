@@ -14,8 +14,10 @@
     <v-col cols="11">
       <v-row>
         <v-col cols="12" class="d-flex justify-space-between">
-          <div>Мирти
-            Рунольфссон</div>
+          <div class="fz-14">
+            Мирти
+            Рунольфссон
+          </div>
           <div>
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_240_2688)">
@@ -31,21 +33,20 @@
                 </clipPath>
               </defs>
             </svg>
-
           </div>
         </v-col>
-        <v-col cols="12" class="py-0">
+        <v-col cols="12" class="py-0 fz-14">
           У нас был самый захватывающий вид. К сожалению, с 14:00 до 20:30 в номере было очень жарко из-за отсутствия кондиционера и тени.
         </v-col>
         <v-col class="d-flex align-center">
           <small>1 день назад</small>
           <v-btn
             text
-            class="text-capitalize"
+            class="text-capitalize fz-12"
           >Нравиться</v-btn>
           <v-btn
               text
-              class="text-capitalize"
+              class="text-capitalize fz-12"
           >Отвечать</v-btn>
         </v-col>
       </v-row>
@@ -60,5 +61,16 @@ export default {
 </script>
 
 <style scoped>
-
+.fz-14 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px
+}
+.fz-12 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px
+}
 </style>
