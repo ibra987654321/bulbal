@@ -8,6 +8,7 @@
           <v-otp-input
               v-model="$store.state.login.login.otp"
               :disabled="loading"
+              length="4"
               @finish="onFinish"
           ></v-otp-input>
           <v-overlay absolute :value="loading">
@@ -31,6 +32,8 @@
 </template>
 
 <script>
+import {setToken} from "@/helpers/token";
+
 export default {
   name: "CodePageCard",
   data: () => ({
@@ -45,11 +48,12 @@ export default {
     onFinish (rsp) {
       this.loading = true
       this.$store.dispatch('OTPCheck')
-          .then(() => {
+          .then((res) => {
             this.loading = false
             this.snackbarColor =  'success'
             this.text = `Удачно`
             this.snackbar = true
+            setToken(res.data.token)
             window.location.reload()
           })
           .catch(e => {

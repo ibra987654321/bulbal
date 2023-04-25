@@ -27,8 +27,7 @@ export default {
                .then(r => console.log(r))
         },
         OTPCheck({state}) {
-            return postAxios(`${environment.mainApi}/send-mail/checkOtp`, state.login)
-                .then(r => console.log(r))
+            return post(`${environment.mainApi}/send-mail/checkOtp`, state.login)
         },
         login({state, commit}) {
             const login = {
@@ -37,7 +36,7 @@ export default {
             }
             return post(`${environment.mainApi}/login/auth`, login)
                 .then(res => {
-                    setToken(res.token)
+                    setToken(res.data.token)
                     window.location.reload()
                 })
                 .catch(e => {

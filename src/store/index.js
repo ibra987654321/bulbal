@@ -12,7 +12,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      page: 1,
+      page: 0,
       loading: false,
       error: false,
       snackbars: {
