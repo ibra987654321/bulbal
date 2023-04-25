@@ -30,12 +30,18 @@
 </template>
 
 <script>
+import {dataImage} from "@/helpers/dataForGallery";
+
 export default {
   props: {
     data: Object
   },
   name: "PostCard",
+data:() => ({
+  img: [],
+}),
   mounted() {
+    dataImage('home',500, 50).then(r=> this.img = r)
   }
 }
 </script>
@@ -43,7 +49,9 @@ export default {
 <style scoped>
 img {
   width: 100%;
+  max-width: 223.07px;
   height: auto;
+  max-height: 401px;
   position: relative;
 }
 

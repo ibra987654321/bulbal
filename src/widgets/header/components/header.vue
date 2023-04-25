@@ -63,5 +63,7 @@ export default {
   overflow: hidden;
   border-bottom: 1px solid #A3B194;
   padding-bottom: 5px;
+  height: 80px !important;
+  background-color: white;
 }
 </style>

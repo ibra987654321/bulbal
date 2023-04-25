@@ -21,7 +21,7 @@
         <v-col
             v-for="(n, i) in completedFiveImages"
             :key="i"
-            class="d-flex child-flex px-1 py-1"
+            class="d-flex child-flex px-2 py-2"
             cols="6"
         >
           <v-img
@@ -91,5 +91,11 @@ export default {
   position: absolute;
   bottom: 10px;
   left: 10px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  height: 100%;
+  min-height: 40px;
 }
 </style>

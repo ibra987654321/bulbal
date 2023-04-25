@@ -2,7 +2,7 @@
   <div>
     <div class="container d-flex flex-column justify-center align-center" v-scroll="onWindowScroll">
       <stack
-          :column-min-width="250"
+          :column-min-width="200"
           :gutter-width="15"
           :gutter-height="15"
           monitor-images-loaded
