@@ -4,6 +4,7 @@ import {environment} from "@/environments/environment";
 export default {
     state:{
         galleryData:[],
+        galleryMobileData:[],
         galleryFive: []
     },
     mutations: {
@@ -11,7 +12,7 @@ export default {
             state.galleryData = data
         },
         setMobileImages(state, data) {
-            state.galleryData = data
+            state.galleryMobileData = data
         },
         setFiveImage(state, data) {
             state.galleryFive = data
@@ -20,6 +21,9 @@ export default {
     getters: {
         completedAllImages: state => {
             return state.galleryData
+        },
+        completedAllMobileImages: state => {
+            return state.galleryMobileData
         },
         completedFiveImages: state => {
             return state.galleryFive.slice(1, 5)
@@ -61,7 +65,6 @@ export default {
                             i += 2
                         }
                     }
-
                     store.commit('setImages', result)
                     store.commit('setMobileImages', response.data)
                 }).catch(e => console.log(e.message))

@@ -70,6 +70,15 @@ export default {
         this.$store.commit('setLoading', false)
       }
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(from)
+    console.log(to)
+    // if (from.name === 'testing' && (to.name === 'login'  || to.name === 'profile') ) {
+    //   next(false);
+    // } else {
+    //   next();
+    // }
   }
 }
 </script>

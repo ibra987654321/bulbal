@@ -10,6 +10,14 @@ export default {
   name: "MainPage",
   components: {
     PostList
+  },
+  beforeRouteLeave(to, from, next) {
+    if (from.name === 'main' && to.name === 'detail' ) {
+      this.$store.commit('setRoute', true)
+      next();
+    } else {
+      next();
+    }
   }
 }
 </script>

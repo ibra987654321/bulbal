@@ -2,7 +2,7 @@
   <div>
     <v-carousel>
       <v-carousel-item
-          v-for="(item,i) in completedAllImages"
+          v-for="(item,i) in completedAllMobileImages"
           :key="i"
           :src="'img/' + item.fileName"
           reverse-transition="fade-transition"
@@ -18,7 +18,7 @@ export default {
   name: "GalleryForDetailPageMobile",
   computed: {
     ...mapGetters([
-      'completedAllImages'
+      'completedAllMobileImages'
     ])
   },
   async mounted() {

@@ -15,6 +15,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
       mobileBook: false,
+      backRoute: false,
       empty: false,
       page: 0,
       loading: false,
@@ -58,29 +59,37 @@ export default new Vuex.Store({
       },
       setAccommodationId(state, data) {
           state.accommodationId = data
+      },
+      setRoute(state, data) {
+          state.backRoute = data
       }
   },
   actions: {
       getMainPageData(store) {
-          store.commit('setLoading', true)
-          store.state.header.selectedPlace = ''
-          const data = {
-              "pageNumber": store.state.page,
-              "pageSize": 12,
-              "sortBy": "price"
-          }
-          post(`${environment.mainApi}/main-page/getMainPage`, data)
-              .then(r => {
-                  if (r.data.content.length) {
-                      store.commit('setLoading', false)
-                      store.commit('setMainData', r.data.content)
-                      return
-                  }
-                store.state.empty = true
-              }).catch(e => {
+          if (!store.state.backRoute) {
+              store.commit('setLoading', true)
+              store.state.header.selectedPlace = ''
+              const data = {
+                  "pageNumber": store.state.page,
+                  "pageSize": 12,
+                  "sortBy": "price"
+              }
+              post(`${environment.mainApi}/main-page/getMainPage`, data)
+                  .then(r => {
+                      if (r.data.content.length) {
+                          store.commit('setLoading', false)
+                          store.commit('setMainData', r.data.content)
+                          return
+                      }
+                      store.state.empty = true
+                  }).catch(e => {
                   store.commit('setLoading', false)
                   store.commit('setSnackbars', {text: e.message, status: 'error'})
               })
+          } else {
+              store.commit('setRoute', false)
+          }
+
       },
       exampleApi({state}) {
           return axios.get(`https://api.unsplash.com/photos?page=${state.page}`,
