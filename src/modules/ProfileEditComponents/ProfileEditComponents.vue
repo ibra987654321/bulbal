@@ -41,7 +41,7 @@
               placeholder="Номер телефона"
               color="secondary"
               outlined
-              v-mask="'###-##-#(###)'"
+              v-mask="'#(###)-##-##-##'"
               class="transparent"
               hide-details
           ></v-text-field>
@@ -72,11 +72,13 @@
           <div class="text-uppercase mb-2">Что вы любите в путешествии?</div>
           <div class="border">
             <v-checkbox
+                v-for="(item, index) in checkboxes"
+                :key="index"
                 v-model="item.value"
-                v-for="item in checkboxes"
-                :label="item.title"
+                :label="item.name"
                 class="mt-1 black--text"
                 hide-details
+                @change="updateSelectedCheckboxes"
             ></v-checkbox>
           </div>
         </v-col>
@@ -86,9 +88,10 @@
             <v-checkbox
                 v-model="item.value"
                 v-for="item in hobbyCheckboxes"
-                :label="item.title"
+                :label="item.name"
                 class="mt-1 black--text"
                 hide-details
+                @change="updateSelectedCheckboxes2"
             ></v-checkbox>
           </div>
         </v-col>
@@ -98,6 +101,7 @@
               v-model="$store.state.profileEdit.profile.liveIn"
               placeholder="Место нахождения"
               color="secondary"
+              :items="$store.state.create.regions"
               outlined
               class="transparent"
               hide-details
@@ -109,6 +113,7 @@
               v-model="$store.state.profileEdit.profile.language"
               placeholder="English (United States)"
               color="secondary"
+              :items="['Кыргызский', 'Русский', 'English', 'Турецкий',]"
               outlined
               type="number"
               class="transparent"
@@ -198,11 +203,11 @@
               rounded
               large
               class="text-capitalize transparent  px-8"
+              @click="$store.commit('emptyEditProfile')"
           >
             <svg class="mr-2" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M0.528758 0.528514C0.789108 0.268165 1.21122 0.268165 1.47157 0.528514L5.00017 4.05711L8.52876 0.528514C8.78911 0.268165 9.21122 0.268165 9.47157 0.528514C9.73192 0.788864 9.73192 1.21097 9.47157 1.47132L5.94298 4.99992L9.47157 8.52851C9.73192 8.78886 9.73192 9.21097 9.47157 9.47132C9.21122 9.73167 8.78911 9.73167 8.52876 9.47132L5.00017 5.94273L1.47157 9.47132C1.21122 9.73167 0.789108 9.73167 0.528758 9.47132C0.268409 9.21097 0.268409 8.78886 0.528758 8.52851L4.05736 4.99992L0.528758 1.47132C0.268409 1.21097 0.268409 0.788864 0.528758 0.528514Z" fill="#777E90"/>
             </svg>
-
             Очистить все
           </v-btn>
         </v-col>
@@ -213,6 +218,7 @@
 
 <script>
 import titleCard from "@/ui/titleCard/titleCard";
+import {decodeJWT} from "@/helpers/helpers";
 export default {
   name: "ProfileEditComponents",
   components: {
@@ -221,22 +227,22 @@ export default {
   data: () => ({
     myInputModel: '',
     checkboxes: [
-      {value: false, title: 'Горные походы'},
-      {value: false, title: 'Пляжный отдых'},
-      {value: false, title: 'Общение, знакомства, дружба'},
-      {value: false, title: 'Самобытность, традиции, folk'},
-      {value: false, title: 'Тихие, уединенные места'},
-      {value: false, title: 'Потрясающие виды'},
-      {value: false, title: 'Заброшенные города и деревни'},
+      {value: false, name: 'Горные походы'},
+      {value: false, name: 'Пляжный отдых'},
+      {value: false, name: 'Общение, знакомства, дружба'},
+      {value: false, name: 'Самобытность, традиции, folk'},
+      {value: false, name: 'Тихие, уединенные места'},
+      {value: false, name: 'Потрясающие виды'},
+      {value: false, name: 'Заброшенные города и деревни'},
     ],
     hobbyCheckboxes: [
-      {value: false, title: 'я цифровой кочевник'},
-      {value: false, title: 'я общественный активист'},
-      {value: false, title: 'я занимаюсь йогой'},
-      {value: false, title: 'я занимаюсь горным спортом'},
-      {value: false, title: 'я спортсмен'},
-      {value: false, title: 'я исследователь '},
-      {value: false, title: 'я ученный'},
+      {value: false, name: 'я цифровой кочевник'},
+      {value: false, name: 'я общественный активист'},
+      {value: false, name: 'я занимаюсь йогой'},
+      {value: false, name: 'я занимаюсь горным спортом'},
+      {value: false, name: 'я спортсмен'},
+      {value: false, name: 'я исследователь '},
+      {value: false, name: 'я ученный'},
     ],
     personalData: {
       nickName: '',
@@ -248,10 +254,18 @@ export default {
       language: '',
       document: '',
       extraPhoneNumber: '',
-    }
+    },
   }),
   mounted() {
-    console.log(this.$store.state.profileEdit.profile)
+    this.$store.dispatch('getUserForEditById', decodeJWT().userId)
+  },
+  methods: {
+    updateSelectedCheckboxes() {
+      this.$store.state.profileEdit.profile.travels = this.checkboxes.filter(checkbox => checkbox.value)
+    },
+    updateSelectedCheckboxes2() {
+      this.$store.state.profileEdit.profile.hobbies = this.hobbyCheckboxes.filter(checkbox => checkbox.value)
+    },
   }
 }
 </script>

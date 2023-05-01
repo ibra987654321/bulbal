@@ -223,7 +223,7 @@ export default {
     selectedItem: 2,
     items: [
       {text: '800  x  7 ночей', count: '77'},
-      {text: 'За обслуживание Bulbal', count: 10},
+      {text: 'Налоги и комиссия', count: 10},
       {text: 'Итог', count: '87$'},
     ],
     pricer: ''

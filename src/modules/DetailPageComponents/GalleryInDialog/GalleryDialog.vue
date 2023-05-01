@@ -64,7 +64,6 @@
               </stack-for-dialog-gallery>
             </v-col>
           </v-row>
-
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -101,6 +100,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
+    // this.images = await this.$store.dispatch('exampleApi')
   },
 }
 </script>

@@ -30,7 +30,8 @@
           <div class="modal-body">
             <img
                 v-if="dialog"
-                :src="'img/' + n.fileName"
+                v-for="(image, i) in images"
+                :src="'img/' + image.fileName"
                 alt=""
                 class='modal-img'
             />

@@ -139,6 +139,7 @@ export default {
     date: false,
     place: false,
     people: false,
+    selectPlaceType: 'searchAccommodations'
 }),
   watch: {
     '$store.state.header.range'(v) {
@@ -155,6 +156,11 @@ export default {
       }
     },
     '$store.state.header.selectedTypeOfPlace'(v) {
+      if (v === 'Комната') {
+        this.$store.commit('setSelectType', 'searchAccommodations')
+      } else {
+        this.$store.commit('setSelectType', 'searchBeds')
+      }
       if (v && this.$store.state.header.selectedPlace) {
         this.place = false
         this.date = true
@@ -172,7 +178,7 @@ export default {
         this.$router.push({name:'search'})
         return
       }
-      this.$store.dispatch('searchByFilter')
+      this.$store.dispatch('searchByFilter', this.$store.state.header.selectPlaceType)
     },
   },
   setup() {
@@ -240,7 +246,9 @@ export default {
 @media only screen and (max-width: 600px) {
   .border {
     max-width: 400px;
-
+  }
+  .border .date .v-btn__content {
+   padding: 0 15px;
   }
   .border .v-btn__content {
     font-size: 10px;

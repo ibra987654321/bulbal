@@ -23,6 +23,7 @@
           class="mx-auto"
           indeterminate
       ></v-progress-circular>
+      <div v-if="$store.state.empty">{{emptyText}}</div>
     </div>
 
   </div>
@@ -40,6 +41,7 @@ export default {
   },
   data:() => ({
     images: [],
+    emptyText: 'Контента больше нет!'
   }),
   computed: {
     data() {
@@ -61,7 +63,11 @@ export default {
     onWindowScroll() {
       const scroll = document.documentElement.getBoundingClientRect()
       if (scroll.bottom < document.documentElement.clientHeight + 150) {
-        this.next()
+        if(!this.$store.state.empty) {
+          this.next()
+          return
+        }
+        this.$store.commit('setLoading', false)
       }
     }
   }

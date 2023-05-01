@@ -1,5 +1,6 @@
 import gallery from "@/modules/DetailPageComponents/GalleryForDetailPage/store"
 import booking from "@/modules/DetailPageComponents/BookCardDetailPage/store/index"
+import comments from "@/modules/DetailPageComponents/CommentDetailPage/store/index"
 import {getAxios, getUrl} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 
@@ -32,7 +33,9 @@ export default {
     actions: {
         getAccommodationById({commit},id) {
             getAxios(`${environment.mainApi}/accommodation/${id}`)
-                .then(r => commit('updateData', r)).catch(e => console.log(e.message))
+                .then(r => {
+                    commit('updateData', r)
+                }).catch(e => console.log(e.message))
         },
         getUserByAccommodationId({commit},id) {
             getUrl(`${environment.mainApi}/login/userDtoByByAccommodationId/${id}`)
@@ -41,6 +44,7 @@ export default {
     },
     modules: {
         gallery,
-        booking
+        booking,
+        comments
     }
 }

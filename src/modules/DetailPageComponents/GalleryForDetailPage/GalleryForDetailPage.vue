@@ -57,7 +57,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   name: "GalleryForDetailPage",
   props: {
-    id: Number
+    id: String
   },
   components: {
     galleryDialog

@@ -19,7 +19,8 @@ export default {
     mutations: {
         setErrorLogin(state, data) {
             state.error = data
-        }
+        },
+        setLoginDialog: (state, data) => state.dialog = data
     },
     actions: {
         register({state}) {

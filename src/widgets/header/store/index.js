@@ -13,7 +13,8 @@ export default {
             // {title: 'Домашние животные', subtitle: 'U', objectName: 'animal', animal: 0},
         ],
         selectedPlace: '',
-        selectedTypeOfPlace: '',
+        selectedTypeOfPlace: 'Комната',
+        selectPlaceType: 'searchAccommodations',
         searchLoader: false
 
     },
@@ -27,23 +28,25 @@ export default {
       },
         setPerson(state, data) {
           state.countItemList[0].people = data
+        },
+        setSelectType(state, data) {
+          state.selectPlaceType = data
         }
     },
     actions:{
-        searchByFilter(store) {
+        searchByFilter(store, payload) {
             store.commit('setLoading', true)
             const data = {
                 "pageNumber": 0,
                 "pageSize": 5,
                 "sortBy": "price",
-                "locality": store.state.selectedPlace
+                "locality": store.state.selectedPlace,
+                "capacity": store.state.countItemList[0].people
             }
-            postAxios(`${environment.mainApi}/main-page/searchAccommodations/${store.state.range.start.toISOString().slice(0, 19)}/${store.state.range.end.toISOString().slice(0, 19)}`, data)
+            postAxios(`${environment.mainApi}/main-page/${payload}/${store.state.range.start.toISOString().slice(0, 19)}/${store.state.range.end.toISOString().slice(0, 19)}`, data)
                 .then(r => {
-                    setTimeout(() => {
                         store.commit('setLoading', false)
                         store.commit('setSearchPage', r.content)
-                    }, 2000)
                 }).catch(e => console.log(e.message))
         }
     }

@@ -28,6 +28,7 @@ export const routes = [
         name: 'detail-preview',
         meta: {
             layout: 'main',
+            auth: true
         },
         component: () => import('../pages/DetailPage/DetailPage')
     },
@@ -36,6 +37,7 @@ export const routes = [
         name: 'profile',
         meta: {
             layout: 'main',
+            auth: true
         },
         component: () => import('../pages/ProfilePage/ProfilePage')
     },
@@ -44,6 +46,7 @@ export const routes = [
         name: 'profile-settings',
         meta: {
             layout: 'main',
+            auth: true
         },
         component: () => import('../pages/ProfileEditPage/ProfileEditPage')
     },
@@ -52,6 +55,7 @@ export const routes = [
         name: 'confirm',
         meta: {
             layout: 'main',
+            auth: true
         },
         component: () => import('../pages/ConfirmPage/ConfirmPage')
     },
@@ -60,6 +64,7 @@ export const routes = [
         name: 'page-create',
         meta: {
             layout: 'create',
+            auth: true
         },
         component: () => import('../pages/CreatePage/CreatePage')
     },
@@ -68,6 +73,7 @@ export const routes = [
         name: 'page-report',
         meta: {
             layout: 'main',
+            auth: true
         },
         component: () => import('../pages/ReportPage/ReportPage')
     },

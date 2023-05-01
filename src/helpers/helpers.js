@@ -23,8 +23,6 @@ export const getAxios = url => {
         })
 }
 export const getUrl = url => {
-    // store.state.loading = true
-    // store.state.error = false
     return axios({
         method: 'GET',
         url,
@@ -144,7 +142,19 @@ export const extraAxios = (method, url, payload) => {
             store.commit('setSnackbars', e.message)
         })
 }
-
+export const putUrl = (url, payload) => {
+    store.state.loading = true
+    // store.state.error = false
+    return axios({
+        method: 'PUT',
+        url,
+        // headers: {
+        //     'Content-Type': 'application/json',
+        //     Authorization: `Bearer ${getToken()}`,
+        // },
+        data: payload,
+    })
+}
 export const putAxios = (url, payload) => {
     store.state.loading = true
     // store.state.error = false

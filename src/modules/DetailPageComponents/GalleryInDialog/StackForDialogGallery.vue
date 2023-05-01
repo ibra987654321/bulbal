@@ -1,15 +1,49 @@
 <template>
   <div>
-    <div id="gallery" class="container-fluid">
-      <img
-          v-for="(item, i) in data"
-          :key="i"
-          :src="'img/' + item.fileName"
-          class="img-responsive"
-          @click="open(item)"
-      >
-    </div>
-        <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
+<!--    <div id="gallery" class="container-fluid">-->
+<!--      <img-->
+<!--          v-for="(item, i) in data"-->
+<!--          :key="i"-->
+<!--          :src="item.urls.regular"-->
+<!--          @click="open(item)"-->
+<!--      >-->
+<!--    </div>-->
+<!--        <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>-->
+    <v-row>
+      <v-col v-for="(item) in data" cols="12">
+        <v-row v-if="item.hasOwnProperty('col12')">
+          <v-col cols="8" v-if="i.length === 1"  v-for="(i, idx) in item.col12">
+            <img
+                v-for="img in i"
+                :src="'img/' + img.fileName"
+                class="img-responsive"
+                 @click="open(item)"
+            >
+          </v-col>
+          <v-col v-for="(i) in item.col12" v-if="i.length === 2" cols="4"  >
+              <v-row >
+                <v-col cols="12" v-for="img in i">
+                  <img
+                      :src="'img/' + img.fileName"
+                      class="img-responsive"
+                       @click="open(item)"
+                  >
+                </v-col>
+              </v-row>
+            </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col cols="6" v-for="i in item.col6">
+            <img
+                :src="'img/' + i.fileName"
+                class="img-responsive"
+                 @click="open(item)"
+            >
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <carousel :id="imageId" :images="data" @changeId="changeId($event)"/>
   </div>
 </template>
 
@@ -85,5 +119,12 @@ export default {
 }
 .modal-body{
   padding:0px;
+}
+.img-responsive {
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1.2/1;
+  object-fit: cover;
 }
 </style>

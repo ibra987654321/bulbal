@@ -48,7 +48,7 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('searchByFilter')
+    await this.$store.dispatch('searchByFilter', this.$store.state.header.selectPlaceType)
   },
 }
 </script>

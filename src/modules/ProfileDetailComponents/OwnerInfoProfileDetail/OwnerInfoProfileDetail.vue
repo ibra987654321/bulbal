@@ -14,25 +14,22 @@
         <v-img class="check" :src="require('@/assets/icons/check.png')"/>
       </v-card-title>
       <div class="text-center">
-        <div class="d-flex pl-3 edit__profile_icon">
+        <div class="d-flex justify-center pl-3 edit__profile_icon">
           <svg class="mr-1" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.68531 15.3317L2.28918 12.6142C2.4267 11.9954 2.73784 11.4286 3.18611 10.9803L11.3927 2.77368C12.6944 1.47193 14.805 1.47193 16.1067 2.77367L17.226 3.89296C18.5278 5.19471 18.5278 7.30526 17.226 8.607L9.01945 16.8137C8.57118 17.2619 8.00437 17.5731 7.38552 17.7106L4.6681 18.3145C2.88185 18.7114 1.28837 17.1179 1.68531 15.3317ZM3.91616 12.9758L3.31228 15.6932C3.17997 16.2886 3.71113 16.8198 4.30655 16.6875L7.02397 16.0836C7.32156 16.0175 7.59507 15.8711 7.81495 15.6606L4.3392 12.1848C4.12871 12.4047 3.98229 12.6782 3.91616 12.9758ZM5.51743 11.006L8.99374 14.4823L13.6485 9.82748L10.1723 6.35117L5.51743 11.006ZM16.0475 7.42849L14.8271 8.64897L11.3508 5.17266L12.5712 3.95218C13.2221 3.30131 14.2774 3.30131 14.9282 3.95218L16.0475 5.07147C16.6984 5.72234 16.6984 6.77762 16.0475 7.42849Z" fill="#777E90"/>
           </svg>
           <div class="grey--text">Обновить аватар</div>
         </div>
-        <h3 class="profile__name">Анна Ким</h3>
-        <div class="d-flex pl-3">
-          <div class="grey--text">Я цифровой кочевник</div>
+        <h3 class="profile__name">{{ profileDetail.user.name }}</h3>
+        <div class=" pl-3">
+          <v-chip  color="accent" v-for="item in profileDetail.user.hobbies">{{item.name}}</v-chip>
         </div>
       </div>
     </div>
     <v-card-text>
       <div class="mb-4 grey--text text-center">
         Я люблю
-        <v-chip color="accent" small class="mr-1 mb-1">Горные походы</v-chip>
-        <v-chip color="accent" small class="mr-1 mb-1">Общение, знакомства, дружба</v-chip>
-        <v-chip color="accent" small class="mr-1 mb-1">Самобытность, традиции, folk</v-chip>
-        <v-chip color="accent" small class="mr-1 mb-1">Горные походы</v-chip>
+        <v-chip v-for="item in profileDetail.user.likeTravels" color="accent" small class="mr-1 mb-1">{{item.name}}</v-chip>
       </div>
     </v-card-text>
     <v-card-text class="mb-5">
@@ -59,15 +56,23 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4.5L9.58504 2.65079C10.141 2.00212 9.68013 1 8.82578 1L2 1L2 8L8.82578 8C9.68013 8 10.141 6.99788 9.58504 6.34921L8 4.5ZM3 7L8.82578 7L6.68292 4.5L8.82578 2L3 2L3 7Z" fill="#777E90"/>
         <path d="M2 0.5C2 0.223858 2.22386 0 2.5 0C2.77614 0 3 0.223858 3 0.5V11.5C3 11.7761 2.77614 12 2.5 12C2.22386 12 2 11.7761 2 11.5V0.5Z" fill="#777E90"/>
       </svg>
-
       Пожаловаться
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import {mapState} from "vuex";
+import {decodeJWT} from "@/helpers/helpers";
+
 export default {
-  name: "OwnerInfoProfileDetail"
+  name: "OwnerInfoProfileDetail",
+  computed: {
+    ...mapState(['profileDetail'])
+  },
+  mounted() {
+    this.$store.dispatch('getUserById', decodeJWT().userId)
+  }
 }
 </script>
 
@@ -78,6 +83,7 @@ export default {
 }
 .edit__profile_icon {
   cursor: pointer;
+  margin: 0 auto;
 }
 .avatar {
   position: relative;

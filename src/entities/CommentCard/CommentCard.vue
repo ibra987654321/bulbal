@@ -36,10 +36,10 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-0 fz-14">
-          У нас был самый захватывающий вид. К сожалению, с 14:00 до 20:30 в номере было очень жарко из-за отсутствия кондиционера и тени.
+          {{item.text}}
         </v-col>
         <v-col class="d-flex align-center">
-          <small>1 день назад</small>
+          <small>{{item.createdAt | date}}</small>
           <v-btn
             text
             class="text-capitalize fz-12"
@@ -56,7 +56,10 @@
 
 <script>
 export default {
-  name: "CommentCard"
+  name: "CommentCard",
+  props: {
+    item: {}
+  }
 }
 </script>
 

@@ -196,6 +196,7 @@ import CountCardList from "@/modules/HeaderComponents/CountCardIItem/CountCardLi
 import BookCardRoomItems from "@/modules/DetailPageComponents/BookCardDetailPage/BookCardRoomItems";
 import reviews from "@/entities/reviews/reviews";
 import {mapGetters} from "vuex";
+import {getToken} from "@/helpers/token";
 
 export default {
   name: "BookCardDetailPage",
@@ -216,7 +217,7 @@ export default {
     selectedItem: 2,
     items: [
       {text: '800  x  7 ночей', count: '77'},
-      {text: 'За обслуживание Bulbal', count: 10},
+      {text: 'Налоги и комиссия', count: 10},
       {text: 'Итог', count: '87$'},
     ],
     pricer: ''
@@ -252,7 +253,11 @@ export default {
 
   methods: {
     book() {
-      this.$router.push({name: "confirm"})
+      if (getToken()) {
+        this.$router.push({name: "confirm"})
+        return
+      }
+      this.$store.state.login.dialog = true
     },
     rangeDate() {
       const timeDiff = Math.abs(this.$store.state.header.range.end.getTime() - this.$store.state.header.range.start.getTime());

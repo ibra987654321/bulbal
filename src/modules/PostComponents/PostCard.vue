@@ -20,7 +20,7 @@
         {{data.localityName}}
       </div>
       <div class="black--text d-flex">
-        {{ data.price }}$ |
+        {{ data.price }}сом |
         <div class="ml-2 grey--text">
           ночь
         </div>

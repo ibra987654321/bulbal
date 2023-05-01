@@ -58,7 +58,7 @@ export default {
     items: [
       { text: 'Койка-место', icon: require('@/widgets/header/icons/bed.png') },
       { text: 'Комната', icon:  require('@/widgets/header/icons/room.png') },
-      { text: 'Дом', icon:  require('@/widgets/header/icons/home.png') },
+      // { text: 'Дом', icon:  require('@/widgets/header/icons/home.png') },
     ],
   }),
   computed: {

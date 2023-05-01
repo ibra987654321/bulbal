@@ -21,6 +21,9 @@ export default {
       'completedAllImages'
     ])
   },
+  async mounted() {
+    await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
+  },
 }
 </script>
 

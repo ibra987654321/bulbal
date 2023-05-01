@@ -31,6 +31,7 @@
     <div class="poppins">
       <v-form  aria-autocomplete="off">
         <v-text-field
+            v-model="$store.state.postDetail.comments.text"
             hide-details
             color="secondary"
             label="Поделитесь своими мыслями"
@@ -40,6 +41,7 @@
           <template #append >
             <div class="block_btn">
               <v-btn
+                  :loading="getLoading"
                   color="primary"
                   type="submit"
                   rounded
@@ -58,22 +60,38 @@
         <div><h2 class="title_comment_content">56 отзывов</h2></div>
       </v-card-title>
     </v-card>
-    <comment-card class="poppins" v-for="i in 5" :key="i"></comment-card>
+    <comment-card class="poppins" v-for="(comment,i) in getComments" :key="i" :item="comment"></comment-card>
   </div>
 </template>
 
 <script>
 import titleCard from "@/ui/titleCard/titleCard";
 import CommentCard from "@/entities/CommentCard/CommentCard";
+import {mapGetters} from "vuex";
 export default {
   name: "CommentDetailPage",
   components: {
     titleCard,
     CommentCard
   },
+  data: () => ({
+    text: ''
+  }),
+  computed: {
+    ...mapGetters(['getComments', 'getLoading'])
+  },
+  mounted() {
+    this.listOfData()
+  },
   methods: {
+    listOfData() {
+      this.$store.dispatch('getCommentsByAccommodationId', Number(this.$route.params.id))
+    },
     submit(e) {
       e.preventDefault()
+      this.$store.dispatch('postCommentsByAccommodationId', {
+        accommodationId: Number(this.$route.params.id),
+      })
     }
   }
 }

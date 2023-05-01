@@ -1,7 +1,7 @@
 <template>
   <v-app >
     <Header/>
-    <v-main>
+    <v-main class="mt-8">
       <v-container>
         <transition
             name="fade"
