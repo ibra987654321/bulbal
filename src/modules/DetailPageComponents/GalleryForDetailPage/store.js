@@ -10,6 +10,9 @@ export default {
         setImages(state, data) {
             state.galleryData = data
         },
+        setMobileImages(state, data) {
+            state.galleryData = data
+        },
         setFiveImage(state, data) {
             state.galleryFive = data
         }
@@ -60,6 +63,7 @@ export default {
                     }
 
                     store.commit('setImages', result)
+                    store.commit('setMobileImages', response.data)
                 }).catch(e => console.log(e.message))
         },
         getFiveImagesForDetail(store,id) {

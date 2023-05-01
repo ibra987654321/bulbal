@@ -212,6 +212,7 @@
           </v-btn>
         </v-col>
       </v-row>
+      <div class="d-none">{{hobbiesComputed, checkboxesComputed}}</div>
     </title-card>
   </div>
 </template>
@@ -258,6 +259,24 @@ export default {
   }),
   mounted() {
     this.$store.dispatch('getUserForEditById', decodeJWT().userId)
+  },
+  computed: {
+    hobbiesComputed() {
+      return this.hobbyCheckboxes.map(obj1 => {
+        let obj3 = this.$store.state.profileEdit.profile.hobbies.find(obj2 => obj2.name === obj1.name);
+        if (obj3) {
+          obj1.value = true;
+        }
+      });
+    },
+    checkboxesComputed() {
+      return this.checkboxes.map(obj1 => {
+        let obj3 = this.$store.state.profileEdit.profile.likeTravels.find(obj2 => obj2.name === obj1.name);
+        if (obj3) {
+          obj1.value = true;
+        }
+      });
+    },
   },
   methods: {
     updateSelectedCheckboxes() {

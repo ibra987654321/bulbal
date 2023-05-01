@@ -46,7 +46,7 @@ export default {
                 })
                 .catch(e => {
                     console.log(e.message)
-                    commit('setSnackbars', {text: 'XЧто то пошло не так', status: 'error'})
+                    commit('setSnackbars', {text: 'Что то пошло не так', status: 'error'})
                 })
         },
         getUserForEditById({commit}, payload) {
