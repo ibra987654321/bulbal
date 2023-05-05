@@ -1,4 +1,4 @@
-import {checkObjectFieldsEmpty, getAxios, post, postAxios} from "@/helpers/helpers";
+import {checkObjectFieldsEmpty, decodeJWT, getAxios, post, postAxios} from "@/helpers/helpers";
 import advantage from "@/modules/CreatePageComponents/TypeOfAdvantages/store/index"
 import typeOfRoom from "@/modules/CreatePageComponents/TypeOfRoom/store/index";
 import photo from "@/modules/CreatePageComponents/DownloadPhoto/store/index";
@@ -8,7 +8,7 @@ import {getSavedObject, removeObject, setSavedObject} from "@/widgets/Create/hel
 export default {
     state: {
         createObject: {
-            "ownerId": 1, // id user есть сейчас в БД от 1 до 5
+            "ownerId": 0, // id user есть сейчас в БД от 1 до 5
             "region": "", // передаешь название региона
             "regionId": "", // передаешь название региона
             "locality": "", // передаешь название локации
@@ -41,6 +41,7 @@ export default {
             state.rooms.typeOfBed = data.name
             state.rooms.sizeOfBed = data.size
         },
+        setOwner: (state) => state.createObject.ownerId = decodeJWT().userId,
         setNullRoomData(state) {
             state.rooms = {
                 "accommodation_id": 0,
@@ -78,19 +79,21 @@ export default {
                     }, []);
                 })
         },
-        postRoom({state}) {
+        postRoom({state, commit}) {
+            commit('setOwner')
             state.rooms.accommodation_id = getSavedObject().id
-            return postAxios(environment.mainApi + '/accommodation/saveBeds', state.rooms)
+            return post(environment.mainApi + '/accommodation/saveBeds', state.rooms)
                 .then(r => {
                     removeObject()
-                    setSavedObject(r)
+                    setSavedObject(r.data)
                 })
         },
-        postItem({state}) {
+        postItem({state, commit}) {
             if (checkObjectFieldsEmpty(state.createObject)) {
                 alert('Заполните все поля')
                 return 'invalid'
             }
+            commit('setOwner')
             return post(environment.mainApi + '/accommodation/saveAccommodation', state.createObject)
         },
     },

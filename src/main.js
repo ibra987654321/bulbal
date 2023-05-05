@@ -10,6 +10,7 @@ import lazyLoad from "@/directives/lazyLoad";
 import VCalendar from 'v-calendar';
 import { VueMaskDirective } from 'v-mask'
 import dateFilterMobile from "@/helpers/dateFilterForMobile";
+import dateYearFilter from "@/helpers/dateYearFilter";
 Vue.use(VCalendar, {
   componentPrefix: 'vc',
 });
@@ -20,6 +21,7 @@ Vue.directive('lazy', lazyLoad)
 Vue.config.productionTip = false
 Vue.filter('date', dateFilter)
 Vue.filter('dmobi', dateFilterMobile)
+Vue.filter('yearDate', dateYearFilter)
 new Vue({
   router,
   store,

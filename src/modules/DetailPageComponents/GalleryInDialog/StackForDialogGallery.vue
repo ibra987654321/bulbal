@@ -17,7 +17,7 @@
                 v-for="img in i"
                 :src="'img/' + img.fileName"
                 class="img-responsive"
-                 @click="open(item)"
+                 @click="open(img)"
             >
           </v-col>
           <v-col v-for="(i) in item.col12" v-if="i.length === 2" cols="4"  >
@@ -26,7 +26,7 @@
                   <img
                       :src="'img/' + img.fileName"
                       class="img-responsive"
-                       @click="open(item)"
+                       @click="open(img)"
                   >
                 </v-col>
               </v-row>
@@ -37,7 +37,7 @@
             <img
                 :src="'img/' + i.fileName"
                 class="img-responsive"
-                 @click="open(item)"
+                 @click="open(i)"
             >
           </v-col>
         </v-row>

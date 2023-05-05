@@ -14,7 +14,7 @@
         <v-img width="24px" class="check" :src="require('@/assets/icons/check.png')"/>
       </v-card-title>
       <div class="text-center">
-        <h3 class="profile__name">Анна Ким</h3>
+        <h3 class="profile__name">{{profileDetail.user.name}}</h3>
         <reviews rate="5.0" count="89"></reviews>
       </div>
     </div>
@@ -76,14 +76,13 @@
       <hr class="mx-10">
     </v-card-text>
     <v-card-text class="text-center">
-      На сайте с 15 февраль 2023 г.
+      На сайте с {{dateFilter(profileDetail.user.date.slice(0,19)) }}
     </v-card-text>
     <v-card-text class="d-flex align-center justify-center">
       <svg class="mr-3" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4.5L9.58504 2.65079C10.141 2.00212 9.68013 1 8.82578 1L2 1L2 8L8.82578 8C9.68013 8 10.141 6.99788 9.58504 6.34921L8 4.5ZM3 7L8.82578 7L6.68292 4.5L8.82578 2L3 2L3 7Z" fill="#777E90"/>
         <path d="M2 0.5C2 0.223858 2.22386 0 2.5 0C2.77614 0 3 0.223858 3 0.5V11.5C3 11.7761 2.77614 12 2.5 12C2.22386 12 2 11.7761 2 11.5V0.5Z" fill="#777E90"/>
       </svg>
-
       Сообщить об этом хосте
     </v-card-text>
   </v-card>
@@ -91,10 +90,27 @@
 
 <script>
 import reviews from "@/entities/reviews/reviews";
+import {mapState} from "vuex";
+import {decodeJWT} from "@/helpers/helpers";
 export default {
   name: "OwnerInfoForReport",
   components: {
     reviews
+  },
+  computed: {
+    ...mapState(['profileDetail'])
+  },
+  mounted() {
+    this.$store.dispatch('getUserById', decodeJWT().userId)
+  },
+  methods: {
+    dateFilter(value) {
+      const options = {}
+      options.month = 'long'
+      options.day = '2-digit'
+      options.year = 'numeric'
+      return new Intl.DateTimeFormat('ru-RU', options).format(new Date(value).setHours(0, 0, 0, 0))
+    },
   }
 }
 </script>

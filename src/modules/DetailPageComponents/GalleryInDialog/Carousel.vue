@@ -30,8 +30,7 @@
           <div class="modal-body">
             <img
                 v-if="dialog"
-                v-for="(image, i) in images"
-                :src="'img/' + image.fileName"
+                :src="'img/' + model.fileName"
                 alt=""
                 class='modal-img'
             />
@@ -44,6 +43,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "Carousel",
   props: {
@@ -55,6 +56,7 @@ export default {
     dialog: false,
   }),
   computed: {
+    ...mapGetters(['completedAllMobileImages']),
     idLocal: {
       get: function() {
         return this.id
@@ -68,7 +70,7 @@ export default {
     'idLocal'(v) {
       if (v) {
         this.model = v
-        // this.model = this.$props.images.find(i => v.id === i.id)
+        this.model = this.completedAllMobileImages.find(i => v.id === i.id)
         this.dialog = true
       }
     },

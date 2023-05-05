@@ -9,16 +9,18 @@
         <router-view/>
       </transition>
     </v-main>
+    <footer/>
     <SnackBars/>
   </v-app>
 </template>
 
 <script>
 import createHeader from "@/widgets/header/components/createHeader";
+import footer from "@/widgets/footer/footer";
 const SnackBars = () => import('@/entities/snackbars/snackbars')
 export default {
   name: "Create",
-  components: {createHeader,SnackBars}
+  components: {createHeader,SnackBars, footer}
 }
 </script>
 

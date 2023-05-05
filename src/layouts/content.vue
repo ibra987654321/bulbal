@@ -11,6 +11,7 @@
         </transition>
       </v-container>
     </v-main>
+    <Footer/>
     <loginPage/>
     <SnackBars/>
     <booking-drawer></booking-drawer>
@@ -22,12 +23,14 @@ import Header from "@/widgets/header";
 const loginPage = () => import('@/modules/LoginPageComponents/LoginPage')
 const SnackBars = () => import('@/entities/snackbars/snackbars')
 import bookingDrawer from "@/modules/DetailPageComponents/BookCardDetailPage/BookingDrawer";
+import Footer from "@/widgets/footer/footer";
 export default {
   components: {
     Header,
     loginPage,
     SnackBars,
-    bookingDrawer
+    bookingDrawer,
+    Footer
   },
   data: () => ({
   }),

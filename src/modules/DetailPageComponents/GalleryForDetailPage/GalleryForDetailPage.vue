@@ -13,7 +13,7 @@
 <!--            v-else-->
 <!--            type="image"-->
 <!--        ></v-skeleton-loader>-->
-        <gallery-dialog class="btn_gallery"></gallery-dialog>
+        <gallery-dialog :id="accId" class="btn_gallery"></gallery-dialog>
       </div>
     </v-col>
     <v-col cols="6">

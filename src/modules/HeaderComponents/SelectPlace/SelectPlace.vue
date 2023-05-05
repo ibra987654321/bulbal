@@ -8,6 +8,7 @@
         hide-details
         dense
         label="Поиск"
+        class="search_text_field"
       ></v-text-field>
       <v-list dense v-if="filteredItems.length">
         <v-list-item-group
@@ -18,7 +19,7 @@
               :key="i"
           >
             <v-list-item-content class="d-flex flex-nowrap">
-              <v-img :src="require('@/widgets/header/icons/search.png')" class="mr-2" width="100%" height="100%" max-width="32px"></v-img>
+              <v-img :src="require('@/widgets/header/icons/search.png')" class="mr-2" width="100%" height="100%" :max-width="$vuetify.breakpoint.mobile ? '21px' : '32px'"></v-img>
               <v-list-item-title class="search_item" v-text="item" @click="$store.state.header.selectedPlace = item"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -36,7 +37,7 @@
                 :key="i"
             >
               <v-list-item-content class="d-flex flex-nowrap">
-                <v-img :src="item.icon" width="100%" height="100%" max-width="32px"></v-img>
+                <v-img :src="item.icon" width="100%" height="100%" :max-width="$vuetify.breakpoint.mobile ? '21px' : '32px'"></v-img>
                 <v-list-item-title class="selected_item" v-text="item.text" @click="$store.state.header.selectedTypeOfPlace = item.text"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -74,10 +75,9 @@ export default {
 </script>
 <style scoped>
 .search_item {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'poppins_regular', sans-serif;
   font-style: normal;
   font-weight: 600!important;
-  font-size: 16px !important;
   color: #777E90;
 }
 
@@ -86,14 +86,21 @@ export default {
 <style>
 .select_place .v-item-group {
   display: flex !important;
+  font-size: 16px !important;
+
 }
 @media only screen and (max-width: 600px) {
-  .search_room .v-label {
-    font-size: 13px !important;
+  .search_room .v-label, .search_item {
+    font-size: 11.1181px !important;
+  }
+  .search_text_field {
+    font-family: 'poppins_regular', sans-serif;
+    font-size: 11.1181px;
   }
   .selected_item {
+    font-family: 'poppins_regular', sans-serif;
     margin: auto 10px;
-    font-size: 9.03346px;
+    font-size: 9.03346px !important;
   }
 }
 </style>

@@ -6,6 +6,7 @@ import create from "@/widgets/Create/store/index";
 import postDetail from "@/widgets/PostDetail/store/index"
 import profileEdit from "@/modules/ProfileEditComponents/store/index"
 import profileDetail from "@/widgets/ProfileDetail/store/index"
+import reportIndex from "@/widgets/Report/store/index"
 import {post} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
 import axios from "axios";
@@ -145,6 +146,7 @@ export default new Vuex.Store({
         create,
         postDetail,
         profileEdit,
-        profileDetail
+        profileDetail,
+        reportIndex
     }
 })

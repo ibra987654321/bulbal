@@ -73,7 +73,6 @@ export const routes = [
         name: 'page-report',
         meta: {
             layout: 'main',
-            auth: true
         },
         component: () => import('../pages/ReportPage/ReportPage')
     },

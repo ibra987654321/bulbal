@@ -19,14 +19,10 @@
         <v-spacer></v-spacer>
         <userCardMenu/>
       </v-container>
-      <v-row v-else>
-        <v-col cols="10">
-          <header-search></header-search>
-        </v-col>
-        <v-col cols="2" class="mx-auto my-auto">
+      <v-container v-else class="d-flex align-center justify-space-between mobile__header">
+          <mobile-header></mobile-header>
           <userCardMenu/>
-        </v-col>
-      </v-row>
+      </v-container>
     </v-app-bar>
   </div>
 </template>
@@ -34,13 +30,15 @@
 <script>
 import userCardMenu from "@/entities/userCardMenu/UserCardMenu";
 import headerSearch from "@/widgets/header/components/headerSearch";
+import mobileHeader from "@/widgets/header/components/mobileHeader";
 import {getToken} from "@/helpers/token";
 export default {
   provide: true,
   name: "Header",
   components: {
     userCardMenu,
-    headerSearch
+    headerSearch,
+    mobileHeader
   },
   data: () => ({
     links: [
@@ -65,5 +63,14 @@ export default {
   padding-bottom: 5px;
   height: 80px !important;
   background-color: white;
+}
+@media only screen and (max-width: 600px) {
+  .v-toolbar__content, .v-toolbar__extension {
+    overflow: hidden;
+    border-bottom: none;
+    padding-bottom: 5px;
+    height: 80px !important;
+    background-color: white;
+  }
 }
 </style>

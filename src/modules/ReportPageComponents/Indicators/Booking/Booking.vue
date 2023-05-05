@@ -1,126 +1,198 @@
 <template>
-  <div>
-    <v-sheet
-        tile
-        height="54"
-        class="d-flex"
-    >
-      <v-btn
-          icon
-          class="ma-2"
-          @click="$refs.calendar.prev()"
-      >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
+  <div class="book_report">
+    <div class="d-flex book_select">
       <v-select
-          v-model="type"
-          :items="types"
-          dense
+          class="year_select"
           outlined
+          dense
           hide-details
-          class="ma-2"
-          label="type"
+          v-model="$store.state.reportIndex.bookingReport.currentYear"
+          :items="$store.state.reportIndex.bookingReport.yearsArray"
       ></v-select>
       <v-select
-          v-model="mode"
-          :items="modes"
-          dense
+          class="month_select"
           outlined
-          hide-details
-          label="event-overlap-mode"
-          class="ma-2"
-      ></v-select>
-      <v-select
-          v-model="weekday"
-          :items="weekdays"
           dense
-          outlined
           hide-details
-          label="weekdays"
-          class="ma-2"
+          v-model="$store.state.reportIndex.bookingReport.currentMonth"
+          :items="$store.state.reportIndex.bookingReport.monthArray"
+          item-text="name"
+          item-value="number"
       ></v-select>
-      <v-spacer></v-spacer>
-      <v-btn
-          icon
-          class="ma-2"
-          @click="$refs.calendar.next()"
-      >
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
-    </v-sheet>
-    <v-sheet height="600">
-      <v-calendar
-          ref="calendar"
-          v-model="value"
-          :weekdays="weekday"
-          :type="type"
-          :events="events"
-          :event-overlap-mode="mode"
-          :event-overlap-threshold="15"
-          :event-color="getEventColor"
-          @change="getEvents"
-      ></v-calendar>
-    </v-sheet>
+    </div>
+    <div>
+      <v-row class="d-flex align-center">
+        <v-col cols="1">Номера</v-col>
+        <v-col cols="11" class="title_card">
+          <div v-for="item in calendar" class="day_title  item_col">
+            <div class="text-center">
+              <div class="week_item">
+                {{item.week}}
+              </div>
+              <div class="date_item">
+                {{dateFilter(item.date)}}
+              </div>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+
+
+      <v-row v-for="item in bookings" class="">
+        <v-col cols="1" class="book_item_title">
+          {{item.bookTitle}}
+        </v-col>
+        <v-col cols="11" class="d-flex">
+          <div
+              v-for="i in calendar"
+              class="item_col"
+              :class="(resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && item.paymentStatus ? 'red' : (resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && !item.paymentStatus ? 'green' : ''"
+          >
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+
   </div>
 </template>
 
 <script>
+
+import {mapGetters} from "vuex";
+
 export default {
   name: "Booking",
   data: () => ({
-    type: 'month',
-    types: ['month', 'week', 'day', '4day'],
-    mode: 'stack',
-    modes: ['stack', 'column'],
-    weekday: [0, 1, 2, 3, 4, 5, 6],
-    weekdays: [
-      { text: 'Sun - Sat', value: [0, 1, 2, 3, 4, 5, 6] },
-      { text: 'Mon - Sun', value: [1, 2, 3, 4, 5, 6, 0] },
-      { text: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
-      { text: 'Mon, Wed, Fri', value: [1, 3, 5] },
-    ],
-    value: '',
-    events: [],
-    colors: ['error', 'success'],
-    names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
-  }),
-  methods: {
-    getEvents ({ start, end }) {
-      const events = []
-
-      const min = new Date(`${start.date}T00:00:00`)
-      const max = new Date(`${end.date}T23:59:59`)
-      const days = (max.getTime() - min.getTime()) / 86400000
-      const eventCount = this.rnd(days, days + 20)
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        const second = new Date(first.getTime() + secondTimestamp)
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        })
+    "bookings": [
+      {
+        "id": 0,
+        "bookingStatus": true,
+        "bookTitle": "Место 6х",
+        "paymentStatus": true,
+        "checkIn": "2023-05-01T17:59:00.000Z",
+        "checkOut": "2023-05-05T10:22:17.738Z",
+        "bookingTime": "2023-05-01T10:22:17.738Z",
+        "guests": 0,
+        "rentPayment": 0,
+        "commission": 0,
+        "user_id": 0
+      },
+      {
+        "id": 0,
+        "bookingStatus": true,
+        "bookTitle": "Комната 2х",
+        "paymentStatus": false,
+        "checkIn": "2023-05-15T10:22:17.738Z",
+        "checkOut": "2023-05-25T10:22:17.738Z",
+        "bookingTime": "2023-05-01T10:22:17.738Z",
+        "guests": 0,
+        "rentPayment": 0,
+        "commission": 0,
+        "user_id": 0
+      },
+      {
+        "id": 0,
+        "bookingStatus": true,
+        "bookTitle": "Комната lux",
+        "paymentStatus": true,
+        "checkIn": "2023-05-07T10:22:17.738Z",
+        "checkOut": "2023-05-16T10:22:17.738Z",
+        "bookingTime": "2023-05-01T10:22:17.738Z",
+        "guests": 0,
+        "rentPayment": 0,
+        "commission": 0,
+        "user_id": 0
       }
-
-      this.events = events
-    },
-    getEventColor (event) {
-      return event.color
-    },
-    rnd (a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
-    },
+    ],
+  }),
+  computed: {
+    ...mapGetters(['calendar', 'getCurrentMonth', 'getCurrentYear'])
   },
+  mounted() {
+    this.$store.dispatch('initCalendar')
+
+  },
+  watch: {
+    getCurrentMonth() {
+      this.$store.dispatch('changeMonth')
+    },
+    getCurrentYear() {
+      this.$store.dispatch('changeMonth')
+    }
+  },
+  methods: {
+    dateFilter(value) {
+      const options = {}
+      options.day = '2-digit'
+      return new Intl.DateTimeFormat('ru-RU', options).format(new Date(value))
+    },
+    resetTimeToZero(date) {
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
 }
 </script>
 
 <style scoped>
+.book_select {
+  width: 234px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.year_select {
+  width: 117px;
+  height: 40px;
 
+  background: #FFFFFF;
+  border: 0.640625px solid #D9D9D9;
+  border-radius: 6.41px 0px 0px 6.41px;
+}
+.month_select {
+  width: 117px;
+  height: 40px;
+
+  background: #FFFFFF;
+  border: 0.640625px solid #D9D9D9;
+  border-radius: 0px 6.40625px 6.40625px 0px;
+}
+.red {
+  background-color: #FF3131;
+}
+.green {
+  background-color: #80BF3C;
+}
+.book_item_title {
+  padding-right: 0 !important;
+}
+.book_report {
+  height: 100%;
+  min-height: 400px;
+
+}
+.book_report .col {
+  padding: 0 12px;
+}
+.title_card {
+  display: flex;
+}
+.item_col {
+  border: 0.640625px solid #A9A9A9;
+  width: 60px;
+  height: 45px;
+}
+.week_item {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12.8125px;
+  line-height: 19px;
+  color: #000000;
+}
+.date_item {
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  line-height: 19px;
+  color: #000000;
+}
 </style>

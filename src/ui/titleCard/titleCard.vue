@@ -7,7 +7,7 @@
       <v-btn
           v-if="btnTitle"
           :to="btnRedirect"
-          class="text-none"
+          class="text-none title_card_btn"
           outlined
           elevation="0"
           rounded
@@ -50,6 +50,9 @@ export default {
   .title__content {
     font-size: 20px;
     line-height: 24px;
+  }
+  .title_card_btn {
+    font-size: 12px;
   }
 
 }

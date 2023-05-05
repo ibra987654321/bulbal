@@ -38,7 +38,7 @@
 
       </template>
 
-      <v-card class="rounded-lg">
+      <v-card class="rounded-lg menu_list">
         <v-list>
           <v-list-item v-for="(item, idx) in menu" :key="idx">
             <v-list-item-title v-if="item.function" @click="router()" style="cursor:pointer;">{{item.label}}</v-list-item-title>
@@ -91,5 +91,14 @@ export default {
 <style scoped>
 .btn_padding-0 {
   padding: 0 !important;
+}
+@media only screen and (max-width: 600px) {
+  .menu_list .v-list-item__title{
+    font-size: 14px;
+  }
+
+}
+.menu_list {
+
 }
 </style>

@@ -24,8 +24,7 @@ export default {
     },
     actions: {
         register({state}) {
-           return postAxios(`${environment.mainApi}/send-mail/send`, state.login)
-               .then(r => console.log(r))
+           return post(`${environment.mainApi}/send-mail/send`, state.login)
         },
         OTPCheck({state}) {
             return post(`${environment.mainApi}/send-mail/checkOtp`, state.login)

@@ -35,6 +35,14 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@font-face {
+  font-family: 'poppins_regular';
+  src: url("./assets/fonts/poppins-regular-webfont.eot");
+  src: local('@'), url("./assets/fonts/poppins-regular-webfont.woff")format('woff'), url("./assets/fonts/poppins-regular-webfont.woff2")format('woff2'), url("./assets/fonts/poppins-regular.ttf")format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -42,7 +50,7 @@ body {
   font-family: 'Inter', sans-serif;
 }
 .poppins {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'poppins_regular', sans-serif;
 }
 .card_block {
   filter: drop-shadow(0px 64px 64px rgba(15, 15, 15, 0.08));

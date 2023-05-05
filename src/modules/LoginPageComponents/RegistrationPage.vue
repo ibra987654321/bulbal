@@ -108,9 +108,9 @@ export default {
   methods: {
     submit() {
       this.loading = true
-        if (this.password !== this.confirmPassword) {
+        if (this.$store.state.login.login.password !== this.$store.state.login.login.personalPass) {
           this.loading = false
-          this.snackbarColor = (this.password === this.confirmPassword) ? 'success' : 'warning'
+          this.snackbarColor = (this.$store.state.login.login.password  === this.$store.state.login.login.personalPass) ? 'success' : 'warning'
           this.text = `Пароли не совпадают!`
           this.snackbar = true
           return

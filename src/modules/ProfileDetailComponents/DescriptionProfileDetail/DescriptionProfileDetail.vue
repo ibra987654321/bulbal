@@ -12,10 +12,10 @@
           <v-col cols="2" sm="1" class="py-0">
              <v-img class="mx-auto" :src="item.icon" width="22"/>
           </v-col>
-          <v-col cols="10" sm="2" class="py-0">
+          <v-col cols="3" sm="2" class="py-0">
             {{item.title}}
           </v-col>
-          <v-col cols="12" sm="9" class="py-0 black--text">
+          <v-col cols="7" sm="9" class="py-0 black--text">
             {{item.text}}
           </v-col>
         </v-row>
@@ -62,5 +62,13 @@ export default {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+}
+@media only screen and (max-width: 600px) {
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+
 }
 </style>

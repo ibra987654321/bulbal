@@ -79,6 +79,9 @@ import TitleForDetailPage from "@/modules/DetailPageComponents/TitleForDetailPag
 import {mapGetters} from "vuex";
 export default {
   name: "GalleryDialog",
+  props: {
+    id: String
+  },
   components: {
     StackForDialogGallery,
     TitleForDetailPage
@@ -99,7 +102,7 @@ export default {
     ])
   },
   async mounted() {
-    await this.$store.dispatch('getImagesForDetail', this.$route.params.id)
+    await this.$store.dispatch('getImagesForDetail', this.$props.id)
     // this.images = await this.$store.dispatch('exampleApi')
   },
 }

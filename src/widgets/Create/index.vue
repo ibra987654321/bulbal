@@ -43,6 +43,7 @@ import room from "@/widgets/Create/icons/room";
 import photo from "@/widgets/Create/icons/photo";
 import bed from "@/widgets/Create/icons/bed"
 import {getObject, setObject} from "@/widgets/Create/helpers/helpers";
+import {decodeJWT} from "@/helpers/helpers";
 export default {
   name: "index",
   components: {
@@ -78,7 +79,7 @@ export default {
         return
       }
       this.$store.state.create.createObject = {
-        "ownerId": 1, // id user есть сейчас в БД от 1 до 5
+        "ownerId": decodeJWT().userId, // id user есть сейчас в БД от 1 до 5
         "region": "", // передаешь название региона
         "locality": "", // передаешь название локации
         "titleOfAccommodation": "", // название дома

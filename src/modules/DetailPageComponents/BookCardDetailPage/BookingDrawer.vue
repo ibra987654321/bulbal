@@ -204,6 +204,7 @@ import CountCardList from "@/modules/HeaderComponents/CountCardIItem/CountCardLi
 import BookCardRoomItems from "@/modules/DetailPageComponents/BookCardDetailPage/BookCardRoomItems";
 import reviews from "@/entities/reviews/reviews";
 import {mapGetters} from "vuex";
+import {getToken} from "@/helpers/token";
 export default {
   name: "BookingDrawer",
   components: {
@@ -259,6 +260,10 @@ export default {
 
   methods: {
     book() {
+      if (getToken()) {
+        this.$router.push({name: "confirm"})
+        return
+      }
       this.$router.push({name: "confirm"})
     },
     rangeDate() {

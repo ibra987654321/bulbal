@@ -131,17 +131,16 @@ export default {
   mounted() {
     this.$store.dispatch('getAccommodationById', getSavedObject().id)
   },
+  computed: {
+    Accid() {
+      return getSavedObject().id
+    }
+  },
   methods: {
     submit(event) {
       this.$emit('save', 'next')
     }
   },
-  setup() {
-    const Accid = getSavedObject().id
-    return {
-      Accid
-    }
-  }
 }
 </script>
 
