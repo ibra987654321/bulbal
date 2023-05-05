@@ -3,18 +3,18 @@
     <v-row>
       <v-col cols="12" sm="10">
         <title-card
-            :title="postDetail.createObject.titleOfAccommodation"
+            :title="` ${ postDetail.createObject.region } / ${ postDetail.createObject.locality } / ${postDetail.createObject.address}`"
             small
         >
-          <div class="d-flex align-center mt-5">
-            <div class="mr-2">
-              12 гостей •
-            </div>
-            <div class="mr-2">4 спальни • </div>
-            <div>
-              Коворкинг
-            </div>
-          </div>
+<!--          <div class="d-flex align-center mt-5">-->
+<!--            <div class="mr-2">-->
+<!--              12 гостей •-->
+<!--            </div>-->
+<!--            <div class="mr-2">4 спальни • </div>-->
+<!--            <div>-->
+<!--              Коворкинг-->
+<!--            </div>-->
+<!--          </div>-->
         </title-card>
       </v-col>
       <v-col cols="12" sm="2" class="d-flex" :class="$vuetify.breakpoint.mobile ? '': 'justify-end'">

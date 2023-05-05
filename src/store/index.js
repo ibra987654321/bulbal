@@ -133,7 +133,7 @@ export default new Vuex.Store({
 
                   console.log(result)
 
-                  return result
+                  return result[0]
               })
               .catch((e) => {
                   console.log(e)

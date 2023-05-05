@@ -7,7 +7,7 @@
       <div>
         <v-img :src="data[i].icon" width="24px" class="mr-5"/>
       </div>
-      <div class="title__facilities poppins grey--text">{{item.convenienceName}}</div>
+      <div class="title__facilities poppins grey--text">{{item.name}}</div>
     </v-col>
 <!--    <v-col cols="12">-->
 <!--      <v-btn outlined rounded class="font-weight-medium text-capitalize">Подробнее</v-btn>-->

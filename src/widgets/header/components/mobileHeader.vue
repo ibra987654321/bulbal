@@ -204,6 +204,7 @@ export default {
   border-radius: 4px;
   width: 100%;
   max-width: 293px;
+  margin-right: 5px;
   height: 35px;
   padding-left:12px;
   padding-top: 2px;

@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="container d-flex justify-space-between">
+    <div class="container  justify-space-between" :class="$vuetify.breakpoint.mobile ? '' : 'd-flex'">
       <div class="d-flex poppins links">
         <a class="footer_link" v-for="item in footer">{{item.label}} </a>
       </div>

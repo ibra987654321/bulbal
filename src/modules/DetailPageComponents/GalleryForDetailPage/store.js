@@ -5,7 +5,8 @@ export default {
     state:{
         galleryData:[],
         galleryMobileData:[],
-        galleryFive: []
+        galleryFive: [],
+        galleryByUser: []
     },
     mutations: {
         setImages(state, data) {
@@ -16,6 +17,9 @@ export default {
         },
         setFiveImage(state, data) {
             state.galleryFive = data
+        },
+        setAccommodationImageUser(state, data) {
+            state.galleryByUser = data
         }
     },
     getters: {
@@ -31,6 +35,9 @@ export default {
         oneImage: state => {
             return state.galleryFive[0]
         },
+        getImagesForUserAccommodation(state) {
+            return state.galleryData[0]
+        }
     },
     actions: {
         getImagesForDetail(store,id) {
@@ -66,7 +73,45 @@ export default {
                         }
                     }
                     store.commit('setImages', result)
+                    store.commit('setAccommodationImageUser', result[0])
                     store.commit('setMobileImages', response.data)
+                }).catch(e => console.log(e.message))
+        },
+        getImagesForDetailUser(store,id) {
+           return  post(`${environment.mainApi}/images/findAllByAccommodationId/${id}`)
+                .then(response => {
+
+                    let result = []
+                    let two = true;
+                    let three = false;
+                    let count = 1;
+                    for (let i = 0; i < response.data.length; i++){
+
+                        if ( i >= 3){
+                            if (three){
+                                count++
+                                if (count % 2 === 0) {
+                                    result.push({col12: [[response.data[i + 1], response.data[i]], [response.data[i - 1]] ]})
+                                } else {
+                                    result.push({col12: [[response.data[i - 1]], [response.data[i], response.data[i + 1]]]})
+                                }
+                                i++;
+                                three = false;
+                                two = true;
+                            }else if (two){
+                                i++;
+                                result.push({col6: [response.data[i - 1], response.data[i]]})
+                                i++;
+                                three = true;
+                                two = false;
+                            }
+                        } else {
+                            result.push({col12: [[response.data[i]], [response.data[i + 1], response.data[i + 2]]]})
+                            i += 2
+                        }
+                    }
+                    console.log(result)
+                    return result
                 }).catch(e => console.log(e.message))
         },
         getFiveImagesForDetail(store,id) {

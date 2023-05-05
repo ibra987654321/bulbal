@@ -263,24 +263,28 @@ export default {
   computed: {
     hobbiesComputed() {
       return this.hobbyCheckboxes.map(obj1 => {
-        let obj3 = this.$store.state.profileEdit.profile.hobbies.find(obj2 => obj2.name === obj1.name);
-        if (obj3) {
-          obj1.value = true;
+        if (this.$store.state.profileEdit.profile.hobbies.length) {
+          let obj3 = this.$store.state.profileEdit.profile.hobbies.find(obj2 => obj2.name === obj1.name);
+          if (obj3) {
+            obj1.value = true;
+          }
         }
       });
     },
     checkboxesComputed() {
       return this.checkboxes.map(obj1 => {
-        let obj3 = this.$store.state.profileEdit.profile.likeTravels.find(obj2 => obj2.name === obj1.name);
-        if (obj3) {
-          obj1.value = true;
+        if (this.$store.state.profileEdit.profile.likeTravels) {
+          let obj3 = this.$store.state.profileEdit.profile.likeTravels.find(obj2 => obj2.name === obj1.name);
+          if (obj3) {
+            obj1.value = true;
+          }
         }
       });
     },
   },
   methods: {
     updateSelectedCheckboxes() {
-      this.$store.state.profileEdit.profile.travels = this.checkboxes.filter(checkbox => checkbox.value)
+      this.$store.state.profileEdit.profile.likeTravels = this.checkboxes.filter(checkbox => checkbox.value)
     },
     updateSelectedCheckboxes2() {
       this.$store.state.profileEdit.profile.hobbies = this.hobbyCheckboxes.filter(checkbox => checkbox.value)
