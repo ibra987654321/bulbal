@@ -1,7 +1,7 @@
 <template>
   <div>
     <dialogs max-width="685px" :destroy-func="destroy">
-      <v-stepper v-model="e1">
+      <v-stepper v-model="$store.state.login.tab">
         <v-stepper-items>
           <v-stepper-content
               v-for="n in steps"
@@ -39,38 +39,38 @@ export default {
   }),
   watch: {
     steps (val) {
-      if (this.e1 > val) {
-        this.e1 = val
+      if (this.$store.state.login.tab > val) {
+        this.$store.state.login.tab = val
       }
     },
   },
   methods: {
     nextStep (n, event) {
       if (event === 'login') {
-        this.e1 = 1
+        this.$store.state.login.tab = 1
         return;
       }
       if (event === 'register') {
-        this.e1 = 4
+        this.$store.state.login.tab = 4
         return
       }
       if (event === 'forget') {
-        this.e1 = 2
+        this.$store.state.login.tab = 2
         return
       }
       if (event === 'sign-up') {
-        this.e1 = 3
+        this.$store.state.login.tab = 3
         return
       }
       if (n === this.steps) {
-        this.e1 = 1
+        this.$store.state.login.tab = 1
       } else {
-        this.e1 = n + 1
+        this.$store.state.login.tab = n + 1
       }
     },
     destroy() {
       setTimeout(() => {
-        this.e1 = 1
+        this.$store.state.login.tab = 1
       }, 300)
     }
   },

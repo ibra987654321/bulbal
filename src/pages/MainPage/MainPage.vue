@@ -12,7 +12,7 @@ export default {
     PostList
   },
   beforeRouteLeave(to, from, next) {
-    if (from.name === 'main' && (to.name === 'detail' || to.name === 'page-create') ) {
+    if (from.name === 'main' ) {
       this.$store.commit('setRoute', true)
       next();
     } else {

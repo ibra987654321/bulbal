@@ -1,5 +1,6 @@
-import {decodeJWT, getUrl, post, putAxios, putUrl} from "@/helpers/helpers";
+import {decodeJWT, getUrl, post, putAxios, putUrl, uploadMultipart} from "@/helpers/helpers";
 import {environment} from "@/environments/environment";
+import {getSavedObject} from "@/widgets/Create/helpers/helpers";
 
 export default {
     state: {
@@ -55,6 +56,11 @@ export default {
                     commit('setEditProfile', r.data)
                 })
                 .catch(e => commit('setSnackbars', {text: e.message, status: 'error'}))
-        }
+        },
+        uploadAvatar(_, formData) {
+            console.log(formData)
+            const id = decodeJWT().userId
+            return uploadMultipart(environment.mainApi + '/user/uploadAvatar/' + id, formData)
+        },
     }
 }

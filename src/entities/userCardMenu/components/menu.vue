@@ -42,7 +42,7 @@
         <v-list>
           <v-list-item v-for="(item, idx) in menu" :key="idx">
             <v-list-item-title v-if="item.function" @click="router()" style="cursor:pointer;">{{item.label}}</v-list-item-title>
-            <v-list-item-title v-else-if="item.click" @click="$store.state.login[item.click] = true" style="cursor:pointer;">{{item.label}}</v-list-item-title>
+            <v-list-item-title v-else-if="item.click" @click="setLoginData(item.click, item.tab)" style="cursor:pointer;">{{item.label}}</v-list-item-title>
             <router-link v-else :to="item.link" class="text-decoration-none black--text">
               <v-list-item-title>{{item.label}}</v-list-item-title>
             </router-link>
@@ -67,8 +67,8 @@ export default {
       {label: 'Выйти', link: '/', function: true},
     ],
     unAuthMenu: [
-      {label: 'Зарегистрироваться', link: '/', click: 'dialog'},
-      {label: 'Войти', link: '/', click: 'dialog'},
+      {label: 'Зарегистрироваться', link: '/', click: 'dialog', tab: 4},
+      {label: 'Войти', link: '/', click: 'dialog', tab:1},
     ]
   }),
   computed: {
@@ -83,6 +83,10 @@ export default {
     router() {
       removeToken()
       location.reload()
+    },
+    setLoginData(status, tab) {
+      this.$store.state.login[status] = true
+      this.$store.state.login.tab = tab
     }
   }
 }

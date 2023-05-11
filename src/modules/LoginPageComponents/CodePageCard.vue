@@ -2,7 +2,7 @@
   <v-card class="text-center py-10">
     <h1 class="mt-4">Введите код безопасности</h1>
     <v-card-text class="text-center mx-auto login_block">
-      <p>Мы отправили ваш код на электронную tranm•••••••••••••@gm•••.com почту</p>
+      <p>Мы отправили ваш код на электронную {{$store.state.login.login.email}} почту</p>
       <div>
         <div class="ma-auto position-relative" style="max-width: 300px">
           <v-otp-input
@@ -48,18 +48,18 @@ export default {
     onFinish (rsp) {
       this.loading = true
       this.$store.dispatch('OTPCheck')
-          .then((res) => {
+          .then(async (res) => {
             this.loading = false
-            this.snackbarColor =  'success'
+            this.snackbarColor = 'success'
             this.text = `Удачно`
             this.snackbar = true
-            setToken(res.data.token)
+            await setToken(res.data)
             window.location.reload()
           })
           .catch(e => {
             this.loading = false
             this.snackbarColor = 'warning'
-            this.text = e.message()
+            this.text = e.message
             this.snackbar = true
           })
     },

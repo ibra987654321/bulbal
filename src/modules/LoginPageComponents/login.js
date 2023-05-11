@@ -12,6 +12,7 @@ export default {
             otp: "",
             personalPass: ""
         },
+        tab: 1,
         error: ''
     },
     getters: {

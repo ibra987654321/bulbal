@@ -4,7 +4,6 @@
       <v-select
           class="year_select"
           outlined
-          dense
           hide-details
           v-model="$store.state.reportIndex.bookingReport.currentYear"
           :items="$store.state.reportIndex.bookingReport.yearsArray"
@@ -12,7 +11,6 @@
       <v-select
           class="month_select"
           outlined
-          dense
           hide-details
           v-model="$store.state.reportIndex.bookingReport.currentMonth"
           :items="$store.state.reportIndex.bookingReport.monthArray"
@@ -38,15 +36,28 @@
       </v-row>
 
 
-      <v-row v-for="item in bookings" class="">
+<!--      <v-row v-for="item in bookings" class="">-->
+<!--        <v-col cols="1" class="book_item_title">-->
+<!--          {{item.bookTitle}}-->
+<!--        </v-col>-->
+<!--        <v-col cols="11" class="d-flex">-->
+<!--          <div-->
+<!--              v-for="i in calendar"-->
+<!--              class="item_col"-->
+<!--              :class="(resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && item.paymentStatus ? 'red' : (resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && !item.paymentStatus ? 'green' : ''"-->
+<!--          >-->
+<!--          </div>-->
+<!--        </v-col>-->
+<!--      </v-row>-->
+      <v-row v-for="item in profileDetail.user.bookings" class="">
         <v-col cols="1" class="book_item_title">
-          {{item.bookTitle}}
+          {{item.bookingStatus}}
         </v-col>
         <v-col cols="11" class="d-flex">
           <div
               v-for="i in calendar"
               class="item_col"
-              :class="(resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && item.paymentStatus ? 'red' : (resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) && !item.paymentStatus ? 'green' : ''"
+              :class="(resetTimeToZero(i.date).getTime() >= resetTimeToZero(new Date(item.checkIn)).getTime() && resetTimeToZero(i.date).getTime() <= resetTimeToZero(new Date(item.checkOut)).getTime()) ? 'red' :  ''"
           >
           </div>
         </v-col>
@@ -58,7 +69,7 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   name: "Booking",
@@ -106,11 +117,12 @@ export default {
     ],
   }),
   computed: {
-    ...mapGetters(['calendar', 'getCurrentMonth', 'getCurrentYear'])
+    ...mapGetters(['calendar', 'getCurrentMonth', 'getCurrentYear']),
+    ...mapState(['profileDetail'])
   },
   mounted() {
     this.$store.dispatch('initCalendar')
-
+    console.log(this.profileDetail)
   },
   watch: {
     getCurrentMonth() {
@@ -138,11 +150,10 @@ export default {
 .book_select {
   width: 234px;
   margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 .year_select {
   width: 117px;
-  height: 40px;
 
   background: #FFFFFF;
   border: 0.640625px solid #D9D9D9;
@@ -150,7 +161,6 @@ export default {
 }
 .month_select {
   width: 117px;
-  height: 40px;
 
   background: #FFFFFF;
   border: 0.640625px solid #D9D9D9;

@@ -64,7 +64,7 @@
                   rounded
                   class="text-none black--text mr-3"
                   style="border: thin solid #E6E8EC"
-                  to="/profile"
+                  @click="route()"
               >
                 Мои брони
               </v-btn>
@@ -107,7 +107,13 @@ export default {
         calories: 'Кредитная карта',
       },
   ]
-  })
+  }),
+  methods: {
+    route() {
+      this.$store.commit('setConfirmDialog', false)
+      this.$router.push({name: 'profile'})
+    }
+  }
 }
 </script>
 
