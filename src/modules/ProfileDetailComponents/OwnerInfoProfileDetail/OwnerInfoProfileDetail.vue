@@ -11,13 +11,7 @@
           <v-img class="check" :src="require('@/assets/icons/check.png')"/>
         </div>
         <div v-else>
-          <v-img
-              max-width="60"
-              max-height="60"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPb_pSj-ir-9eB6mi0lVJdQP1KKHiB8fRBS1CbmOXGd9Z1FEGMJHbEKhahwhWLGSaEXY&usqp=CAU"
-              alt="John"
-          >
-          </v-img>
+          <Avatar width="160" height="160"/>
         </div>
 
       </v-card-title>
@@ -79,9 +73,11 @@
 <script>
 import {mapState} from "vuex";
 import {decodeJWT} from "@/helpers/helpers";
+import Avatar from "@/entities/Avatar/Avatar";
 
 export default {
   name: "OwnerInfoProfileDetail",
+  components: {Avatar},
   computed: {
     ...mapState(['profileDetail'])
   },

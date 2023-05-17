@@ -41,7 +41,7 @@ export default {
             state.rooms.typeOfBed = data.name
             state.rooms.sizeOfBed = data.size
         },
-        setOwner: (state) => state.createObject.ownerId = decodeJWT().userId,
+        setUserLikeOwner: (state) => state.createObject.ownerId = decodeJWT().userId,
         setNullRoomData(state) {
             state.rooms = {
                 "accommodation_id": 0,
@@ -80,7 +80,7 @@ export default {
                 })
         },
         postRoom({state, commit}) {
-            commit('setOwner')
+            commit('setUserLikeOwner')
             state.rooms.accommodation_id = getSavedObject().id
             return post(environment.mainApi + '/accommodation/saveBeds', state.rooms)
                 .then(r => {
@@ -93,7 +93,7 @@ export default {
                 alert('Заполните все поля')
                 return 'invalid'
             }
-            commit('setOwner')
+            commit('setUserLikeOwner')
             return post(environment.mainApi + '/accommodation/saveAccommodation', state.createObject)
         },
     },

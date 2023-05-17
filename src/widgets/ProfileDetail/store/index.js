@@ -18,6 +18,15 @@ export default {
             return getUrl(environment.mainApi + '/user/findUserById/' + payload)
                 .then(r => {
                     commit('setUser', r.data)
+                    return r.data
+                })
+                .catch(e => commit('setSnackbars', {text: e.message, status: 'error'}))
+        },
+        getOwnerById({commit}, payload) {
+            return getUrl(environment.mainApi + '/user/findUserById/' + payload)
+                .then(r => {
+                    commit('setUser', r.data)
+                    return r.data
                 })
                 .catch(e => commit('setSnackbars', {text: e.message, status: 'error'}))
         }

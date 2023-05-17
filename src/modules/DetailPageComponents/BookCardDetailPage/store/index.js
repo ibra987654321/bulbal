@@ -27,6 +27,7 @@ export default {
                     .catch(e => {
                         console.log(e.message)
                     })
+                return
             }
             store.rootState.login.dialog = true
         },

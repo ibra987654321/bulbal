@@ -6,29 +6,24 @@ import {environment} from "@/environments/environment";
 
 export default {
     state: {
-        createObject: {
-            "ownerId": 1, // id user есть сейчас в БД от 1 до 5
-            "region": "", // передаешь название региона
-            "locality": "", // передаешь название локации
-            "titleOfAccommodation": "", // название дома
-            "fullDescriptionOfAccommodation": "", // полное описание
-            "conveniences": [],
-            price: 0
-        },
-        userData: {}
+        createObject: {},
+        ownerData: {
+            id: 0
+        }
     },
     mutations: {
         updateData(state, data) {
             state.createObject = data
         },
-        setUser(state, data) {
-            state.userData = data
+        setOwner(state, data) {
+            state.ownerData = data
         },
     },
     getters: {
         priceForBooking: state => {
             return state.createObject.price
         },
+        getOwnerData: state => state.ownerData
     },
     actions: {
         getAccommodationById({commit},id) {
@@ -37,9 +32,12 @@ export default {
                     commit('updateData', r)
                 }).catch(e => console.log(e.message))
         },
-        getUserByAccommodationId({commit},id) {
-            getUrl(`${environment.mainApi}/login/userDtoByByAccommodationId/${id}`)
-                .then(r => commit('setUser', r.data)).catch(e => console.log(e.message))
+        getUserByAccommodationId({state, commit},id) {
+            return getUrl(`${environment.mainApi}/login/userDtoByByAccommodationId/${id}`)
+                .then(r => {
+                    commit('setOwner', r.data)
+                    return r.data
+                }).catch(e => console.log(e.message))
         }
     },
     modules: {

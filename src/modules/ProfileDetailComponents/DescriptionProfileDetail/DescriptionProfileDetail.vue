@@ -2,12 +2,12 @@
   <div>
     <div class="d-flex flex-column">
       <title-card
-          :title="`Привет, я  ${profileDetail.user.name}`"
+          :title="profileDetail.user.name ? `Привет, я  ${profileDetail.user.name}` : 'Напишите свое имя на странице редактирования'"
           small
           btn-title="Редактировать профиль"
           btn-redirect="/profile-settings"
       >
-        <div class="grey--text description">«{{profileDetail.user.description}}»</div>
+        <div class="grey--text description">{{profileDetail.user.description}}</div>
         <v-row class="mt-6 transparent" v-for="(item, idx ) in softInfo" :key="idx">
           <v-col cols="2" sm="1" class="py-0">
              <v-img class="mx-auto" :src="item.icon" width="22"/>
@@ -23,6 +23,7 @@
       <title-card class="mt-10" title="Фотографии с путешествий" small>
         <carucsel-component></carucsel-component>
       </title-card>
+      <div class="d-none">{{data}}</div>
     </div>
   </div>
 </template>
@@ -45,13 +46,16 @@ export default {
     ]
   }),
   computed: {
-    ...mapState(['profileDetail'])
+    ...mapState(['profileDetail']),
+    data() {
+      this.softInfo[0].text = this.profileDetail.user.liveIn
+      this.softInfo[1].text = this.profileDetail.user.language
+      return ''
+    }
   },
   mounted() {
     this.$store.dispatch('getUserById', decodeJWT().userId)
-    this.softInfo[0].text = this.profileDetail.user.liveIn
-    this.softInfo[1].text = this.profileDetail.user.language
-  }
+  },
 }
 </script>
 

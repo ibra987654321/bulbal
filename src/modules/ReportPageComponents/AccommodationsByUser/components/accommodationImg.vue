@@ -1,6 +1,5 @@
 <template>
       <v-row class="user_images">
-        {{images}}
         <v-col cols="8" v-if="i.length === 1"  v-for="(i, idx) in images">
           <img
               v-for="img in i"
@@ -11,14 +10,12 @@
         <v-col cols="4"  >
           <v-row >
             <v-col cols="12">
-              {{ images[1][0] }}
               <img
                  :src="'img/' + images[1][0].fileName"
                   class="img-responsive"
               >
             </v-col>
             <v-col cols="12" >
-              {{images[1][1]}}
               <img
                   :src="'img/' + images[1][1].fileName"
                   class="img-responsive"

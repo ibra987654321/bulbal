@@ -18,7 +18,8 @@
           item-value="number"
       ></v-select>
     </div>
-    <div>
+    <div v-if="!profileDetail.user.bookings.length">У вас брони нету</div>
+    <div v-else>
       <v-row class="d-flex align-center">
         <v-col cols="1">Номера</v-col>
         <v-col cols="11" class="title_card">
@@ -49,6 +50,7 @@
 <!--          </div>-->
 <!--        </v-col>-->
 <!--      </v-row>-->
+
       <v-row v-for="item in profileDetail.user.bookings" class="">
         <v-col cols="1" class="book_item_title">
           {{item.bookingStatus}}

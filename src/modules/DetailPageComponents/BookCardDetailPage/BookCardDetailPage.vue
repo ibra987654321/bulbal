@@ -255,9 +255,9 @@ export default {
     book() {
       if (getToken()) {
         this.$router.push({name: "confirm"})
-        return
+      } else {
+        this.$store.state.login.dialog = true
       }
-      this.$store.state.login.dialog = true
     },
     rangeDate() {
       const timeDiff = Math.abs(this.$store.state.header.range.end.getTime() - this.$store.state.header.range.start.getTime());

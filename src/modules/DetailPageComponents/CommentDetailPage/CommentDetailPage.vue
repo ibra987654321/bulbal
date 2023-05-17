@@ -57,7 +57,7 @@
     </div>
     <v-card elevation="0" class="transparent mt-5" >
       <v-card-title class="pl-0 pt-0 d-flex justify-space-between" :class="$vuetify.breakpoint.mobile ? '' : ''">
-        <div><h2 class="title_comment_content">56 отзывов</h2></div>
+        <div><h2 class="title_comment_content">{{ getComments.length }} отзывов</h2></div>
       </v-card-title>
     </v-card>
     <comment-card class="poppins" v-for="(comment,i) in getComments" :key="i" :item="comment"></comment-card>
