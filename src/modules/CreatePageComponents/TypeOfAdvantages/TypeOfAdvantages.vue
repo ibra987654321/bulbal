@@ -9,7 +9,7 @@
           <v-col
               cols="4"
               sm="3"
-              v-for="item in $store.state.create.advantage"
+              v-for="item in $store.state.create.advantage.data"
               class="d-flex flex-column"
           >
               <card-of-advantage
@@ -51,7 +51,7 @@ export default {
   watch: {
     advantage: {
       handler(val) {
-        console.log(val.filter(i => i.selected === true))
+        // console.log(val.filter(i => i.selected === true))
       },
       deep: true
     }
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     selectedColor(item) {
-      this.$store.state.create.advantage.map((i) => {
+      this.$store.state.create.advantage.data.map((i) => {
         if (item.id === i.id) {
             if (i.selected) {
               i.selected = false

@@ -8,9 +8,9 @@
               <div class="font-weight-bold mr-1">{{ calculator(priceForBooking) }}сом </div> | <small class="ml-1 poppins"> ночь</small>
             </div>
           </v-card-title>
-          <v-card-subtitle class="d-flex pl-0 align-center poppins">
-            <reviews rate="4.6" count="56" class="poppins"></reviews>
-          </v-card-subtitle>
+<!--          <v-card-subtitle class="d-flex pl-0 align-center poppins">-->
+<!--            <reviews rate="4.6" count="56" class="poppins"></reviews>-->
+<!--          </v-card-subtitle>-->
         </div>
       </div>
       <v-card-text>
@@ -30,8 +30,7 @@
                     class="elevation-0 rounded-tl-lg rounded-tr-lg px-2">
                   <v-row>
                     <v-col
-                        v-bind="attrs"
-                        v-on="on"
+
                         cols="6"
                     >
                       <div class="d-flex justify-center">
@@ -48,8 +47,6 @@
                       </div>
                     </v-col>
                     <v-col
-                        v-bind="attrs"
-                        v-on="on"
                         cols="6"
                     >
                       <div class="d-flex justify-center">
@@ -87,7 +84,6 @@
                       <v-btn
                           text
                           class="text-none pl-2"
-                          v-on="on"
                       >
                         <svg class="mr-2" width="33" height="32" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -121,7 +117,6 @@
                       <v-btn
                           text
                           class="text-none pl-0"
-                          v-on="on"
                       >
                         <svg class="mr-2" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M7.13281 20.0579V12.5788C7.13281 12.0829 7.31011 11.6073 7.6257 11.2566C7.94129 10.906 8.36932 10.709 8.81562 10.709H22.2781C22.7244 10.709 23.1525 10.906 23.4681 11.2566C23.7836 11.6073 23.9609 12.0829 23.9609 12.5788V20.0579" stroke="#6A717F" stroke-width="1.40234" stroke-linecap="round" stroke-linejoin="round"/>
@@ -147,7 +142,15 @@
           <v-col cols="12" class="d-flex">
             <v-btn outlined rounded class="text-capitalize" style="border: thin solid #E6E8EC">Сохранить
             </v-btn>
-            <v-btn color="primary" @click="book()" :class="!$vuetify.breakpoint.mobile ? 'w-100' : ''" class="ml-3  text-capitalize" style="max-width: 205px" rounded>
+            <v-btn v-if="$route.name === 'detail'" color="primary" @click="book()" :class="!$vuetify.breakpoint.mobile ? 'w-100' : ''" class="ml-3  text-capitalize" style="max-width: 205px" rounded>
+              Бронировать
+              <svg width="17" class="ml-2" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3281 5.33333H4.6719C3.90281 5.33333 3.29319 5.98224 3.34117 6.74984L3.6745 12.0832C3.71842 12.7859 4.30115 13.3333 5.00524 13.3333H11.9948C12.6989 13.3333 13.2816 12.7859 13.3255 12.0832L13.6589 6.74984C13.7068 5.98224 13.0972 5.33333 12.3281 5.33333ZM4.6719 4C3.13371 4 1.91448 5.29781 2.01043 6.83301L2.34376 12.1663C2.4316 13.5718 3.59707 14.6667 5.00524 14.6667H11.9948C13.403 14.6667 14.5684 13.5718 14.6563 12.1663L14.9896 6.83301C15.0856 5.29781 13.8663 4 12.3281 4H4.6719Z" fill="#FCFCFD"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.16675 4.66664C5.16675 2.82569 6.65913 1.33331 8.50008 1.33331C10.341 1.33331 11.8334 2.82569 11.8334 4.66664V5.99999C11.8334 6.36818 11.5349 6.66665 11.1667 6.66665C10.7986 6.66665 10.5001 6.36818 10.5001 5.99999V4.66664C10.5001 3.56207 9.60465 2.66664 8.50008 2.66664C7.39551 2.66664 6.50008 3.56207 6.50008 4.66664V5.99999C6.50008 6.36818 6.20161 6.66665 5.83341 6.66665C5.46522 6.66665 5.16675 6.36818 5.16675 5.99999V4.66664Z" fill="#FCFCFD"/>
+              </svg>
+
+            </v-btn>
+            <v-btn v-else color="primary" :class="!$vuetify.breakpoint.mobile ? 'w-100' : ''" class="ml-3  text-capitalize" style="max-width: 205px" rounded>
               Бронировать
               <svg width="17" class="ml-2" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3281 5.33333H4.6719C3.90281 5.33333 3.29319 5.98224 3.34117 6.74984L3.6745 12.0832C3.71842 12.7859 4.30115 13.3333 5.00524 13.3333H11.9948C12.6989 13.3333 13.2816 12.7859 13.3255 12.0832L13.6589 6.74984C13.7068 5.98224 13.0972 5.33333 12.3281 5.33333ZM4.6719 4C3.13371 4 1.91448 5.29781 2.01043 6.83301L2.34376 12.1663C2.4316 13.5718 3.59707 14.6667 5.00524 14.6667H11.9948C13.403 14.6667 14.5684 13.5718 14.6563 12.1663L14.9896 6.83301C15.0856 5.29781 13.8663 4 12.3281 4H4.6719Z" fill="#FCFCFD"/>
@@ -225,6 +228,7 @@ export default {
   computed: {
     ...mapGetters(['priceForBooking', 'getQuantityPersons']),
     price() {
+
       return this.$store.state.postDetail.createObject.price
     }
   },
@@ -234,7 +238,6 @@ export default {
         this.$store.commit('changeRange', v)
         this.menu1 = false
         this.calculator()
-
       }
     },
     priceForBooking(v) {

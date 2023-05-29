@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="create_header">
     <v-app-bar
         app
         color="white"
@@ -32,5 +32,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

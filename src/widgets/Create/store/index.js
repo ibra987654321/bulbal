@@ -1,4 +1,4 @@
-import {checkObjectFieldsEmpty, decodeJWT, getAxios, post, postAxios} from "@/helpers/helpers";
+import {checkObjectFieldsEmpty, decodeJWT, getAxios, getUrl, post, postAxios} from "@/helpers/helpers";
 import advantage from "@/modules/CreatePageComponents/TypeOfAdvantages/store/index"
 import typeOfRoom from "@/modules/CreatePageComponents/TypeOfRoom/store/index";
 import photo from "@/modules/CreatePageComponents/DownloadPhoto/store/index";
@@ -64,12 +64,15 @@ export default {
                 })
         },
         getAdvantage({state}) {
-            return getAxios(environment.adminApi + '/advantage/all')
+            return getUrl(environment.adminApi + '/advantage/all')
                 .then( r => state.advantage = r)
         },
         getRegion({state}) {
             return getAxios(environment.mainApi + '/region/all')
-                .then( r => state.regions = r)
+                .then( r => {
+                    state.regions = r
+                    return r
+                })
         },
         getLocality({state}, id) {
             return getAxios(environment.mainApi + '/locality/all/' + id)
@@ -77,6 +80,7 @@ export default {
                     state.locality = r.reduce((accumulator, currentValue) => {
                         return accumulator.concat(currentValue.name);
                     }, []);
+                    return r
                 })
         },
         postRoom({state, commit}) {

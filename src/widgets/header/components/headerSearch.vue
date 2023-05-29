@@ -26,7 +26,7 @@
             </v-btn>
           </template>
           <div>
-            <SelectPlace/>
+            <SelectPlace @selected="place = false"/>
           </div>
         </v-menu>
         <v-menu
@@ -90,7 +90,7 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6099 12.0699C8.85611 12.0699 6.62372 14.3272 6.62372 17.1117V18.5523C6.62372 18.9501 6.3048 19.2725 5.91141 19.2725C5.51801 19.2725 5.1991 18.9501 5.1991 18.5523V17.1117C5.1991 13.5316 8.06931 10.6293 11.6099 10.6293C15.1505 10.6293 18.0207 13.5316 18.0207 17.1117V18.5523C18.0207 18.9501 17.7018 19.2725 17.3084 19.2725C16.915 19.2725 16.5961 18.9501 16.5961 18.5523V17.1117C16.5961 14.3272 14.3637 12.0699 11.6099 12.0699Z" fill="#B1B5C3"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4667 10.6293C13.0051 10.6293 14.2523 9.38219 14.2523 7.84374C14.2523 6.30529 13.0051 5.05814 11.4667 5.05814C9.92823 5.05814 8.68107 6.30529 8.68107 7.84374C8.68107 9.38219 9.92823 10.6293 11.4667 10.6293ZM11.4667 12.0222C13.7744 12.0222 15.6451 10.1514 15.6451 7.84375C15.6451 5.53608 13.7744 3.66534 11.4667 3.66534C9.15907 3.66534 7.28833 5.53608 7.28833 7.84375C7.28833 10.1514 9.15907 12.0222 11.4667 12.0222Z" fill="#B1B5C3"/>
                 </svg>
-                {{$store.state.header.countItemList[0].people > 0 ? `${$store.state.header.countItemList[0].people} гостей` : 'Гости'}}
+                {{$store.state.header.countItemList[0].people === 1 ? `${$store.state.header.countItemList[0].people} гость` : $store.state.header.countItemList[0].people > 1 && $store.state.header.countItemList[0].people < 5 ?  `${$store.state.header.countItemList[0].people} гостя` : `${$store.state.header.countItemList[0].people} гостей` }}
               </v-btn>
             </template>
             <div >
@@ -149,28 +149,6 @@ export default {
         this.date = false
       }
     },
-    '$store.state.header.selectedPlace'(v) {
-      if (v && this.$store.state.header.selectedTypeOfPlace) {
-        this.place = false
-        this.date = true
-      }
-    },
-    '$store.state.header.selectedTypeOfPlace'(v) {
-      if (v === 'Комната') {
-        this.$store.commit('setSelectType', 'searchAccommodations')
-      } else {
-        this.$store.commit('setSelectType', 'searchBeds')
-      }
-      if (v && this.$store.state.header.selectedPlace) {
-        this.place = false
-        this.date = true
-      }
-    },
-    date(v) {
-      if (!v) {
-        this.people = true
-      }
-    }
   },
   methods: {
     search() {

@@ -57,12 +57,13 @@ export default {
 </script>
 
 <style>
-.v-toolbar__content, .v-toolbar__extension {
+#header .v-toolbar__content, .v-toolbar__extension {
   overflow: hidden;
-  border-bottom: 1px solid #A3B194;
+  /*border-bottom: 1px solid #A3B194;*/
   padding-bottom: 5px;
   height: 80px !important;
   background-color: white;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.17);
 }
 @media only screen and (max-width: 600px) {
   .v-toolbar__content, .v-toolbar__extension {

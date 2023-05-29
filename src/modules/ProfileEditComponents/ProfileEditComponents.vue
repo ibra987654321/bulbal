@@ -148,7 +148,7 @@
         <v-col cols="12"><hr class="my-5"></v-col>
         <v-col cols="12">
           <div class="black--text">
-            Социальное сети
+            Социальные сети
           </div>
         </v-col>
         <v-col cols="12" sm="6">
@@ -174,17 +174,17 @@
                 class="transparent twitter"
                 hide-details
             >
-              <template #append >
-                <div>
-                  <v-btn
-                      type="submit"
-                      rounded
-                      class="text-capitalize transparent my-auto"
-                  >
-                    Подтвердить
-                  </v-btn>
-                </div>
-              </template>
+<!--              <template #append >-->
+<!--                <div>-->
+<!--                  <v-btn-->
+<!--                      type="submit"-->
+<!--                      rounded-->
+<!--                      class="text-capitalize transparent my-auto"-->
+<!--                  >-->
+<!--                    Подтвердить-->
+<!--                  </v-btn>-->
+<!--                </div>-->
+<!--              </template>-->
             </v-text-field>
           </v-form>
         </v-col>

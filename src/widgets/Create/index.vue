@@ -4,11 +4,13 @@
       <v-tabs
           v-model="tab"
           hide-slider
+          show-arrows
       >
         <v-tab
             v-for="(item, idx) in components"
             :key="idx"
             class="pb-6"
+            :disabled="switchTab(idx)"
         >
           <component :is="icons[idx]" :color="tab === idx"></component>
         </v-tab>
@@ -52,7 +54,7 @@ export default {
   data: () => ({
     icons: [home,room,bed, photo],
     components: [HouseComponent, RoomComponent, PreviewComponent, CompletionComponent],
-    tab: null,
+    tab: 0,
     success: false
   }),
   computed: {
@@ -89,6 +91,9 @@ export default {
     }, 0)
   },
   methods: {
+    switchTab(index) {
+     return this.tab !== index;
+    },
     submit(v) {
       if (v === 'house') {
         this.tab = 0
@@ -121,6 +126,7 @@ export default {
 .shadow {
   box-shadow: 0px 22px 40px rgba(0, 0, 0, 0.08) !important;
 }
+
 </style>
 <style lang="scss">
 .create_tabs {

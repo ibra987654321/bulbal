@@ -3,13 +3,12 @@
     <div class="block">
       <create-card
           title="Описание комнаты"
-          sub-title="Опишите коротко вашу комнату. Вы всегда сможете его отредактировать."
+          sub-title="Название комнаты"
           class="mb-5"
       >
         <v-select
             v-model="$store.state.create.rooms.typeOfAccommodation"
             :items="$store.state.create.typeOfRoom.typeOfRoom"
-            label="Тип комнаты"
             outlined
             class="border mb-2"
             hide-details
@@ -40,7 +39,7 @@
             <p class="mb-0 subtitle" >Сколько гостей можно разместить в вашем дома?</p>
           </v-col>
           <v-col cols="6" sm="5">
-            <div class="black--text select_title">
+            <div class="light-green--text select_title">
               тип кровати
             </div>
             <div class="d-flex align-center border mt-2">
@@ -58,7 +57,7 @@
             </div>
           </v-col>
           <v-col cols="3" sm="3">
-            <div class="black--text select_title">
+            <div class="light-green--text select_title">
               количество
             </div>
             <div class="d-flex align-center border mt-2">

@@ -17,6 +17,7 @@
           <v-list-item
               v-for="(item, i) in filteredItems"
               :key="i"
+              @click="selectedRegion($event)"
           >
             <v-list-item-content class="d-flex flex-nowrap">
               <v-img :src="require('@/widgets/header/icons/search.png')" class="mr-2" width="100%" height="100%" :max-width="$vuetify.breakpoint.mobile ? '21px' : '32px'"></v-img>
@@ -35,6 +36,7 @@
             <v-list-item
                 v-for="(item, i) in items"
                 :key="i"
+                @click="selectPlace($event)"
             >
               <v-list-item-content class="d-flex flex-nowrap">
                 <v-img :src="item.icon" width="100%" height="100%" :max-width="$vuetify.breakpoint.mobile ? '21px' : '32px'"></v-img>
@@ -56,6 +58,10 @@ export default {
     searchItems: '',
     selectedItem: 1,
     selectedPlace: '',
+    selectedRegionConst: '',
+    selectPlaceConst: '',
+    regions: [],
+    locality: [],
     items: [
       { text: 'Койка-место', icon: require('@/widgets/header/icons/bed.png') },
       { text: 'Комната', icon:  require('@/widgets/header/icons/room.png') },
@@ -63,14 +69,57 @@ export default {
     ],
   }),
   computed: {
-    filteredItems() {
-      return this.$store.state.create.regions.filter((item) => {
+     filteredItems() {
+      const regions = this.regions.filter((item) => {
         if (this.searchItems) {
           return item.toLowerCase().indexOf(this.searchItems.toLowerCase()) !== -1;
         }
       });
+      if (regions.length) {
+        return regions
+      } else {
+        return this.locality.filter((item) => {
+          if (this.searchItems) {
+            return item.toLowerCase().indexOf(this.searchItems.toLowerCase()) !== -1;
+          }
+        });
+      }
     },
   },
+  mounted() {
+    this.listOfRegions()
+    this.listOfLocality()
+  },
+  methods: {
+    listOfRegions() {
+      this.$store.dispatch('getRegion')
+          .then(r => {
+            this.regions = r.reduce((accumulator, currentValue) => {
+              return accumulator.concat(currentValue.name);
+            }, []);
+          })
+    },
+    listOfLocality() {
+      this.$store.dispatch('getLocality', 1)
+          .then(r => {
+            this.locality = r.reduce((accumulator, currentValue) => {
+              return accumulator.concat(currentValue.name);
+            }, []);
+          })
+    },
+    selectedRegion(event) {
+      this.selectedRegionConst = event
+      if (this.selectPlaceConst) {
+        this.$emit('selected')
+      }
+    },
+    selectPlace(event) {
+      this.selectPlaceConst = event
+      if (this.selectedRegionConst) {
+        this.$emit('selected')
+      }
+    }
+  }
 }
 </script>
 <style scoped>

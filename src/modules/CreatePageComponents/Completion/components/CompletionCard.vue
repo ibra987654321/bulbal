@@ -52,7 +52,9 @@ img {
   height: auto;
   position: relative;
 }
-
+.image {
+  border-radius: 16.4878px !important;
+}
 .rate {
   padding: 2px 5px;
   color: #fff;

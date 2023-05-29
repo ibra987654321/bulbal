@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-center justify-center fill-height w-100">
-    <div :style="$vuetify.breakpoint.mobile ? 'max-width: 870px;' : 'min-width: 870px;'">
+    <div class="ml-16" :style="$vuetify.breakpoint.mobile ? 'max-width: 870px;' : 'min-width: 870px;'">
       <create-card
           title="Проверьте объяление "
           sub-title="Задайте последние настройки и опубликуйте."

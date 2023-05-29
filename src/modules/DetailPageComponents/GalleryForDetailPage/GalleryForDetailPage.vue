@@ -5,7 +5,7 @@
         <v-img
             :src="'img/' + oneImage['fileName']"
             :lazy-src="`https://picsum.photos/10/6?image=20`"
-            class="grey lighten-2 img post_img"
+            class="grey lighten-2 gallery_img "
             aspect-ratio="1.2"
         >
         </v-img>
@@ -27,7 +27,7 @@
           <v-img
               :src="'img/' + n.fileName"
               :lazy-src="`https://picsum.photos/10/6?image=${i * 5 + 10}`"
-              class="grey lighten-2 post_img"
+              class="grey lighten-2 gallery_item_img"
               aspect-ratio="1.2"
           >
             <template v-slot:placeholder>
@@ -86,6 +86,12 @@ export default {
     border-radius: 12px;
     height: 490px;
   }
+}
+.gallery_img {
+  border-radius: 20px;
+}
+.gallery_item_img {
+  border-radius: 14px;
 }
 .btn_gallery {
   position: absolute;

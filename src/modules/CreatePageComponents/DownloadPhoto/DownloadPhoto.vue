@@ -4,11 +4,14 @@
     <div style="max-width: 870px;">
       <create-card
           title="Загрузка фотографии"
-          sub-title="Фото обложки"
+          sub-title="Загрузите фотографию "
       >
         <v-row>
           <v-col cols="12" sm="3">
             <MainPhoto/>
+            <div class="ml-4 photo_title">
+              Поменять обложку
+            </div>
           </v-col>
           <v-col cols="12" sm="9">
             <Photo style="float: left"/>
@@ -58,5 +61,14 @@ export default {
   height: 100%;
   max-height: 364px;
   border-radius: 8.89236px;
+}
+.photo_title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 1.5px;
+
 }
 </style>
