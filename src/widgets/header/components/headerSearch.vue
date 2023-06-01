@@ -103,7 +103,6 @@
             <path d="M9.20129 16.1716C12.8971 16.1716 15.8932 13.1755 15.8932 9.47967C15.8932 5.78384 12.8971 2.78778 9.20129 2.78778C5.50546 2.78778 2.5094 5.78384 2.5094 9.47967C2.5094 13.1755 5.50546 16.1716 9.20129 16.1716Z" stroke="#77836A" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M17.5661 17.8446L13.9274 14.2059" stroke="#77836A" stroke-width="1.67297" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-
           <v-btn
               v-else
               color="primary"

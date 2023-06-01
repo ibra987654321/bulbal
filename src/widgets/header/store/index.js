@@ -4,8 +4,8 @@ import {environment} from "@/environments/environment";
 export default {
     state: {
         range: {
-            start: new Date(2023, 3, 1),
-            end: new Date(2023, 3, 5)
+            start: new Date(Date.now()),
+            end: new Date(Date.now())
         },
         countItemList: [
             {title: 'Взрослые', subtitle: 'от 13 лет', objectName: 'people', people: 1},

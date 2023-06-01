@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="1" class="d-flex justify-center">
-      <Avatar :user-id="item.id"/>
+      <Avatar :user-id="item.user_id"/>
     </v-col>
     <v-col cols="11">
       <v-row>
